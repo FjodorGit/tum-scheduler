@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codata:resources xmlns:codata="http://www.campusonline.at/xsd/meta/codata/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <link rel="up" href="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses" name="CpCourseLibDto"/>
+   <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses/950695700/curriculumPositionGroupings" name="curriculumPositionGroupings"/>
+   <resource>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/pages/slc.tm.cp/course-registration/950695700" name="CpCourseRegistrationDto" key="950695700"/>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/AF6B3E72C7406CA6" name="IdentityLibDto" key="AF6B3E72C7406CA6"/>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/7CE31351E1A18EF2" name="IdentityLibDto" key="7CE31351E1A18EF2"/>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/AF6B3E72C7406CA6" name="IdentityLibDto" key="AF6B3E72C7406CA6"/>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/7CE31351E1A18EF2" name="IdentityLibDto" key="7CE31351E1A18EF2"/>
+      <link rel="detail" href="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses/950695700" name="CpCourseDto" key="950695700"/>
+      <content type="model-slc.tm.cp.student.CpCourseDetailDto">
+         <cpCourseDetailDto>
+            <cpCourseDto>
+               <id>950695700</id>
+               <courseNumber>
+                  <dotIndex>0</dotIndex>
+                  <databaseValue>0000005540</databaseValue>
+                  <courseNumber>0000005540</courseNumber>
+               </courseNumber>
+               <semesterDto>
+                  <id>199</id>
+                  <key>23W</key>
+                  <academicYearId>1617</academicYearId>
+                  <semesterType>W</semesterType>
+                  <semesterDesignation coType="model-core.lib.model.langdata">
+                     <value>Wintersemester 2023/24</value>
+                     <translations>
+                        <translation lang="de">Wintersemester 2023/24</translation>
+                        <translation lang="en">Winter semester 2023/24</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </semesterDesignation>
+                  <startOfAcademicSemester coType="date">
+                     <value>2023-10-01</value>
+                  </startOfAcademicSemester>
+                  <endOfAcademicSemester coType="date">
+                     <value>2024-03-31</value>
+                  </endOfAcademicSemester>
+                  <shortName coType="model-core.lib.model.langdata">
+                     <value>2023 W</value>
+                     <translations>
+                        <translation lang="de">2023 W</translation>
+                        <translation lang="en">2023 W</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </shortName>
+               </semesterDto>
+               <courseTitle coType="model-core.lib.model.langdata">
+                  <value>Repetitorium Verfahrenstechnik disperser Systeme</value>
+                  <translations>
+                     <translation lang="de">Repetitorium Verfahrenstechnik disperser Systeme</translation>
+                     <translation lang="en">Revision course - mechanical process engineering</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </courseTitle>
+               <organisationResponsibleDto>
+                  <id>15643</id>
+                  <identificationName>TUWZI2W</identificationName>
+                  <validFrom coType="date">
+                     <value>2008-04-01</value>
+                  </validFrom>
+                  <name coType="model-core.lib.model.langdata">
+                     <value>Lehrstuhl für Systemverfahrenstechnik (Prof. Briesen)</value>
+                     <translations>
+                        <translation lang="de">Lehrstuhl für Systemverfahrenstechnik (Prof. Briesen)</translation>
+                        <translation lang="en">Chair of Process Systems Engineering (Prof. Briesen)</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </name>
+                  <parentOrganisationId>51265</parentOrganisationId>
+                  <hierarchyTypeId>9480</hierarchyTypeId>
+                  <orgPageLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/pages/organisations/15643"/>
+               </organisationResponsibleDto>
+               <identityCodeDto>
+                  <id>20121787</id>
+               </identityCodeDto>
+               <identityCodeId>20121787</identityCodeId>
+               <courseTypeDto>
+                  <id>16</id>
+                  <key>UE</key>
+                  <courseTypeName coType="model-core.lib.model.langdata">
+                     <value>Übung</value>
+                     <translations>
+                        <translation lang="de">Übung</translation>
+                        <translation lang="en">exercise</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </courseTypeName>
+                  <courseTypeShortName coType="model-core.lib.model.langdata">
+                     <value>UE</value>
+                     <translations>
+                        <translation lang="de">UE</translation>
+                        <translation lang="en">UE</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </courseTypeShortName>
+                  <sort>20</sort>
+               </courseTypeDto>
+               <courseLanguageDtos>
+                  <courseId>950695700</courseId>
+                  <languageDto>
+                     <id>1</id>
+                     <key>DE</key>
+                     <name coType="model-core.lib.model.langdata">
+                        <value>Deutsch</value>
+                        <translations>
+                           <translation lang="de">Deutsch</translation>
+                           <translation lang="en">German</translation>
+                           <translation lang="fr"/>
+                           <translation lang="it"/>
+                        </translations>
+                     </name>
+                  </languageDto>
+                  <mainLanguage>true</mainLanguage>
+               </courseLanguageDtos>
+               <lectureships>
+                  <id>10283472</id>
+                  <courseId>950695700</courseId>
+                  <identityLibDto>
+                     <id>103105</id>
+                     <personId>103105</personId>
+                     <obfuscated>AF6B3E72C7406CA6</obfuscated>
+                     <firstName>Heiko</firstName>
+                     <lastName>Briesen</lastName>
+                     <gender>MALE</gender>
+                     <genderNrForTitle>1</genderNrForTitle>
+                     <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/AF6B3E72C7406CA6" name="IdentityLibDto" key="AF6B3E72C7406CA6"/>
+                  </identityLibDto>
+                  <teachingFunction>
+                     <id>1</id>
+                     <key>L</key>
+                     <name>Leiter*in</name>
+                  </teachingFunction>
+               </lectureships>
+               <lectureships>
+                  <id>10310103</id>
+                  <courseId>950695700</courseId>
+                  <identityLibDto>
+                     <id>385480</id>
+                     <personId>385480</personId>
+                     <obfuscated>7CE31351E1A18EF2</obfuscated>
+                     <firstName>Natalie</firstName>
+                     <lastName>Schönig</lastName>
+                     <gender>FEMALE</gender>
+                     <genderNrForTitle>2</genderNrForTitle>
+                     <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/7CE31351E1A18EF2" name="IdentityLibDto" key="7CE31351E1A18EF2"/>
+                  </identityLibDto>
+                  <teachingFunction>
+                     <id>2</id>
+                     <key>V</key>
+                     <name>Vortragende*r</name>
+                  </teachingFunction>
+               </lectureships>
+               <displayMoreLectureships>false</displayMoreLectureships>
+               <examinationMethodName coType="model-core.lib.model.langdata">
+                  <translations>
+                     <translation lang="de"/>
+                     <translation lang="en"/>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </examinationMethodName>
+               <registrationAvailable>true</registrationAvailable>
+               <registrationInfo>LV-Anmeldung möglich</registrationInfo>
+               <registrationInfoStatus>RUNNING</registrationInfoStatus>
+               <registeredConfigType>REGPROC</registeredConfigType>
+               <displayCourseRegistrationInfo>false</displayCourseRegistrationInfo>
+               <courseNormConfigs>
+                  <key>SST</key>
+                  <shortName coType="model-core.lib.model.langdata">
+                     <value>SWS</value>
+                     <translations>
+                        <translation lang="de">SWS</translation>
+                        <translation lang="en">SWS</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </shortName>
+                  <name coType="model-core.lib.model.langdata">
+                     <value>Semesterwochenstunden</value>
+                     <translations>
+                        <translation lang="de">Semesterwochenstunden</translation>
+                        <translation lang="en">Semester weekly hours</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </name>
+                  <value>2</value>
+               </courseNormConfigs>
+               <lvCreditsEnabled>true</lvCreditsEnabled>
+               <eLearningActive>false</eLearningActive>
+            </cpCourseDto>
+            <cpCourseDescriptionDto>
+               <courseContent coType="model-core.lib.model.langdata">
+                  <value>Wiederholung der Stoffinhalte des vorangegangenen Semesters zur Prüfungsvorbereitung</value>
+                  <translations>
+                     <translation lang="de">Wiederholung der Stoffinhalte des vorangegangenen Semesters zur Prüfungsvorbereitung</translation>
+                     <translation lang="en">Repetition of the contents of the previous term.</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </courseContent>
+               <previousKnowledge coType="model-core.lib.model.langdata">
+                  <value>Besuch der Vorlesung und Übung</value>
+                  <translations>
+                     <translation lang="de">Besuch der Vorlesung und Übung</translation>
+                     <translation lang="en">Attendance of the lectures and tutorials</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </previousKnowledge>
+               <courseObjective coType="model-core.lib.model.langdata">
+                  <value>Prüfungsvorbereitung</value>
+                  <translations>
+                     <translation lang="de">Prüfungsvorbereitung</translation>
+                     <translation lang="en">Preparation of the exam</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </courseObjective>
+               <additionalInformation>
+                  <recommendedLiterature coType="model-core.lib.model.langdata">
+                     <translations>
+                        <translation lang="de"/>
+                        <translation lang="en"/>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </recommendedLiterature>
+                  <comments coType="model-core.lib.model.langdata">
+                     <value>Repetitorium</value>
+                     <translations>
+                        <translation lang="de">Repetitorium</translation>
+                        <translation lang="en">Repititorium</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </comments>
+               </additionalInformation>
+               <assessmentScheme coType="model-core.lib.model.langdata">
+                  <translations>
+                     <translation lang="de"/>
+                     <translation lang="en"/>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </assessmentScheme>
+               <examRegistration coType="model-core.lib.model.langdata">
+                  <translations>
+                     <translation lang="de"/>
+                     <translation lang="en"/>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </examRegistration>
+               <courseRegistrationInfo coType="model-core.lib.model.langdata">
+                  <value>Termine zum Repetitorium werden auf der Homepage und im Aushang bekannt gegeben</value>
+                  <translations>
+                     <translation lang="de">Termine zum Repetitorium werden auf der Homepage und im Aushang bekannt gegeben</translation>
+                     <translation lang="en">Dates of revision course will be announced on our homepage and at our notice-board (main entrance across from the UniBar)</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </courseRegistrationInfo>
+               <numberOfExams coType="model-core.lib.model.langdata">
+                  <translations>
+                     <translation lang="de"/>
+                     <translation lang="en"/>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </numberOfExams>
+               <teachingMethod coType="model-core.lib.model.langdata">
+                  <translations>
+                     <translation lang="de"/>
+                     <translation lang="en"/>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </teachingMethod>
+            </cpCourseDescriptionDto>
+            <cpTeachingMethodDto>
+               <id>7</id>
+               <name coType="model-core.lib.model.langdata">
+                  <value>Gruppenarbeit</value>
+                  <translations>
+                     <translation lang="de">Gruppenarbeit</translation>
+                     <translation lang="en">workshop</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </name>
+            </cpTeachingMethodDto>
+            <displayExamInformation>false</displayExamInformation>
+            <sameCourseDtos>
+               <id>950695700</id>
+               <courseNumber>
+                  <dotIndex>0</dotIndex>
+                  <databaseValue>0000005540</databaseValue>
+                  <courseNumber>0000005540</courseNumber>
+               </courseNumber>
+               <semesterDto>
+                  <id>199</id>
+                  <key>23W</key>
+                  <academicYearId>1617</academicYearId>
+                  <semesterType>W</semesterType>
+                  <semesterDesignation coType="model-core.lib.model.langdata">
+                     <value>Wintersemester 2023/24</value>
+                     <translations>
+                        <translation lang="de">Wintersemester 2023/24</translation>
+                        <translation lang="en">Winter semester 2023/24</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </semesterDesignation>
+                  <startOfAcademicSemester coType="date">
+                     <value>2023-10-01</value>
+                  </startOfAcademicSemester>
+                  <endOfAcademicSemester coType="date">
+                     <value>2024-03-31</value>
+                  </endOfAcademicSemester>
+                  <shortName coType="model-core.lib.model.langdata">
+                     <value>2023 W</value>
+                     <translations>
+                        <translation lang="de">2023 W</translation>
+                        <translation lang="en">2023 W</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </shortName>
+               </semesterDto>
+               <courseTitle coType="model-core.lib.model.langdata">
+                  <value>Repetitorium Verfahrenstechnik disperser Systeme</value>
+                  <translations>
+                     <translation lang="de">Repetitorium Verfahrenstechnik disperser Systeme</translation>
+                     <translation lang="en">Revision course - mechanical process engineering</translation>
+                     <translation lang="fr"/>
+                     <translation lang="it"/>
+                  </translations>
+               </courseTitle>
+               <courseTypeDto>
+                  <id>16</id>
+                  <key>UE</key>
+                  <courseTypeName coType="model-core.lib.model.langdata">
+                     <value>Übung</value>
+                     <translations>
+                        <translation lang="de">Übung</translation>
+                        <translation lang="en">exercise</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </courseTypeName>
+                  <courseTypeShortName coType="model-core.lib.model.langdata">
+                     <value>UE</value>
+                     <translations>
+                        <translation lang="de">UE</translation>
+                        <translation lang="en">UE</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </courseTypeShortName>
+                  <sort>20</sort>
+               </courseTypeDto>
+               <lectureships>
+                  <id>10283472</id>
+                  <courseId>950695700</courseId>
+                  <identityLibDto>
+                     <id>103105</id>
+                     <personId>103105</personId>
+                     <obfuscated>AF6B3E72C7406CA6</obfuscated>
+                     <firstName>Heiko</firstName>
+                     <lastName>Briesen</lastName>
+                     <gender>MALE</gender>
+                     <genderNrForTitle>1</genderNrForTitle>
+                     <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/AF6B3E72C7406CA6" name="IdentityLibDto" key="AF6B3E72C7406CA6"/>
+                  </identityLibDto>
+                  <teachingFunction>
+                     <id>1</id>
+                     <key>L</key>
+                     <name>Leiter*in</name>
+                  </teachingFunction>
+               </lectureships>
+               <lectureships>
+                  <id>10310103</id>
+                  <courseId>950695700</courseId>
+                  <identityLibDto>
+                     <id>385480</id>
+                     <personId>385480</personId>
+                     <obfuscated>7CE31351E1A18EF2</obfuscated>
+                     <firstName>Natalie</firstName>
+                     <lastName>Schönig</lastName>
+                     <gender>FEMALE</gender>
+                     <genderNrForTitle>2</genderNrForTitle>
+                     <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/7CE31351E1A18EF2" name="IdentityLibDto" key="7CE31351E1A18EF2"/>
+                  </identityLibDto>
+                  <teachingFunction>
+                     <id>2</id>
+                     <key>V</key>
+                     <name>Vortragende*r</name>
+                  </teachingFunction>
+               </lectureships>
+               <displayMoreLectureships>false</displayMoreLectureships>
+               <displayCourseRegistrationInfo>false</displayCourseRegistrationInfo>
+               <courseNormConfigs>
+                  <key>SST</key>
+                  <shortName coType="model-core.lib.model.langdata">
+                     <value>SWS</value>
+                     <translations>
+                        <translation lang="de">SWS</translation>
+                        <translation lang="en">SWS</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </shortName>
+                  <name coType="model-core.lib.model.langdata">
+                     <value>Semesterwochenstunden</value>
+                     <translations>
+                        <translation lang="de">Semesterwochenstunden</translation>
+                        <translation lang="en">Semester weekly hours</translation>
+                        <translation lang="fr"/>
+                        <translation lang="it"/>
+                     </translations>
+                  </name>
+                  <value>2</value>
+               </courseNormConfigs>
+               <lvCreditsEnabled>true</lvCreditsEnabled>
+               <eLearningActive>false</eLearningActive>
+            </sameCourseDtos>
+         </cpCourseDetailDto>
+      </content>
+   </resource>
+</codata:resources>
