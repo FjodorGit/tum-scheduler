@@ -1,0 +1,2 @@
+BASE_URL_IDS="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses?$filter=courseNormKey-eq=LVEAB;orgId-eq=4;termId-eq=199&$orderBy=title=ascnf&$skip={}&$top=100"
+

@@ -8,7 +8,7 @@
    <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/slc.tm.apt/v1/weekdays" name="AptWeekDayDto"/>
    <resource>
       <link rel="detail" href="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses/950696360" name="CpCourseDto" key="950696360"/>
-      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/pages/slc.tm.cp/course-registration/950696360" name="CpCourseRegistrationDto" key="950696360"/>
+      <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/pages/slc.tm.cp/course-registration/950696360" name="CpCourseRegistrationDto" key="950696360">
       <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/5A1761789C0B3F1F" name="IdentityLibDto" key="5A1761789C0B3F1F"/>
       <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/5A1761789C0B3F1F" name="IdentityLibDto" key="5A1761789C0B3F1F"/>
       <link rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/5B69C038C03F32BD" name="IdentityLibDto" key="5B69C038C03F32BD"/>
