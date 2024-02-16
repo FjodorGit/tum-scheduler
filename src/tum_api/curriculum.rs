@@ -64,7 +64,7 @@ impl Curriculum {
         }
     }
 
-    pub async fn get_all_curricula() -> Result<(), CurriculumError> {
+    pub async fn get_all() -> Result<(), CurriculumError> {
         use crate::schema::curriculum::dsl::*;
 
         let mut conn = db::db_setup::connection()

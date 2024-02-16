@@ -3,6 +3,7 @@ use std::fs;
 use std::io::Write;
 use std::{env, io};
 use std::{fmt::write, fs::File};
+use tum_api::course_basic_data::CourseBasicData;
 use tum_api::curriculum::Curriculum;
 
 use db::course::Course;
@@ -46,7 +47,7 @@ async fn main() -> Result<()> {
     //     .values(example_course)
     //     .get_result::<Course>(&mut conn);
     // fill_db().await?;
-    Curriculum::get_all_curricula().await?;
+    CourseBasicData::get_all().await?;
     Ok(())
 }
 //

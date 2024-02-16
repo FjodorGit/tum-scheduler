@@ -11,5 +11,8 @@ pub struct Course {
     pub weekday: String,
     pub subject: String,
     pub course_type: String,
+    pub name_en: String,
+    pub name_de: String,
     pub semester: String,
+    pub curriculum: String,
 }

@@ -1,13 +1,15 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    course (id, start_time) {
+    course (id, start_time, weekday, curriculum) {
         id -> Varchar,
         start_time -> Time,
         end_time -> Time,
         weekday -> Varchar,
         subject -> Varchar,
         course_type -> Varchar,
+        name_en -> Varchar,
+        name_de -> Varchar,
         semester -> Varchar,
         curriculum -> Varchar,
     }
