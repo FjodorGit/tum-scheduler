@@ -1,24 +1,24 @@
-use std::fmt::format;
+use anyhow::Result;
 use std::fs;
-use std::io::BufRead;
 use std::io::Write;
 use std::{env, io};
 use std::{fmt::write, fs::File};
 
 use db::course::Course;
 use db::db_setup::DbError;
-use diesel::ExpressionMethods;
 use diesel::QueryDsl;
 use diesel::{Insertable, RunQueryDsl};
 use dotenv::dotenv;
 use reqwest::{self, Request};
 use roxmltree::{Attribute, Document, Node};
 use tokio;
-use tum_api::appointment::Appointments;
+
+use crate::tum_api::appointment::Appointment;
 
 pub mod db;
 pub mod schema;
 pub mod tum_api;
+pub mod utils;
 
 const IDS_FILE_NAME: &str = "ids.txt";
 
@@ -32,7 +32,7 @@ pub enum FillDbError {
 
 // use paging mechnism to get course ids then use allCurriculum to get type of course
 #[tokio::main]
-async fn main() -> Result<(), FillDbError> {
+async fn main() -> Result<()> {
     dotenv().ok();
     dotenv::from_filename("request_urls").ok();
     // let mut conn = db::db_setup::connection().expect("should be able to establish connection");
@@ -45,37 +45,24 @@ async fn main() -> Result<(), FillDbError> {
     //     .values(example_course)
     //     .get_result::<Course>(&mut conn);
     // fill_db().await?;
-    get_recuring_appointments("950696640").await?;
+    Appointment::get_recuring_appointments("950696640").await?;
     Ok(())
 }
-
-async fn fill_db() -> Result<(), FillDbError> {
-    let ids_file = File::open(IDS_FILE_NAME).expect("Ids file should exist");
-    let mut conn = db::db_setup::connection().expect("should be able to establish connection");
-    for course_id in io::BufReader::new(ids_file).lines().flatten() {
-        let course: Result<Course, _> = schema::course::table
-            .filter(schema::course::id.eq(&course_id))
-            .first::<Course>(&mut conn);
-        if course.is_err() {
-            println!("Requesting data for {}", course_id);
-            get_recuring_appointments(&course_id).await;
-        }
-    }
-    Ok(())
-}
-
-async fn get_recuring_appointments(course_id: &str) -> Result<Vec<Appointments>, reqwest::Error> {
-    println!("Requesting appointement for {}", course_id);
-    let mut request_url =
-        env::var("APPOINTMENT_URL").expect("APPOINTMENT_URL should exist in environment variables");
-    request_url.push_str(course_id);
-    let request_result = reqwest::get(request_url).await?;
-    let xml: String = request_result.text().await?;
-    let document = Document::parse(&xml).expect("Returned APPOINTEMENT XML should be valid");
-    println!("Got valid document");
-    let app = Appointments::try_from(document);
-    Ok(vec![])
-}
+//
+// async fn fill_db() -> Result<(), FillDbError> {
+//     let ids_file = File::open(IDS_FILE_NAME).expect("Ids file should exist");
+//     let mut conn = db::db_setup::connection().expect("should be able to establish connection");
+//     for course_id in io::BufReader::new(ids_file).lines().flatten() {
+//         let course: Result<Course, _> = schema::course::table
+//             .filter(schema::course::id.eq(&course_id))
+//             .first::<Course>(&mut conn);
+//         if course.is_err() {
+//             println!("Requesting data for {}", course_id);
+//             get_recuring_appointments(&course_id).await;
+//         }
+//     }
+//     Ok(())
+// }
 
 async fn aquire_ids() -> Result<(), reqwest::Error> {
     let mut page = 0;

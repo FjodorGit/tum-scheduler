@@ -33,5 +33,5 @@ pub fn init() {
 }
 
 pub fn connection() -> Result<DbConnection, DbError> {
-    POOL.get().map_err(|e| DbError::InvalidConnection)
+    POOL.get().map_err(|_| DbError::InvalidConnection)
 }
