@@ -16,3 +16,4 @@ lazy_static = "1.4.0"
 anyhow = '1.0.79'
 thiserror = '1.0.56'
 r2d2 = "0.8.10"
+chrono = "0.4.33"

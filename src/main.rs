@@ -1,36 +1,80 @@
 use std::fmt::format;
 use std::fs;
+use std::io::BufRead;
 use std::io::Write;
+use std::{env, io};
 use std::{fmt::write, fs::File};
 
-use db::course::{self, Course};
+use db::course::Course;
+use db::db_setup::DbError;
+use diesel::ExpressionMethods;
+use diesel::QueryDsl;
 use diesel::{Insertable, RunQueryDsl};
 use dotenv::dotenv;
 use reqwest::{self, Request};
 use roxmltree::{Attribute, Document, Node};
 use tokio;
+use tum_api::appointment::Appointments;
 
 pub mod db;
 pub mod schema;
+pub mod tum_api;
 
-const IDS_REQUEST_URL: &str = "https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses?$filter=courseNormKey-eq=LVEAB;orgId-eq=1;termId-eq=199&$orderBy=title=ascnf&$skip={}&$top=100";
+const IDS_FILE_NAME: &str = "ids.txt";
 
-const IDS_FILE_NAME: &str = "test_ids.txt";
+#[derive(thiserror::Error, Debug)]
+pub enum FillDbError {
+    #[error("Encountered {0}")]
+    DbError(#[from] DbError),
+    #[error("Request Error while filling db")]
+    RequestError(#[from] reqwest::Error),
+}
 
 // use paging mechnism to get course ids then use allCurriculum to get type of course
 #[tokio::main]
-async fn main() -> Result<(), reqwest::Error> {
+async fn main() -> Result<(), FillDbError> {
     dotenv().ok();
-    let mut conn = db::db_setup::connection().expect("should be able to establish connection");
-    let example_course = Course {
-        id: 923329999,
-        subject: "MA".to_string(),
-        semester: "W2023".to_string(),
-    };
-    let _ = diesel::insert_into(schema::course::table)
-        .values(example_course)
-        .get_result::<Course>(&mut conn);
+    dotenv::from_filename("request_urls").ok();
+    // let mut conn = db::db_setup::connection().expect("should be able to establish connection");
+    // let example_course = Course {
+    //     id: 923329999,
+    //     subject: "MA".to_string(),
+    //     semester: "W2023".to_string(),
+    // };
+    // let _ = diesel::insert_into(schema::course::table)
+    //     .values(example_course)
+    //     .get_result::<Course>(&mut conn);
+    // fill_db().await?;
+    get_recuring_appointments("950696640").await?;
     Ok(())
+}
+
+async fn fill_db() -> Result<(), FillDbError> {
+    let ids_file = File::open(IDS_FILE_NAME).expect("Ids file should exist");
+    let mut conn = db::db_setup::connection().expect("should be able to establish connection");
+    for course_id in io::BufReader::new(ids_file).lines().flatten() {
+        let course: Result<Course, _> = schema::course::table
+            .filter(schema::course::id.eq(&course_id))
+            .first::<Course>(&mut conn);
+        if course.is_err() {
+            println!("Requesting data for {}", course_id);
+            get_recuring_appointments(&course_id).await;
+        }
+    }
+    Ok(())
+}
+
+async fn get_recuring_appointments(course_id: &str) -> Result<Vec<Appointments>, reqwest::Error> {
+    println!("Requesting appointement for {}", course_id);
+    let mut request_url =
+        env::var("APPOINTMENT_URL").expect("APPOINTMENT_URL should exist in environment variables");
+    request_url.push_str(course_id);
+    let request_result = reqwest::get(request_url).await?;
+    let xml: String = request_result.text().await?;
+    let document = Document::parse(&xml).expect("Returned APPOINTEMENT XML should be valid");
+    println!("Got valid document");
+    let app = Appointments::try_from(document);
+    Ok(vec![])
 }
 
 async fn aquire_ids() -> Result<(), reqwest::Error> {
@@ -42,7 +86,9 @@ async fn aquire_ids() -> Result<(), reqwest::Error> {
         .open(IDS_FILE_NAME)
         .expect("Should be able to open file");
     loop {
-        let request_url = format!("https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses?$filter=courseNormKey-eq=LVEAB;orgId-eq=1;termId-eq=199&$orderBy=title=ascnf&$skip={}&$top=100", page * 100);
+        let mut request_url =
+            env::var("BASE_URL_IDS").expect("BASE_URL_IDS should exist in environment variables");
+        request_url.push_str(&(page * 100).to_string());
         let request_result = reqwest::get(request_url).await?;
         let xml = request_result.text().await?;
         let ids = filter_ids(xml);
@@ -97,14 +143,14 @@ mod tests {
     fn test_filtering_ids() {
         let test_xml: String =
             fs::read_to_string("test.txt").expect("Should be able to read test file");
-        let result = filter_ids(&test_xml);
+        let result = filter_ids(test_xml);
         assert_eq!("950697421", result.last().unwrap());
     }
     #[test]
     fn test_filtering_no_ids() {
         let test_xml: String =
             fs::read_to_string("empty_xml.txt").expect("Should be able to read test file");
-        let result = filter_ids(&test_xml);
+        let result = filter_ids(test_xml);
         assert!(result.is_empty());
     }
 }
