@@ -1,4 +1,3 @@
-use anyhow::Result;
 use roxmltree::{Document, Node};
 use std::env;
 use std::str::FromStr;
@@ -7,6 +6,10 @@ use crate::utils::element_has_name;
 use chrono::NaiveTime;
 use chrono::Weekday;
 use thiserror::Error;
+
+use super::TumApiError;
+use super::TumXmlError;
+use super::TumXmlNode;
 
 #[derive(Debug)]
 pub struct Appointment {
@@ -25,50 +28,30 @@ pub enum AppointmentError {
     NoTimeError(String),
 }
 
-impl TryFrom<Node<'_, '_>> for Appointment {
-    type Error = AppointmentError;
-    fn try_from(appointment_series_node: Node<'_, '_>) -> Result<Self, Self::Error> {
-        let start_time = appointment_series_node
-            .descendants()
-            .filter(|n| element_has_name(n, "seriesBeginTime"))
-            .map(|n| n.text().ok_or(AppointmentError::ElementNoTextError))
-            .map(|s| {
-                NaiveTime::from_str(s?)
-                    .map_err(|_| AppointmentError::TimeParseError("Startime".to_string()))
-            })
-            .next()
-            .ok_or(AppointmentError::NoTimeError("Startime".to_string()))??;
-        let end_time = appointment_series_node
-            .descendants()
-            .filter(|n| element_has_name(n, "seriesEndTime"))
-            .map(|n| n.text().ok_or(AppointmentError::ElementNoTextError))
-            .map(|s| {
-                NaiveTime::from_str(s?)
-                    .map_err(|_| AppointmentError::TimeParseError("Endtime".to_string()))
-            })
-            .next()
-            .ok_or(AppointmentError::NoTimeError("Endtime".to_string()))??;
-        let weekday = appointment_series_node
-            .descendants()
-            .filter(|n| element_has_name(n, "translation") && n.has_attribute("lang"))
-            .filter_map(|n| n.text())
-            .find_map(|s| Weekday::from_str(s).ok())
-            .ok_or(AppointmentError::NoTimeError("Weekday".to_string()))?;
-        println!("{:#?}", start_time);
-        println!("{:#?}", end_time);
-        println!("{:#?}", weekday);
+impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
+    type Error = TumXmlError;
+    fn try_from(appointment_series_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
+        let start_time_text = appointment_series_node.get_text_of_next("seriesBeginTime")?;
+        let start_time = NaiveTime::from_str(&start_time_text)?;
+
+        let end_time_text = appointment_series_node.get_text_of_next("seriesEndTime")?;
+        let end_time = NaiveTime::from_str(&end_time_text)?;
+
+        let (_, weekday) = appointment_series_node.get_translations()?;
         let app = Appointment {
-            weekday,
+            weekday: Weekday::from_str(&weekday)?,
             from: start_time,
             to: end_time,
         };
 
-        Err(AppointmentError::NoTimeError("Weekday".to_string()))
+        Ok(app)
     }
 }
 
 impl Appointment {
-    pub async fn get_recuring_appointments(course_id: &str) -> Result<Vec<Appointment>> {
+    pub async fn get_recuring_appointments(
+        course_id: &str,
+    ) -> Result<Vec<Appointment>, TumApiError> {
         println!("Requesting appointement for {}", course_id);
         let appointments: Vec<Appointment> = vec![];
         let mut request_url = env::var("APPOINTMENT_URL")
@@ -83,7 +66,7 @@ impl Appointment {
             .descendants()
             .filter(|n| n.is_element() && n.tag_name().name() == "appointmentSeriesDtos")
         {
-            let appointment = Appointment::try_from(appointment_series_element)?;
+            let appointment = Appointment::try_from(TumXmlNode(appointment_series_element))?;
             println!("{:#?}", appointment);
         }
         Ok(vec![])

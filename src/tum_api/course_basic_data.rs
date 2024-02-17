@@ -6,6 +6,8 @@ use thiserror::Error;
 
 use crate::{db, tum_api::curriculum::CurriculumError, utils::element_has_name};
 
+use super::{TumXmlError, TumXmlNode};
+
 #[derive(Debug)]
 pub struct CourseBasicData {
     pub id: String,
@@ -18,83 +20,32 @@ pub struct CourseBasicData {
 #[derive(Debug, Error)]
 pub enum CourseBasicDataError {
     #[error("Failed to parse resource node: {0}")]
-    NodeParseError(String),
+    NodeParseError(#[from] TumXmlError),
     #[error("Failed to parse course basic data document")]
     DocumentParseError(#[from] roxmltree::Error),
     #[error("Failed to request course basic data")]
     RequestError(#[from] reqwest::Error),
 }
 
-impl TryFrom<Node<'_, '_>> for CourseBasicData {
+impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
     type Error = CourseBasicDataError;
-    fn try_from(resource_node: Node<'_, '_>) -> Result<Self, Self::Error> {
-        let id = resource_node
-            .descendants()
-            .filter(|n| element_has_name(n, "id"))
-            .find_map(|n| n.text())
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "No id node found".to_owned(),
-            ))?;
-        let semester_node = resource_node
-            .descendants()
-            .filter(|n| element_has_name(n, "semesterDto"))
-            .next()
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "Node semesterDto node found".to_owned(),
-            ))?;
+    fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
+        let id = resource_node.get_text_of_next("id")?;
+        let semester_node = resource_node.get_next("semesterDto")?;
+        let semester = semester_node.get_text_of_next("key")?;
 
-        let semester = semester_node
-            .descendants()
-            .filter(|n| element_has_name(n, "key"))
-            .find_map(|n| n.text())
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "No semester key found".to_owned(),
-            ))?;
+        let course_title_node = semester_node.get_next_sibling()?;
+        let (name_de, name_en) = course_title_node.get_translations()?;
 
-        let course_title_node =
-            semester_node
-                .next_sibling_element()
-                .ok_or(CourseBasicDataError::NodeParseError(
-                    "course title node not found".to_owned(),
-                ))?;
-
-        let mut course_titles = course_title_node
-            .descendants()
-            .filter(|n| element_has_name(n, "translation"))
-            .filter_map(|n| n.text());
-        let name_de: &str = course_titles
-            .next()
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "no german name found".to_owned(),
-            ))?;
-        let name_en: &str = course_titles
-            .next()
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "no english name found".to_owned(),
-            ))?;
-
-        let course_type_node = resource_node
-            .descendants()
-            .filter(|n| element_has_name(n, "courseTypeDto"))
-            .next()
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "Node courseTypeDto not found".to_owned(),
-            ))?;
-
-        let course_type = course_type_node
-            .descendants()
-            .filter(|n| element_has_name(n, "key"))
-            .find_map(|n| n.text())
-            .ok_or(CourseBasicDataError::NodeParseError(
-                "No course type key found".to_owned(),
-            ))?;
+        let course_type_node = resource_node.get_next("courseTypeDto")?;
+        let course_type = course_title_node.get_text_of_next("key")?;
 
         let course_basic_data = CourseBasicData {
-            id: id.to_owned(),
-            course_type: course_type.to_owned(),
-            name_de: name_de.to_owned(),
-            name_en: name_en.to_owned(),
-            semester: semester.to_owned(),
+            id,
+            course_type,
+            name_de,
+            name_en,
+            semester,
         };
         Ok(course_basic_data)
     }
@@ -112,7 +63,7 @@ impl CourseBasicData {
             .next();
         // println!("{:#?}", some_resource_element.unwrap().tag_name().name());
         while let Some(resource_element) = some_resource_element {
-            let basic_data = Self::try_from(resource_element)?;
+            let basic_data = Self::try_from(TumXmlNode(resource_element))?;
             println!("{:#?}", basic_data);
             result.push(basic_data);
             some_resource_element = resource_element.next_sibling_element();
