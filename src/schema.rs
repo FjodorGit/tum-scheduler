@@ -1,7 +1,15 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    course (id, start_time, weekday, curriculum) {
+    curriculum (id) {
+        id -> Varchar,
+        de -> Varchar,
+        en -> Varchar,
+    }
+}
+
+diesel::table! {
+    lecture (id, start_time, weekday, curriculum) {
         id -> Varchar,
         start_time -> Time,
         end_time -> Time,
@@ -15,17 +23,9 @@ diesel::table! {
     }
 }
 
-diesel::table! {
-    curriculum (id) {
-        id -> Varchar,
-        de -> Varchar,
-        en -> Varchar,
-    }
-}
-
-diesel::joinable!(course -> curriculum (curriculum));
+diesel::joinable!(lecture -> curriculum (curriculum));
 
 diesel::allow_tables_to_appear_in_same_query!(
-    course,
     curriculum,
+    lecture,
 );

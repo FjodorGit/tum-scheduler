@@ -3,7 +3,7 @@ use roxmltree::{Document, Node};
 use thiserror::Error;
 
 pub mod appointment;
-pub mod course_basic_data;
+pub mod course;
 pub mod course_variant;
 pub mod curriculum;
 

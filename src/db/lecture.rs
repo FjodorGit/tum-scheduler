@@ -1,10 +1,10 @@
-use crate::schema::course;
+use crate::schema::lecture;
 use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable};
 
 #[derive(Debug, Clone, Insertable, Queryable, PartialEq, Eq)]
-#[diesel(table_name = course)]
-pub struct Course {
+#[diesel(table_name = lecture)]
+pub struct Lecture {
     pub id: String,
     pub start_time: NaiveTime,
     pub end_time: NaiveTime,

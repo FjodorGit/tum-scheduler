@@ -5,7 +5,7 @@ CREATE TABLE curriculum (
     en varchar NOT NULL
 );
 
-CREATE TABLE course (
+CREATE TABLE lecture (
     id varchar NOT NULL,
     start_time time NOT NULL,
     end_time time NOT NULL,

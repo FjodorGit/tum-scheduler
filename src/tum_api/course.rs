@@ -8,7 +8,7 @@ use crate::{db, utils::element_has_name};
 use super::{TumApiError, TumXmlError, TumXmlNode};
 
 #[derive(Debug)]
-pub struct CourseBasicData {
+pub struct Course {
     pub id: String,
     pub course_type: String,
     pub sws: String,
@@ -17,7 +17,7 @@ pub struct CourseBasicData {
     pub semester: String,
 }
 
-impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
+impl TryFrom<TumXmlNode<'_, '_>> for Course {
     type Error = TumXmlError;
     fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
         let id = resource_node.get_text_of_next("id")?;
@@ -33,7 +33,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
         let course_norm_node = resource_node.get_next("courseNormConfigs")?;
         let sws = course_norm_node.get_text_of_last("value")?;
 
-        let course_basic_data = CourseBasicData {
+        let course_basic_data = Course {
             id,
             course_type,
             sws,
@@ -45,8 +45,8 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
     }
 }
 
-impl CourseBasicData {
-    fn read_all_data_from_page(xml: String) -> Result<Vec<CourseBasicData>, TumApiError> {
+impl Course {
+    fn read_all_data_from_page(xml: String) -> Result<Vec<Course>, TumApiError> {
         let document = Document::parse(&xml)?;
 
         let mut result = vec![];
