@@ -1,34 +1,24 @@
 use std::io::prelude::*;
 use std::{env, fs::File};
 
-use roxmltree::{Document, Node};
-use thiserror::Error;
+use roxmltree::Document;
 
-use crate::{db, tum_api::curriculum::CurriculumError, utils::element_has_name};
+use crate::{db, utils::element_has_name};
 
-use super::{TumXmlError, TumXmlNode};
+use super::{TumApiError, TumXmlError, TumXmlNode};
 
 #[derive(Debug)]
 pub struct CourseBasicData {
     pub id: String,
     pub course_type: String,
+    pub sws: String,
     pub name_en: String,
     pub name_de: String,
     pub semester: String,
 }
 
-#[derive(Debug, Error)]
-pub enum CourseBasicDataError {
-    #[error("Failed to parse resource node: {0}")]
-    NodeParseError(#[from] TumXmlError),
-    #[error("Failed to parse course basic data document")]
-    DocumentParseError(#[from] roxmltree::Error),
-    #[error("Failed to request course basic data")]
-    RequestError(#[from] reqwest::Error),
-}
-
 impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
-    type Error = CourseBasicDataError;
+    type Error = TumXmlError;
     fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
         let id = resource_node.get_text_of_next("id")?;
         let semester_node = resource_node.get_next("semesterDto")?;
@@ -38,11 +28,15 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
         let (name_de, name_en) = course_title_node.get_translations()?;
 
         let course_type_node = resource_node.get_next("courseTypeDto")?;
-        let course_type = course_title_node.get_text_of_next("key")?;
+        let course_type = course_type_node.get_text_of_next("key")?;
+
+        let course_norm_node = resource_node.get_next("courseNormConfigs")?;
+        let sws = course_norm_node.get_text_of_last("value")?;
 
         let course_basic_data = CourseBasicData {
             id,
             course_type,
+            sws,
             name_de,
             name_en,
             semester,
@@ -52,7 +46,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseBasicData {
 }
 
 impl CourseBasicData {
-    fn read_all_data_from_page(xml: String) -> Result<Vec<CourseBasicData>, CourseBasicDataError> {
+    fn read_all_data_from_page(xml: String) -> Result<Vec<CourseBasicData>, TumApiError> {
         let document = Document::parse(&xml)?;
 
         let mut result = vec![];
@@ -72,7 +66,7 @@ impl CourseBasicData {
         Ok(result)
     }
 
-    pub async fn get_all() -> Result<(), CourseBasicDataError> {
+    pub async fn get_all() -> Result<(), TumApiError> {
         let mut conn = db::db_setup::connection()
             .expect("should be able to connect to database for course basic data");
 

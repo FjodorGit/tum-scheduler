@@ -42,6 +42,20 @@ impl TumXmlNode<'_, '_> {
         Ok(node_text.to_owned())
     }
 
+    fn get_text_of_last(&self, node_name: &str) -> Result<String, TumXmlError> {
+        let node_text = self
+            .0
+            .descendants()
+            .filter(|n| element_has_name(n, "id"))
+            .filter_map(|n| n.text())
+            .last()
+            .ok_or(TumXmlError::TumNodeParseError(format!(
+                "No with name `{}` node found",
+                node_name
+            )))?;
+        Ok(node_text.to_owned())
+    }
+
     fn get_next(&self, node_name: &str) -> Result<Self, TumXmlError> {
         let node = self
             .0

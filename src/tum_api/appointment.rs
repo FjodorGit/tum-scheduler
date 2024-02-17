@@ -1,11 +1,9 @@
-use roxmltree::{Document, Node};
+use roxmltree::Document;
 use std::env;
 use std::str::FromStr;
 
-use crate::utils::element_has_name;
 use chrono::NaiveTime;
 use chrono::Weekday;
-use thiserror::Error;
 
 use super::TumApiError;
 use super::TumXmlError;
@@ -16,16 +14,6 @@ pub struct Appointment {
     pub weekday: Weekday,
     pub from: NaiveTime,
     pub to: NaiveTime,
-}
-
-#[derive(Debug, Error)]
-pub enum AppointmentError {
-    #[error("Failed to get text of series element")]
-    ElementNoTextError,
-    #[error("Failed to parse time for {0}")]
-    TimeParseError(String),
-    #[error("No {0} was specified")]
-    NoTimeError(String),
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
