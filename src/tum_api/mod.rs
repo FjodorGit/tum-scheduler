@@ -1,9 +1,10 @@
 use crate::utils::element_has_name;
-use roxmltree::Node;
+use roxmltree::{Document, Node};
 use thiserror::Error;
 
 pub mod appointment;
 pub mod course_basic_data;
+pub mod course_variant;
 pub mod curriculum;
 
 pub struct TumXmlNode<'a, 'input>(Node<'a, 'input>);
@@ -29,14 +30,22 @@ pub enum TumXmlError {
 }
 
 impl TumXmlNode<'_, '_> {
+    fn resource_elements(self) -> impl std::iter::Iterator<Item = Self> {
+        self.0
+            .descendants()
+            .filter(|n| element_has_name(n, "resource"))
+            .map(|n| TumXmlNode(n))
+            .into_iter()
+    }
+
     fn get_text_of_next(&self, node_name: &str) -> Result<String, TumXmlError> {
         let node_text = self
             .0
             .descendants()
-            .filter(|n| element_has_name(n, "id"))
+            .filter(|n| element_has_name(n, node_name))
             .find_map(|n| n.text())
             .ok_or(TumXmlError::TumNodeParseError(format!(
-                "No with name `{}` node found",
+                "No node with name `{}` found",
                 node_name
             )))?;
         Ok(node_text.to_owned())
@@ -46,7 +55,7 @@ impl TumXmlNode<'_, '_> {
         let node_text = self
             .0
             .descendants()
-            .filter(|n| element_has_name(n, "id"))
+            .filter(|n| element_has_name(n, node_name))
             .filter_map(|n| n.text())
             .last()
             .ok_or(TumXmlError::TumNodeParseError(format!(
