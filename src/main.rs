@@ -15,7 +15,7 @@ use reqwest::{self, Request};
 use roxmltree::{Attribute, Document, Node};
 use tokio;
 
-use crate::tum_api::appointment::Appointment;
+use crate::tum_api::appointment::AppointmentEndpoint;
 
 pub mod db;
 pub mod schema;
@@ -47,6 +47,6 @@ async fn main() -> Result<()> {
     //     .values(example_course)
     //     .get_result::<Course>(&mut conn);
     // fill_db().await?;
-    Course::get_all().await?;
+    Course::fetch_all().await?;
     Ok(())
 }

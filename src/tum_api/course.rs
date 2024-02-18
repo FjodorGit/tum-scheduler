@@ -3,8 +3,10 @@ use std::{env, fs::File};
 
 use roxmltree::Document;
 
+use crate::db::lecture::Lecture;
 use crate::{db, utils::element_has_name};
 
+use super::appointment::AppointmentEndpoint;
 use super::{TumApiError, TumXmlError, TumXmlNode};
 
 #[derive(Debug)]
@@ -46,7 +48,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for Course {
 }
 
 impl Course {
-    fn read_all_data_from_page(xml: String) -> Result<Vec<Course>, TumApiError> {
+    fn read_all_from_page(xml: String) -> Result<Vec<Course>, TumApiError> {
         let document = Document::parse(&xml)?;
 
         let mut result = vec![];
@@ -66,10 +68,7 @@ impl Course {
         Ok(result)
     }
 
-    pub async fn get_all() -> Result<(), TumApiError> {
-        let mut conn = db::db_setup::connection()
-            .expect("should be able to connect to database for course basic data");
-
+    pub async fn fetch_all() -> Result<(), TumApiError> {
         let mut page = 0;
         loop {
             let mut request_url = env::var("BASE_URL_IDS")
@@ -77,15 +76,32 @@ impl Course {
             request_url.push_str(&(page * 100).to_string());
             println!("url {:#?}", request_url);
             let request_result = reqwest::get(request_url).await?;
-            let mut file = File::create("foo.txt").unwrap();
             let xml = request_result.text().await?;
-            file.write_all(&xml.as_bytes()).unwrap();
-            let basic_data = Self::read_all_data_from_page(xml)?;
+            let basic_data = Self::read_all_from_page(xml)?;
             if basic_data.is_empty() {
                 break;
             }
             page += 1;
         }
         Ok(())
+    }
+
+    pub async fn build_lectues(&self) -> Result<Vec<Lecture>, TumApiError> {
+        todo!()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use std::fs;
+
+    use crate::tum_api::course::Course;
+
+    #[test]
+    fn test_reading_courses_page() {
+        let test_xml: String = fs::read_to_string("test_xmls/course.xml")
+            .expect("Should be able to read course test file");
+        let courses = Course::read_all_from_page(test_xml).expect("should be able to read courses");
+        assert_eq!(courses.len(), 100);
     }
 }

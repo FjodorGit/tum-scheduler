@@ -38,6 +38,17 @@ impl TumXmlNode<'_, '_> {
             .into_iter()
     }
 
+    fn get_all_nodes<'a>(
+        &'a self,
+        nodes_name: &'a str,
+    ) -> impl std::iter::Iterator<Item = Self> + '_ {
+        self.0
+            .descendants()
+            .filter(move |n| element_has_name(n, &nodes_name))
+            .map(|n| TumXmlNode(n))
+            .into_iter()
+    }
+
     fn get_text_of_next(&self, node_name: &str) -> Result<String, TumXmlError> {
         let node_text = self
             .0

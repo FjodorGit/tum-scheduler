@@ -11,9 +11,14 @@ use super::TumXmlNode;
 
 #[derive(Debug)]
 pub struct Appointment {
-    pub weekday: Weekday,
+    pub weekdays: Vec<Weekday>,
     pub from: NaiveTime,
     pub to: NaiveTime,
+}
+
+#[derive(Debug)]
+pub struct AppointmentEndpoint {
+    base_request_url: String,
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
@@ -25,9 +30,17 @@ impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
         let end_time_text = appointment_series_node.get_text_of_next("seriesEndTime")?;
         let end_time = NaiveTime::from_str(&end_time_text)?;
 
-        let (_, weekday) = appointment_series_node.get_translations()?;
+        let weekdays = appointment_series_node
+            .get_all_nodes("weekday")
+            .filter_map(|n| n.get_translations().ok())
+            .filter_map(|(_, t)| {
+                println!("{:#?}", t);
+                Weekday::from_str(&t).ok()
+            })
+            .collect();
+
         let app = Appointment {
-            weekday: Weekday::from_str(&weekday)?,
+            weekdays,
             from: start_time,
             to: end_time,
         };
@@ -37,26 +50,63 @@ impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
 }
 
 impl Appointment {
-    pub async fn get_recuring_appointments(
-        course_id: &str,
+    fn read_all_from_page(xml: String) -> Result<Vec<Appointment>, TumApiError> {
+        let document = Document::parse(&xml)?;
+
+        let mut appointments: Vec<Appointment> = vec![];
+        let document = Document::parse(&xml)?;
+        println!("Got valid document");
+        let root_element = TumXmlNode(document.root_element());
+        for appointment_series_element in root_element.get_all_nodes("appointmentSeriesDtos") {
+            let appointment = Appointment::try_from(appointment_series_element)?;
+            appointments.push(appointment);
+        }
+        Ok(appointments)
+    }
+}
+
+impl AppointmentEndpoint {
+    pub fn new() -> Self {
+        let base_request_url = env::var("APPOINTMENT_URL")
+            .expect("APPOINTMENT_URL should exist in environment variables");
+        AppointmentEndpoint { base_request_url }
+    }
+
+    pub async fn get_recurring_by_id(
+        &self,
+        course_id: String,
     ) -> Result<Vec<Appointment>, TumApiError> {
         println!("Requesting appointement for {}", course_id);
-        let appointments: Vec<Appointment> = vec![];
-        let mut request_url = env::var("APPOINTMENT_URL")
-            .expect("APPOINTMENT_URL should exist in environment variables");
-        request_url.push_str(course_id);
+        let request_url = format!("{}{}", self.base_request_url, course_id);
         let request_result = reqwest::get(request_url).await?;
         let xml: String = request_result.text().await?;
-        let document = Document::parse(&xml).expect("Returned APPOINTEMENT XML should be valid");
-        println!("Got valid document");
-        let root_element = document.root_element();
-        for appointment_series_element in root_element
-            .descendants()
-            .filter(|n| n.is_element() && n.tag_name().name() == "appointmentSeriesDtos")
-        {
-            let appointment = Appointment::try_from(TumXmlNode(appointment_series_element))?;
-            println!("{:#?}", appointment);
-        }
-        Ok(vec![])
+        Appointment::read_all_from_page(xml)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use std::fs;
+
+    use crate::tum_api::appointment::Appointment;
+
+    #[test]
+    fn test_reading_appointments() {
+        let test_xml: String = fs::read_to_string("test_xmls/appointments.xml")
+            .expect("Should be able to read appointment test file");
+        let appointments =
+            Appointment::read_all_from_page(test_xml).expect("should be able to read appointments");
+        println!("{:#?}", appointments);
+        assert_eq!(appointments.len(), 2);
+    }
+
+    #[test]
+    fn test_reading_appointment_multiweekday() {
+        let test_xml: String = fs::read_to_string("test_xmls/appointment_multi_weekday.xml")
+            .expect("Should be able to read course variant test file");
+        let appointments =
+            Appointment::read_all_from_page(test_xml).expect("should be able to read variants");
+        assert_eq!(appointments.len(), 1);
+        assert_eq!(appointments.get(0).unwrap().weekdays.len(), 5);
     }
 }
