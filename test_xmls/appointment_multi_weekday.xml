@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cpCourseGroupListDto>
+   <courseGroupDtos>
+      <id>1115011</id>
+      <name>Standardgruppe</name>
+      <courseId>950729051</courseId>
+      <appointmentDtos>
+         <id>891091637</id>
+         <courseGroupDto>
+            <id>1115011</id>
+            <courseId>950729051</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>1</id>
+            <key>Mo.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Montag</value>
+               <translations>
+                  <translation lang="de">Montag</translation>
+                  <translation lang="en">Monday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-09-23T08:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-09-23T16:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>18262</resourceId>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>597485</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>891091638</id>
+         <courseGroupDto>
+            <id>1115011</id>
+            <courseId>950729051</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>2</id>
+            <key>Di.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Dienstag</value>
+               <translations>
+                  <translation lang="de">Dienstag</translation>
+                  <translation lang="en">Tuesday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-09-24T08:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-09-24T16:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>18262</resourceId>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>597485</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>891091639</id>
+         <courseGroupDto>
+            <id>1115011</id>
+            <courseId>950729051</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>3</id>
+            <key>Mi.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Mittwoch</value>
+               <translations>
+                  <translation lang="de">Mittwoch</translation>
+                  <translation lang="en">Wednesday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-09-25T08:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-09-25T16:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>18262</resourceId>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>597485</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>891091640</id>
+         <courseGroupDto>
+            <id>1115011</id>
+            <courseId>950729051</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-09-26T08:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-09-26T16:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>18262</resourceId>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>597485</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>891091641</id>
+         <courseGroupDto>
+            <id>1115011</id>
+            <courseId>950729051</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>5</id>
+            <key>Fr.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Freitag</value>
+               <translations>
+                  <translation lang="de">Freitag</translation>
+                  <translation lang="en">Friday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-09-27T08:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-09-27T16:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>18262</resourceId>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>597485</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentSeriesDtos>
+         <id>597485</id>
+         <seriesBeginTime>08:00</seriesBeginTime>
+         <seriesEndTime>16:00</seriesEndTime>
+         <seriesBegin coType="datetime">
+            <value>2024-09-23T08:00:00</value>
+         </seriesBegin>
+         <seriesEnd coType="datetime">
+            <value>2024-09-27T16:00:00</value>
+         </seriesEnd>
+         <resourceName>Externer Ort (siehe Anmerkung)</resourceName>
+         <comment>Centrum Baustoffe und Materialprüfung TUM, Franz-Langinger-Strasse-10, Pasing</comment>
+         <weekday>
+            <id>235499</id>
+            <key>MO</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Montag</value>
+               <translations>
+                  <translation lang="de">Montag</translation>
+                  <translation lang="en">Monday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <weekday>
+            <id>235500</id>
+            <key>DI</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Dienstag</value>
+               <translations>
+                  <translation lang="de">Dienstag</translation>
+                  <translation lang="en">Tuesday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <weekday>
+            <id>235501</id>
+            <key>MI</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Mittwoch</value>
+               <translations>
+                  <translation lang="de">Mittwoch</translation>
+                  <translation lang="en">Wednesday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <weekday>
+            <id>235502</id>
+            <key>DO</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <weekday>
+            <id>235503</id>
+            <key>FR</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Freitag</value>
+               <translations>
+                  <translation lang="de">Freitag</translation>
+                  <translation lang="en">Friday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+      </appointmentSeriesDtos>
+      <lectureshipDtos>
+         <id>10317420</id>
+         <courseId>950729051</courseId>
+         <identityLibDto>
+            <id>73028</id>
+            <personId>73028</personId>
+            <obfuscated>D0ABE7C455A79D23</obfuscated>
+            <firstName>Harald</firstName>
+            <lastName>Hilbig</lastName>
+            <gender>MALE</gender>
+            <genderNrForTitle>1</genderNrForTitle>
+            <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/D0ABE7C455A79D23" name="IdentityLibDto" key="D0ABE7C455A79D23"/>
+         </identityLibDto>
+         <teachingFunction>
+            <id>2</id>
+            <key>V</key>
+            <name>Vortragende*r</name>
+         </teachingFunction>
+      </lectureshipDtos>
+      <lectureshipDtos>
+         <id>10353093</id>
+         <courseId>950729051</courseId>
+         <identityLibDto>
+            <id>365417</id>
+            <personId>365417</personId>
+            <obfuscated>FB1464F5BAB22C73</obfuscated>
+            <firstName>Agnieszka</firstName>
+            <lastName>Stoklosa</lastName>
+            <gender>FEMALE</gender>
+            <genderNrForTitle>2</genderNrForTitle>
+            <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/FB1464F5BAB22C73" name="IdentityLibDto" key="FB1464F5BAB22C73"/>
+         </identityLibDto>
+         <teachingFunction>
+            <id>2</id>
+            <key>V</key>
+            <name>Vortragende*r</name>
+         </teachingFunction>
+      </lectureshipDtos>
+      <standardgroupFlag>J</standardgroupFlag>
+      <maxNumberOfParticipants>16</maxNumberOfParticipants>
+      <limitedParticipationFlag>N</limitedParticipationFlag>
+      <schilfFlag>N</schilfFlag>
+   </courseGroupDtos>
+   <links rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/D0ABE7C455A79D23" name="IdentityLibDto" key="D0ABE7C455A79D23"/>
+   <links rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/FB1464F5BAB22C73" name="IdentityLibDto" key="FB1464F5BAB22C73"/>
+   <totalCount>1</totalCount>
+</cpCourseGroupListDto>

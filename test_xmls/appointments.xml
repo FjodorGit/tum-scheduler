@@ -1,0 +1,1234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cpCourseGroupListDto>
+   <courseGroupDtos>
+      <id>1116885</id>
+      <name>Standardgruppe</name>
+      <courseId>950734433</courseId>
+      <appointmentDtos>
+         <id>890994935</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-04-18T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-04-18T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997439</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-04-18T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-04-18T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994936</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-04-25T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-04-25T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997440</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-04-25T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-04-25T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994937</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-02T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-02T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997441</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-02T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-02T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994938</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-16T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-16T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997442</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-16T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-16T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994939</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-23T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-23T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997443</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-05-23T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-05-23T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994940</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-06T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-06T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997444</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-06T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-06T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994941</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-13T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-13T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997445</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-13T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-13T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994942</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-20T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-20T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997446</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-20T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-20T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994943</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-27T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-27T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997447</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-06-27T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-06-27T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994944</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-04T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-04T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997448</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-04T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-04T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994945</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-11T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-11T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997449</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-11T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-11T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890994946</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-18T10:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-18T12:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>12578</resourceId>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>592995</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentDtos>
+         <id>890997450</id>
+         <courseGroupDto>
+            <id>1116885</id>
+            <courseId>950734433</courseId>
+            <standardgroupFlag>J</standardgroupFlag>
+         </courseGroupDto>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+         <timestampFrom coType="datetime">
+            <value>2024-07-18T12:00:00</value>
+         </timestampFrom>
+         <timestampTo coType="datetime">
+            <value>2024-07-18T14:00:00</value>
+         </timestampTo>
+         <appointmentEventTypeDto>
+            <id>1</id>
+            <name coType="model-core.lib.model.langdata">
+               <value>Abhaltung</value>
+               <translations>
+                  <translation lang="de">Abhaltung</translation>
+                  <translation lang="en">regular class</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </name>
+            <key>A</key>
+            <sort>1</sort>
+         </appointmentEventTypeDto>
+         <resourceId>29094</resourceId>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <appointmentStatusType>CONFIRMED</appointmentStatusType>
+         <interGroupFlag>J</interGroupFlag>
+         <appointmentSeriesId>593102</appointmentSeriesId>
+      </appointmentDtos>
+      <appointmentSeriesDtos>
+         <id>592995</id>
+         <seriesBeginTime>10:00</seriesBeginTime>
+         <seriesEndTime>12:00</seriesEndTime>
+         <seriesBegin coType="datetime">
+            <value>2024-04-18T10:00:00</value>
+         </seriesBegin>
+         <seriesEnd coType="datetime">
+            <value>2024-07-18T12:00:00</value>
+         </seriesEnd>
+         <resourceName>00.04.011, MI Hörsaal 2 (5604.EG.011)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=16238</resourceUrl>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+      </appointmentSeriesDtos>
+      <appointmentSeriesDtos>
+         <id>593102</id>
+         <seriesBeginTime>12:00</seriesBeginTime>
+         <seriesEndTime>14:00</seriesEndTime>
+         <seriesBegin coType="datetime">
+            <value>2024-04-18T12:00:00</value>
+         </seriesBegin>
+         <seriesEnd coType="datetime">
+            <value>2024-07-18T14:00:00</value>
+         </seriesEnd>
+         <resourceName>Seminarraum Taurus 1 im Galileo Mo-Fr 7-19 Uhr (8120.EG.002)</resourceName>
+         <resourceUrl>/app/desktop/#/pl/ui/$ctx/ris.einzelRaum?raumKey=67709</resourceUrl>
+         <weekday>
+            <id>4</id>
+            <key>Do.</key>
+            <langDataType coType="model-core.lib.model.langdata">
+               <value>Donnerstag</value>
+               <translations>
+                  <translation lang="de">Donnerstag</translation>
+                  <translation lang="en">Thursday</translation>
+                  <translation lang="fr"/>
+                  <translation lang="it"/>
+               </translations>
+            </langDataType>
+         </weekday>
+      </appointmentSeriesDtos>
+      <lectureshipDtos>
+         <id>10329746</id>
+         <courseId>950734433</courseId>
+         <identityLibDto>
+            <id>-1821892</id>
+            <personId>382910</personId>
+            <obfuscated>81DEFF5A4678DC5E</obfuscated>
+            <firstName>Maximilian David</firstName>
+            <lastName>Kuschewski</lastName>
+            <gender>MALE</gender>
+            <genderNrForTitle>1</genderNrForTitle>
+            <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/81DEFF5A4678DC5E" name="IdentityLibDto" key="81DEFF5A4678DC5E"/>
+         </identityLibDto>
+         <teachingFunction>
+            <id>2</id>
+            <key>V</key>
+            <name>Vortragende*r</name>
+         </teachingFunction>
+         <sort>2</sort>
+      </lectureshipDtos>
+      <lectureshipDtos>
+         <id>10322309</id>
+         <courseId>950734433</courseId>
+         <identityLibDto>
+            <id>269283</id>
+            <personId>269283</personId>
+            <obfuscated>86B5D4D1A8778B5A</obfuscated>
+            <firstName>Viktor</firstName>
+            <lastName>Leis</lastName>
+            <gender>MALE</gender>
+            <genderNrForTitle>1</genderNrForTitle>
+            <businessCardLink rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/86B5D4D1A8778B5A" name="IdentityLibDto" key="86B5D4D1A8778B5A"/>
+         </identityLibDto>
+         <teachingFunction>
+            <id>2</id>
+            <key>V</key>
+            <name>Vortragende*r</name>
+         </teachingFunction>
+         <sort>1</sort>
+      </lectureshipDtos>
+      <standardgroupFlag>J</standardgroupFlag>
+      <limitedParticipationFlag>N</limitedParticipationFlag>
+      <schilfFlag>N</schilfFlag>
+   </courseGroupDtos>
+   <links rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/81DEFF5A4678DC5E" name="IdentityLibDto" key="81DEFF5A4678DC5E"/>
+   <links rel="related" href="https://campus.tum.de/tumonline/ee/rest/brm.pm.bc/identities/86B5D4D1A8778B5A" name="IdentityLibDto" key="86B5D4D1A8778B5A"/>
+   <totalCount>1</totalCount>
+</cpCourseGroupListDto>
