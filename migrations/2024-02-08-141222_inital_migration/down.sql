@@ -1,5 +1,5 @@
 -- This file should undo anything in `up.sql`
-DROP TABLE course;
+DROP TABLE lecture;
 
 DROP TABLE curriculum;
 

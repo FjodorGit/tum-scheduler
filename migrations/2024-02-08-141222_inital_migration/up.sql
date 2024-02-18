@@ -1,8 +1,8 @@
 -- Your SQL goes here
 CREATE TABLE curriculum (
     id varchar NOT NULL PRIMARY KEY,
-    de varchar NOT NULL,
-    en varchar NOT NULL
+    name_en varchar NOT NULL,
+    name_de varchar NOT NULL
 );
 
 CREATE TABLE lecture (

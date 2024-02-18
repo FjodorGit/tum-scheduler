@@ -3,8 +3,8 @@
 diesel::table! {
     curriculum (id) {
         id -> Varchar,
-        de -> Varchar,
-        en -> Varchar,
+        name_en -> Varchar,
+        name_de -> Varchar,
     }
 }
 

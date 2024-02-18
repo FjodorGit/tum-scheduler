@@ -1,89 +1,81 @@
 use std::env;
 
-use crate::utils::element_has_name;
 use crate::{db, schema::curriculum};
 use anyhow::Result;
 use diesel::RunQueryDsl;
 use diesel::{deserialize::Queryable, prelude::Insertable};
 use roxmltree::{Document, Node};
-use thiserror::Error;
+
+use super::{TumApiError, TumXmlError, TumXmlNode};
 
 #[derive(Debug, Insertable, Queryable)]
 #[diesel(table_name = curriculum)]
 pub struct Curriculum {
     pub id: String,
-    pub en: String,
-    pub de: String,
+    pub name_de: String,
+    pub name_en: String,
 }
 
-#[derive(Error, Debug)]
-pub enum CurriculumError {
-    #[error("Failed to parse curriculum: {0}")]
-    NodeParseError(String),
-    #[error("Failed while requesting curriculum: {0}")]
-    RequestError(#[from] reqwest::Error),
-    #[error("Failed while requesting curriculum: {0}")]
-    DocumentParseError(#[from] roxmltree::Error),
-    #[error("Failed to get the correct element in curriculum xml: {0}")]
-    DocumentIncomplete(String),
-    #[error("Failed to insert the element into curriculum table")]
-    DbInsertError(#[from] diesel::result::Error),
+pub struct CurriculumEndpoint {
+    pub base_request_url: String,
 }
 
-impl TryFrom<Node<'_, '_>> for Curriculum {
-    type Error = CurriculumError;
-    fn try_from(value: Node<'_, '_>) -> Result<Self, Self::Error> {
-        let id = value
-            .descendants()
-            .filter(|n| element_has_name(n, "id"))
-            .find_map(|n| n.text())
-            .ok_or(CurriculumError::NodeParseError(
-                "No id found in node".to_owned(),
-            ))?;
-        let mut language_iter = value
-            .descendants()
-            .filter(|n| element_has_name(n, "translation"))
-            .filter_map(|n| n.text());
-        let de = language_iter.next().ok_or(CurriculumError::NodeParseError(
-            "No german language node found".to_owned(),
-        ))?;
-        let en: &str = language_iter.next().ok_or(CurriculumError::NodeParseError(
-            "No english language node found".to_owned(),
-        ))?;
-        let curriculum = Curriculum::new(id, de, en);
+impl TryFrom<TumXmlNode<'_, '_>> for Curriculum {
+    type Error = TumXmlError;
+    fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
+        let id = resource_node.get_text_of_next("id")?;
+        let (name_de, name_en) = resource_node.get_translations()?;
+        let curriculum = Curriculum {
+            id,
+            name_de,
+            name_en,
+        };
         Ok(curriculum)
     }
 }
 
 impl Curriculum {
-    pub fn new(id: &str, de: &str, en: &str) -> Self {
-        Curriculum {
-            id: id.to_string(),
-            en: en.to_string(),
-            de: de.to_string(),
+    fn read_all_from_page(xml: String) -> Result<Vec<Curriculum>, TumApiError> {
+        let document = Document::parse(&xml)?;
+        let mut curricula: Vec<Curriculum> = vec![];
+        let document = Document::parse(&xml)?;
+        let root_element = TumXmlNode(document.root_element());
+        for resource_element in root_element.resource_elements() {
+            let appointment = Curriculum::try_from(resource_element)?;
+            curricula.push(appointment);
         }
+        Ok(curricula)
+    }
+}
+
+impl CurriculumEndpoint {
+    pub fn new() -> Self {
+        let base_request_url = env::var("CURRICULUM_URL")
+            .expect("APPOINTMENT_URL should exist in environment variables");
+        CurriculumEndpoint { base_request_url }
     }
 
-    pub async fn get_all() -> Result<(), CurriculumError> {
-        use crate::schema::curriculum::dsl::*;
+    pub async fn get_all(&self, course_id: String) -> Result<Vec<Curriculum>, TumApiError> {
+        println!("Requesting appointement for {}", course_id);
+        let request_result = reqwest::get(&self.base_request_url).await?;
+        let xml: String = request_result.text().await?;
+        Curriculum::read_all_from_page(xml)
+    }
+}
 
-        let mut conn = db::db_setup::connection()
-            .expect("should be able to connect to database for curriculum");
+#[cfg(test)]
+mod test {
+    use std::fs;
 
-        let request_url = env::var("CURRICULUM_URL")
-            .expect("CURRICULUM_URL should exist in environment variables");
-        let request_result = reqwest::get(request_url).await?;
-        let xml = request_result.text().await?;
-        let document = Document::parse(&xml)?;
-        let mut some_resource_element = document.root_element().first_element_child();
-        while let Some(resource_element) = some_resource_element {
-            let curr = Curriculum::try_from(resource_element)?;
-            diesel::insert_into(curriculum)
-                .values(&curr)
-                .execute(&mut conn)?;
-            some_resource_element = resource_element.next_sibling_element();
-        }
+    use crate::tum_api::curriculum::Curriculum;
 
-        Ok(())
+    #[test]
+    fn test_reading_curricula() {
+        let test_xml: String = fs::read_to_string("test_xmls/curricula.xml")
+            .expect("Should be able to read curricula test file");
+        let curricula =
+            Curriculum::read_all_from_page(test_xml).expect("should be able to read curricula");
+        println!("{:#?}", curricula);
+        assert_eq!(curricula.len(), 1148);
     }
 }
