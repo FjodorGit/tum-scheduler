@@ -1,21 +1,15 @@
 use anyhow::Result;
-use std::fs;
-use std::io::Write;
 use std::{env, io};
-use std::{fmt::write, fs::File};
-use tum_api::course::Course;
-use tum_api::curriculum::Curriculum;
+use tum_api::TumApiError;
 
+use crate::tum_api::course::CourseEndpoint;
+use crate::tum_api::course_variant::CourseVariantEndpoint;
 use crate::tum_api::lecture::Lecture;
 use db_setup::DbError;
-use diesel::QueryDsl;
-use diesel::{Insertable, RunQueryDsl};
 use dotenv::dotenv;
-use reqwest::{self, Request};
-use roxmltree::{Attribute, Document, Node};
 use tokio;
 
-use crate::tum_api::appointment::AppointmentEndpoint;
+use crate::tum_api::appointment::{self, AppointmentEndpoint};
 
 pub mod db_setup;
 pub mod schema;
@@ -36,16 +30,38 @@ pub enum FillDbError {
 async fn main() -> Result<()> {
     dotenv().ok();
     dotenv::from_filename("request_urls").ok();
-    // let mut conn = db::db_setup::connection().expect("should be able to establish connection");
-    // let example_course = Course {
-    //     id: 923329999,
-    //     subject: "MA".to_string(),
-    //     semester: "W2023".to_string(),
-    // };
-    // let _ = diesel::insert_into(schema::course::table)
-    //     .values(example_course)
-    //     .get_result::<Course>(&mut conn);
-    // fill_db().await?;
-    Course::fetch_all().await?;
+    aquire_lecture_data().await?;
+    Ok(())
+}
+
+pub async fn aquire_lecture_data() -> Result<(), TumApiError> {
+    let appointment_endpoint = AppointmentEndpoint::new();
+    let course_variant_endpoint = CourseVariantEndpoint::new();
+    let mut course_endpoint = CourseEndpoint::new();
+    loop {
+        let courses = course_endpoint.fetch_next_page().await?;
+        println!("Got {:?} courses", courses.len());
+        if courses.len() == 0 {
+            break;
+        }
+        for course in courses.into_iter() {
+            let appointments = appointment_endpoint.get_recurring_by_id(&course.id).await?;
+            println!("Got {:?} recurring appointments", appointments.len());
+            let variants = course_variant_endpoint.get_all_by_id(&course.id).await;
+            if let Err(err) = &variants {
+                println!("Skipping {:#?} due to {:#?}.", course.id, err.to_string());
+                continue;
+            }
+            let variants = variants?;
+            println!("{:#?}", variants);
+            println!("Got {:?} variants", variants.len());
+
+            for appointment in appointments.iter() {
+                for variant in variants.iter() {
+                    let _lectures = Lecture::build(&course, appointment, variant);
+                }
+            }
+        }
+    }
     Ok(())
 }

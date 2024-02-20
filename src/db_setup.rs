@@ -10,6 +10,8 @@ use thiserror::Error;
 pub enum DbError {
     #[error("Could not establish connection to database")]
     InvalidConnection,
+    #[error("Could not insert `{0}` into database")]
+    InsertionFailed(String),
 }
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;

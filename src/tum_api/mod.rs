@@ -13,7 +13,7 @@ pub struct TumXmlNode<'a, 'input>(Node<'a, 'input>);
 pub enum TumApiError {
     #[error("Failed to parse resource node: {0}")]
     NodeParseError(#[from] TumXmlError),
-    #[error("Failed to parse course basic data document")]
+    #[error("Failed to parse response document")]
     DocumentParseError(#[from] roxmltree::Error),
     #[error("Failed to request course basic data")]
     RequestError(#[from] reqwest::Error),

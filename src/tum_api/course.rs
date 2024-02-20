@@ -1,11 +1,9 @@
-use std::io::prelude::*;
 use std::{env, fs::File};
 
 use roxmltree::Document;
 
 use crate::tum_api::lecture::Lecture;
 
-use super::appointment::AppointmentEndpoint;
 use super::{TumApiError, TumXmlError, TumXmlNode};
 
 #[derive(Debug)]
@@ -16,6 +14,12 @@ pub struct Course {
     pub name_en: String,
     pub name_de: String,
     pub semester: String,
+}
+
+#[derive(Debug)]
+pub struct CourseEndpoint {
+    pub base_request_url: String,
+    pub current_page: u8,
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for Course {
@@ -62,26 +66,29 @@ impl Course {
         Ok(result)
     }
 
-    pub async fn fetch_all() -> Result<(), TumApiError> {
-        let mut page = 0;
-        loop {
-            let mut request_url = env::var("BASE_URL_IDS")
-                .expect("BASE_URL_IDS should exist in environment variables");
-            request_url.push_str(&(page * 100).to_string());
-            println!("url {:#?}", request_url);
-            let request_result = reqwest::get(request_url).await?;
-            let xml = request_result.text().await?;
-            let basic_data = Self::read_all_from_page(xml)?;
-            if basic_data.is_empty() {
-                break;
-            }
-            page += 1;
-        }
-        Ok(())
-    }
-
     pub async fn build_lectues(&self) -> Result<Vec<Lecture>, TumApiError> {
         todo!()
+    }
+}
+
+impl CourseEndpoint {
+    pub fn new() -> Self {
+        let base_request_url =
+            env::var("BASE_URL_IDS").expect("BASE_URL_IDS should exist in environment variables");
+        Self {
+            base_request_url,
+            current_page: 0,
+        }
+    }
+
+    pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, TumApiError> {
+        let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
+        println!("url {:#?}", request_url);
+        let request_result = reqwest::get(request_url).await?;
+        let xml = request_result.text().await?;
+        let courses = Course::read_all_from_page(xml)?;
+        self.current_page += 1;
+        Ok(courses)
     }
 }
 

@@ -1,0 +1,3991 @@
+<resources xmlns:codata="http://www.campusonline.at/xsd/meta/codata/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4820&amp;pStpKnotenNr=3770220&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4820</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Biomedical Engineering and Medical Physics</value>
+            <translations>
+              <translation lang="de">Biomedical Engineering and Medical Physics</translation>
+              <translation lang="en">Biomedical Engineering and Medical Physics</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>065</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20191</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4820</id>
+          <curriculumInfo>
+            <id>5168</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Biomedical Engineering and Medical Physics</value>
+              <translations>
+                <translation lang="de">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="en">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>065</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20191</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2019-04-01</value>
+            </from>
+            <to coType="date">
+              <value>2024-03-31</value>
+            </to>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1632917</elementId>
+            <designation>20191</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Biomedical Engineering and Medical Physics</value>
+              <translations>
+                <translation lang="de">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="en">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20191] Biomedical Engineering and Medical Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20191] Biomedical Engineering and Medical Physics (SPO-Version)</translation>
+                <translation lang="en">[20191] Biomedical Engineering and Medical Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzE2MzI5MTc7</reference>
+          </path>
+          <path>
+            <elementId>1632923</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Course Phase</value>
+              <translations>
+                <translation lang="de">Studienphase</translation>
+                <translation lang="en">Course Phase</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Course Phase (Part of programme)</value>
+              <translations>
+                <translation lang="de">Studienphase (Abschnitt)</translation>
+                <translation lang="en">Course Phase (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <sorting>1</sorting>
+            <reference>U1BPOzE2MzI5MjM7</reference>
+          </path>
+          <path>
+            <elementId>1632928</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Course Work</value>
+              <translations>
+                <translation lang="de">Studienleistungen</translation>
+                <translation lang="en">Course Work</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Course Work (Rule node)</value>
+              <translations>
+                <translation lang="de">Studienleistungen (Regelknoten)</translation>
+                <translation lang="en">Course Work (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <sorting>3</sorting>
+            <reference>U1BPOzE2MzI5Mjg7</reference>
+          </path>
+          <path>
+            <elementId>1634094</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <sorting>5</sorting>
+            <reference>U1BPOzE2MzQwOTQ7</reference>
+          </path>
+          <path>
+            <elementId>1634095</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzE2MzQwOTU7</reference>
+          </path>
+          <path>
+            <elementId>1762173</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzE3NjIxNzM7</reference>
+          </path>
+          <path>
+            <elementId>3770220</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzM3NzAyMjA7</reference>
+          </path>
+          <front>
+            <elementId>1632917</elementId>
+            <designation>20191</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Biomedical Engineering and Medical Physics</value>
+              <translations>
+                <translation lang="de">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="en">Biomedical Engineering and Medical Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20191] Biomedical Engineering and Medical Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20191] Biomedical Engineering and Medical Physics (SPO-Version)</translation>
+                <translation lang="en">[20191] Biomedical Engineering and Medical Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzE2MzI5MTc7</reference>
+          </front>
+          <back>
+            <elementId>1762173</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzE3NjIxNzM7</reference>
+          </back>
+          <back>
+            <elementId>3770220</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2019-04-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2024-03-31</value>
+            </validTo>
+            <reference>U1BPOzM3NzAyMjA7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2019-04-01</value>
+        </validFrom>
+        <validTo coType="date">
+          <value>2024-03-31</value>
+        </validTo>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=2611&amp;pStpKnotenNr=3770202&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>2611</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Exchange Program Civil Engineering and Environmental Engineering</value>
+            <translations>
+              <translation lang="de">Austauschprogramm Bau- und Umweltingenieurwesen</translation>
+              <translation lang="en">Exchange Program Civil Engineering and Environmental Engineering</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>310</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Exchange program (not subject to fees)</value>
+            <translations>
+              <translation lang="de">Austauschprogramm (nicht studienbeitragspflichtig)</translation>
+              <translation lang="en">Exchange program (not subject to fees)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>0</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>2611</id>
+          <curriculumInfo>
+            <id>1663</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Exchange Program Civil Engineering and Environmental Engineering</value>
+              <translations>
+                <translation lang="de">Austauschprogramm Bau- und Umweltingenieurwesen</translation>
+                <translation lang="en">Exchange Program Civil Engineering and Environmental Engineering</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Exchange program (not subject to fees)</value>
+              <translations>
+                <translation lang="de">Austauschprogramm (nicht studienbeitragspflichtig)</translation>
+                <translation lang="en">Exchange program (not subject to fees)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>310</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>0</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>1990-01-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>146570</elementId>
+            <designation>0</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Exchange Program Civil Engineering and Environmental Engineering</value>
+              <translations>
+                <translation lang="de">Austauschprogramm Bau- und Umweltingenieurwesen</translation>
+                <translation lang="en">Exchange Program Civil Engineering and Environmental Engineering</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[0] Exchange Program Civil Engineering and Environmental Engineering (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[0] Austauschprogramm Bau- und Umweltingenieurwesen (SPO-Version)</translation>
+                <translation lang="en">[0] Exchange Program Civil Engineering and Environmental Engineering (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjU3MDs=</reference>
+          </path>
+          <path>
+            <elementId>1348428</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Modules of the TUM School of Management</value>
+              <translations>
+                <translation lang="de">Module der Fakultät für Wirtschaftswissenschaften</translation>
+                <translation lang="en">Modules of the TUM School of Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Modules of the TUM School of Management (Rule node)</value>
+              <translations>
+                <translation lang="de">Module der Fakultät für Wirtschaftswissenschaften (Regelknoten)</translation>
+                <translation lang="en">Modules of the TUM School of Management (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzEzNDg0Mjg7</reference>
+          </path>
+          <path>
+            <elementId>1647134</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE2NDcxMzQ7</reference>
+          </path>
+          <path>
+            <elementId>3770202</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMDI7</reference>
+          </path>
+          <front>
+            <elementId>146570</elementId>
+            <designation>0</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Exchange Program Civil Engineering and Environmental Engineering</value>
+              <translations>
+                <translation lang="de">Austauschprogramm Bau- und Umweltingenieurwesen</translation>
+                <translation lang="en">Exchange Program Civil Engineering and Environmental Engineering</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[0] Exchange Program Civil Engineering and Environmental Engineering (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[0] Austauschprogramm Bau- und Umweltingenieurwesen (SPO-Version)</translation>
+                <translation lang="en">[0] Exchange Program Civil Engineering and Environmental Engineering (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjU3MDs=</reference>
+          </front>
+          <back>
+            <elementId>1647134</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE2NDcxMzQ7</reference>
+          </back>
+          <back>
+            <elementId>3770202</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMDI7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto></subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>1990-01-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=5138&amp;pStpKnotenNr=3695052&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>5138</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Forestry Science and Resource Management</value>
+            <translations>
+              <translation lang="de">Forstwissenschaft und Ressourcenmanagement</translation>
+              <translation lang="en">Forestry Science and Resource Management</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>753</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Bachelor of Science</value>
+            <translations>
+              <translation lang="de">Bachelor of Science</translation>
+              <translation lang="en">Bachelor of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20231</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>5138</id>
+          <curriculumInfo>
+            <id>9</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Forestry Science and Resource Management</value>
+              <translations>
+                <translation lang="de">Forstwissenschaft und Ressourcenmanagement</translation>
+                <translation lang="en">Forestry Science and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Bachelor of Science</value>
+              <translations>
+                <translation lang="de">Bachelor of Science</translation>
+                <translation lang="en">Bachelor of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>753</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20231</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2023-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>3321509</elementId>
+            <designation>20231</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forestry Science and Resource Management</value>
+              <translations>
+                <translation lang="de">Bachelorstudium Forstwissenschaft und Ressourcenmanagement</translation>
+                <translation lang="en">Forestry Science and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20231] Forestry Science and Resource Management (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20231] Bachelorstudium Forstwissenschaft und Ressourcenmanagement (SPO-Version)</translation>
+                <translation lang="en">[20231] Forestry Science and Resource Management (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <sorting>6</sorting>
+            <reference>U1BPOzMzMjE1MDk7</reference>
+          </path>
+          <path>
+            <elementId>3321613</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Required Courses</value>
+              <translations>
+                <translation lang="de">Pflichtmodule</translation>
+                <translation lang="en">Required Courses</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Required Courses (Rule node - Compulsory subject)</value>
+              <translations>
+                <translation lang="de">Pflichtmodule (Regelknoten - Pflichtfach)</translation>
+                <translation lang="en">Required Courses (Rule node - Compulsory subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <sorting>2</sorting>
+            <reference>U1BPOzMzMjE2MTM7</reference>
+          </path>
+          <path>
+            <elementId>3695049</elementId>
+            <designation>MGT000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[MGT000201] Economics for Forest and Resource Management (Module node - Compulsory subject)</value>
+              <translations>
+                <translation lang="de">[MGT000201] Ökonomie für Forst- und Ressourcenmanagement (Modulknoten - Pflichtfach)</translation>
+                <translation lang="en">[MGT000201] Economics for Forest and Resource Management (Module node - Compulsory subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <sorting>15</sorting>
+            <reference>U1BPOzM2OTUwNDk7</reference>
+          </path>
+          <path>
+            <elementId>3695052</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM2OTUwNTI7</reference>
+          </path>
+          <front>
+            <elementId>3321509</elementId>
+            <designation>20231</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forestry Science and Resource Management</value>
+              <translations>
+                <translation lang="de">Bachelorstudium Forstwissenschaft und Ressourcenmanagement</translation>
+                <translation lang="en">Forestry Science and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20231] Forestry Science and Resource Management (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20231] Bachelorstudium Forstwissenschaft und Ressourcenmanagement (SPO-Version)</translation>
+                <translation lang="en">[20231] Forestry Science and Resource Management (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <sorting>6</sorting>
+            <reference>U1BPOzMzMjE1MDk7</reference>
+          </front>
+          <back>
+            <elementId>3695049</elementId>
+            <designation>MGT000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[MGT000201] Economics for Forest and Resource Management (Module node - Compulsory subject)</value>
+              <translations>
+                <translation lang="de">[MGT000201] Ökonomie für Forst- und Ressourcenmanagement (Modulknoten - Pflichtfach)</translation>
+                <translation lang="en">[MGT000201] Economics for Forest and Resource Management (Module node - Compulsory subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <sorting>15</sorting>
+            <reference>U1BPOzM2OTUwNDk7</reference>
+          </back>
+          <back>
+            <elementId>3695052</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM2OTUwNTI7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>3.</value>
+            <translations>
+              <translation lang="de">3.</translation>
+              <translation lang="en">3.</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>3rd semester</value>
+            <translations>
+              <translation lang="de">3. Semester</translation>
+              <translation lang="en">3rd semester</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>3</sort>
+          <key>3.</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Compulsory subject</value>
+            <translations>
+              <translation lang="de">Pflichtfach</translation>
+              <translation lang="en">Compulsory subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2023-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=5194&amp;pStpKnotenNr=3770225&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>5194</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Management and Technology</value>
+            <translations>
+              <translation lang="de">Management and Technology</translation>
+              <translation lang="en">Management and Technology</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>274</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Bachelor of Science</value>
+            <translations>
+              <translation lang="de">Bachelor of Science</translation>
+              <translation lang="en">Bachelor of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20231</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>5194</id>
+          <curriculumInfo>
+            <id>6547</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Management and Technology</value>
+              <translations>
+                <translation lang="de">Management and Technology</translation>
+                <translation lang="en">Management and Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Bachelor of Science</value>
+              <translations>
+                <translation lang="de">Bachelor of Science</translation>
+                <translation lang="en">Bachelor of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>274</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20231</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2023-10-01</value>
+            </from>
+            <to coType="date">
+              <value>2050-10-01</value>
+            </to>
+            <offeredUntil coType="date">
+              <value>2050-10-01</value>
+            </offeredUntil>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>3458426</elementId>
+            <designation>20231</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Management and Technology</value>
+              <translations>
+                <translation lang="de">Management and Technology</translation>
+                <translation lang="en">Management and Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20231] Management and Technology (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20231] Management and Technology (SPO-Version)</translation>
+                <translation lang="en">[20231] Management and Technology (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <sorting>11</sorting>
+            <reference>U1BPOzM0NTg0MjY7</reference>
+          </path>
+          <path>
+            <elementId>3459458</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Electives in Management and/or Technology</value>
+              <translations>
+                <translation lang="de">Wirtschaftswissenschaftlich-technische Wahlmodule</translation>
+                <translation lang="en">Electives in Management and/or Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Electives in Management and/or Technology (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Wirtschaftswissenschaftlich-technische Wahlmodule (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Electives in Management and/or Technology (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <sorting>30</sorting>
+            <reference>U1BPOzM0NTk0NTg7</reference>
+          </path>
+          <path>
+            <elementId>3460515</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics &amp; Policy</value>
+              <translations>
+                <translation lang="de">Economics &amp; Policy</translation>
+                <translation lang="en">Economics &amp; Policy</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics &amp; Policy (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Economics &amp; Policy (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Economics &amp; Policy (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <sorting>50</sorting>
+            <reference>U1BPOzM0NjA1MTU7</reference>
+          </path>
+          <path>
+            <elementId>3460516</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <reference>U1BPOzM0NjA1MTY7</reference>
+          </path>
+          <path>
+            <elementId>3770225</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten - Wahlfach)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <reference>U1BPOzM3NzAyMjU7</reference>
+          </path>
+          <front>
+            <elementId>3458426</elementId>
+            <designation>20231</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Management and Technology</value>
+              <translations>
+                <translation lang="de">Management and Technology</translation>
+                <translation lang="en">Management and Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20231] Management and Technology (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20231] Management and Technology (SPO-Version)</translation>
+                <translation lang="en">[20231] Management and Technology (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <sorting>11</sorting>
+            <reference>U1BPOzM0NTg0MjY7</reference>
+          </front>
+          <back>
+            <elementId>3460516</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <reference>U1BPOzM0NjA1MTY7</reference>
+          </back>
+          <back>
+            <elementId>3770225</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten - Wahlfach)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2023-10-01</value>
+            </validFrom>
+            <validTo coType="date">
+              <value>2050-10-01</value>
+            </validTo>
+            <reference>U1BPOzM3NzAyMjU7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2023-10-01</value>
+        </validFrom>
+        <validTo coType="date">
+          <value>2050-10-01</value>
+        </validTo>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4917&amp;pStpKnotenNr=3770222&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4917</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics</value>
+            <translations>
+              <translation lang="de">Physik</translation>
+              <translation lang="en">Physics</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>051</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Bachelor of Science</value>
+            <translations>
+              <translation lang="de">Bachelor of Science</translation>
+              <translation lang="en">Bachelor of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20201</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4917</id>
+          <curriculumInfo>
+            <id>56</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics</value>
+              <translations>
+                <translation lang="de">Physik</translation>
+                <translation lang="en">Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Bachelor of Science</value>
+              <translations>
+                <translation lang="de">Bachelor of Science</translation>
+                <translation lang="en">Bachelor of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>051</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20201</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2020-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1811472</elementId>
+            <designation>20201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Bachelor Studies in Physics</value>
+              <translations>
+                <translation lang="de">Bachelorstudium Physik</translation>
+                <translation lang="en">Bachelor Studies in Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20201] Bachelor Studies in Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20201] Bachelorstudium Physik (SPO-Version)</translation>
+                <translation lang="en">[20201] Bachelor Studies in Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MTE0NzI7</reference>
+          </path>
+          <path>
+            <elementId>1836637</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Basic Studies</value>
+              <translations>
+                <translation lang="de">Grundlagenstudium</translation>
+                <translation lang="en">Basic Studies</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Basic Studies (Part of programme)</value>
+              <translations>
+                <translation lang="de">Grundlagenstudium (Abschnitt)</translation>
+                <translation lang="en">Basic Studies (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <sorting>2</sorting>
+            <reference>U1BPOzE4MzY2Mzc7</reference>
+          </path>
+          <path>
+            <elementId>1836641</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Course Work</value>
+              <translations>
+                <translation lang="de">Studienleistungen</translation>
+                <translation lang="en">Course Work</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Course Work (Rule node)</value>
+              <translations>
+                <translation lang="de">Studienleistungen (Regelknoten)</translation>
+                <translation lang="en">Course Work (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <sorting>2</sorting>
+            <reference>U1BPOzE4MzY2NDE7</reference>
+          </path>
+          <path>
+            <elementId>1836643</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MzY2NDM7</reference>
+          </path>
+          <path>
+            <elementId>1837225</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MzcyMjU7</reference>
+          </path>
+          <path>
+            <elementId>1838009</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MzgwMDk7</reference>
+          </path>
+          <path>
+            <elementId>3770222</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMjI7</reference>
+          </path>
+          <front>
+            <elementId>1811472</elementId>
+            <designation>20201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Bachelor Studies in Physics</value>
+              <translations>
+                <translation lang="de">Bachelorstudium Physik</translation>
+                <translation lang="en">Bachelor Studies in Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20201] Bachelor Studies in Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20201] Bachelorstudium Physik (SPO-Version)</translation>
+                <translation lang="en">[20201] Bachelor Studies in Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MTE0NzI7</reference>
+          </front>
+          <back>
+            <elementId>1838009</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MzgwMDk7</reference>
+          </back>
+          <back>
+            <elementId>3770222</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMjI7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2020-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=2962&amp;pStpKnotenNr=3770214&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>2962</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics</value>
+            <translations>
+              <translation lang="de">Physik</translation>
+              <translation lang="en">Physics</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>051</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Exchange program (not subject to fees)</value>
+            <translations>
+              <translation lang="de">Austauschprogramm (nicht studienbeitragspflichtig)</translation>
+              <translation lang="en">Exchange program (not subject to fees)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>0</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>2962</id>
+          <curriculumInfo>
+            <id>1525</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics</value>
+              <translations>
+                <translation lang="de">Physik</translation>
+                <translation lang="en">Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Exchange program (not subject to fees)</value>
+              <translations>
+                <translation lang="de">Austauschprogramm (nicht studienbeitragspflichtig)</translation>
+                <translation lang="en">Exchange program (not subject to fees)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>051</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>0</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>1990-01-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>146921</elementId>
+            <designation>0</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Exchange Program Physics</value>
+              <translations>
+                <translation lang="de">Austauschprogramm Physik</translation>
+                <translation lang="en">Exchange Program Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[0] Exchange Program Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[0] Austauschprogramm Physik (SPO-Version)</translation>
+                <translation lang="en">[0] Exchange Program Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjkyMTs=</reference>
+          </path>
+          <path>
+            <elementId>949121</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Modules from Other Disciplines</value>
+              <translations>
+                <translation lang="de">Module aus anderen Fachrichtungen</translation>
+                <translation lang="en">Modules from Other Disciplines</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Modules from Other Disciplines (Rule node)</value>
+              <translations>
+                <translation lang="de">Module aus anderen Fachrichtungen (Regelknoten)</translation>
+                <translation lang="en">Modules from Other Disciplines (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzk0OTEyMTs=</reference>
+          </path>
+          <path>
+            <elementId>949827</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzk0OTgyNzs=</reference>
+          </path>
+          <path>
+            <elementId>1762167</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNjc7</reference>
+          </path>
+          <path>
+            <elementId>3770214</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTQ7</reference>
+          </path>
+          <front>
+            <elementId>146921</elementId>
+            <designation>0</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Exchange Program Physics</value>
+              <translations>
+                <translation lang="de">Austauschprogramm Physik</translation>
+                <translation lang="en">Exchange Program Physics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[0] Exchange Program Physics (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[0] Austauschprogramm Physik (SPO-Version)</translation>
+                <translation lang="en">[0] Exchange Program Physics (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjkyMTs=</reference>
+          </front>
+          <back>
+            <elementId>1762167</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNjc7</reference>
+          </back>
+          <back>
+            <elementId>3770214</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>1990-01-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTQ7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>1990-01-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4699&amp;pStpKnotenNr=3770218&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4699</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics (Applied and Engineering Physics)</value>
+            <translations>
+              <translation lang="de">Physics (Applied and Engineering Physics)</translation>
+              <translation lang="en">Physics (Applied and Engineering Physics)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>067</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4699</id>
+          <curriculumInfo>
+            <id>3322</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics (Applied and Engineering Physics)</value>
+              <translations>
+                <translation lang="de">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="en">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>067</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2018-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1440028</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Applied and Engineering Physics)</value>
+              <translations>
+                <translation lang="de">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="en">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Applied and Engineering Physics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physics (Applied and Engineering Physics) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Applied and Engineering Physics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NDAwMjg7</reference>
+          </path>
+          <path>
+            <elementId>1441953</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Advanced Studies</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase</translation>
+                <translation lang="en">Advanced Studies</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Advanced Studies (Part of programme)</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase (Abschnitt)</translation>
+                <translation lang="en">Advanced Studies (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>1</sorting>
+            <reference>U1BPOzE0NDE5NTM7</reference>
+          </path>
+          <path>
+            <elementId>1453545</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzE0NTM1NDU7</reference>
+          </path>
+          <path>
+            <elementId>1454751</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NTQ3NTE7</reference>
+          </path>
+          <path>
+            <elementId>1762171</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzE7</reference>
+          </path>
+          <path>
+            <elementId>3770218</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTg7</reference>
+          </path>
+          <front>
+            <elementId>1440028</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Applied and Engineering Physics)</value>
+              <translations>
+                <translation lang="de">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="en">Physics (Applied and Engineering Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Applied and Engineering Physics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physics (Applied and Engineering Physics) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Applied and Engineering Physics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NDAwMjg7</reference>
+          </front>
+          <back>
+            <elementId>1762171</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzE7</reference>
+          </back>
+          <back>
+            <elementId>3770218</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTg7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2018-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4725&amp;pStpKnotenNr=3770217&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4725</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics (Biophysics)</value>
+            <translations>
+              <translation lang="de">Physik (Biophysik)</translation>
+              <translation lang="en">Physics (Biophysics)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>068</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4725</id>
+          <curriculumInfo>
+            <id>3323</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics (Biophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Biophysik)</translation>
+                <translation lang="en">Physics (Biophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>068</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2018-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1465045</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Biophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Biophysik)</translation>
+                <translation lang="en">Physics (Biophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Biophysics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Biophysik) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Biophysics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjUwNDU7</reference>
+          </path>
+          <path>
+            <elementId>1468035</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Advanced Studies</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase</translation>
+                <translation lang="en">Advanced Studies</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Advanced Studies (Part of programme)</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase (Abschnitt)</translation>
+                <translation lang="en">Advanced Studies (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>1</sorting>
+            <reference>U1BPOzE0NjgwMzU7</reference>
+          </path>
+          <path>
+            <elementId>1469565</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzE0Njk1NjU7</reference>
+          </path>
+          <path>
+            <elementId>1469566</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0Njk1NjY7</reference>
+          </path>
+          <path>
+            <elementId>1762170</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzA7</reference>
+          </path>
+          <path>
+            <elementId>3770217</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTc7</reference>
+          </path>
+          <front>
+            <elementId>1465045</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Biophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Biophysik)</translation>
+                <translation lang="en">Physics (Biophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Biophysics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Biophysik) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Biophysics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjUwNDU7</reference>
+          </front>
+          <back>
+            <elementId>1762170</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzA7</reference>
+          </back>
+          <back>
+            <elementId>3770217</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTc7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2018-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4718&amp;pStpKnotenNr=3770219&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4718</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics (Condensed Matter Physics)</value>
+            <translations>
+              <translation lang="de">Physik (Physik der kondensierten Materie)</translation>
+              <translation lang="en">Physics (Condensed Matter Physics)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>069</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4718</id>
+          <curriculumInfo>
+            <id>3324</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics (Condensed Matter Physics)</value>
+              <translations>
+                <translation lang="de">Physik (Physik der kondensierten Materie)</translation>
+                <translation lang="en">Physics (Condensed Matter Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>069</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2018-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1459511</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Condensed Matter Physics)</value>
+              <translations>
+                <translation lang="de">Physik (Physik der kondensierten Materie)</translation>
+                <translation lang="en">Physics (Condensed Matter Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Condensed Matter Physics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Physik der kondensierten Materie) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Condensed Matter Physics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NTk1MTE7</reference>
+          </path>
+          <path>
+            <elementId>1459566</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Advanced Studies</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase</translation>
+                <translation lang="en">Advanced Studies</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Advanced Studies (Part of programme)</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase (Abschnitt)</translation>
+                <translation lang="en">Advanced Studies (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>1</sorting>
+            <reference>U1BPOzE0NTk1NjY7</reference>
+          </path>
+          <path>
+            <elementId>1461087</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzE0NjEwODc7</reference>
+          </path>
+          <path>
+            <elementId>1461088</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjEwODg7</reference>
+          </path>
+          <path>
+            <elementId>1762172</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzI7</reference>
+          </path>
+          <path>
+            <elementId>3770219</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTk7</reference>
+          </path>
+          <front>
+            <elementId>1459511</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Condensed Matter Physics)</value>
+              <translations>
+                <translation lang="de">Physik (Physik der kondensierten Materie)</translation>
+                <translation lang="en">Physics (Condensed Matter Physics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Condensed Matter Physics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Physik der kondensierten Materie) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Condensed Matter Physics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NTk1MTE7</reference>
+          </front>
+          <back>
+            <elementId>1762172</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNzI7</reference>
+          </back>
+          <back>
+            <elementId>3770219</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTk7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2018-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4724&amp;pStpKnotenNr=3770216&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4724</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Physics (Nuclear, Particle and Astrophysics)</value>
+            <translations>
+              <translation lang="de">Physik (Kern-, Teilchen- und Astrophysik)</translation>
+              <translation lang="en">Physics (Nuclear, Particle and Astrophysics)</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>066</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4724</id>
+          <curriculumInfo>
+            <id>3321</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Physics (Nuclear, Particle and Astrophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Kern-, Teilchen- und Astrophysik)</translation>
+                <translation lang="en">Physics (Nuclear, Particle and Astrophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>066</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20181</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2018-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1465024</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Nuclear, Particle, and Astrophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Kern-, Teilchen- und Astrophysik)</translation>
+                <translation lang="en">Physics (Nuclear, Particle, and Astrophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Nuclear, Particle, and Astrophysics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Kern-, Teilchen- und Astrophysik) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Nuclear, Particle, and Astrophysics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjUwMjQ7</reference>
+          </path>
+          <path>
+            <elementId>1465100</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Advanced Studies</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase</translation>
+                <translation lang="en">Advanced Studies</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Advanced Studies (Part of programme)</value>
+              <translations>
+                <translation lang="de">Vertiefungsphase (Abschnitt)</translation>
+                <translation lang="en">Advanced Studies (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>1</sorting>
+            <reference>U1BPOzE0NjUxMDA7</reference>
+          </path>
+          <path>
+            <elementId>1466624</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzE0NjY2MjQ7</reference>
+          </path>
+          <path>
+            <elementId>1466625</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjY2MjU7</reference>
+          </path>
+          <path>
+            <elementId>1762169</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNjk7</reference>
+          </path>
+          <path>
+            <elementId>3770216</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTY7</reference>
+          </path>
+          <front>
+            <elementId>1465024</elementId>
+            <designation>20181</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Physics (Nuclear, Particle, and Astrophysics)</value>
+              <translations>
+                <translation lang="de">Physik (Kern-, Teilchen- und Astrophysik)</translation>
+                <translation lang="en">Physics (Nuclear, Particle, and Astrophysics)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20181] Physics (Nuclear, Particle, and Astrophysics) (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20181] Physik (Kern-, Teilchen- und Astrophysik) (SPO-Version)</translation>
+                <translation lang="en">[20181] Physics (Nuclear, Particle, and Astrophysics) (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE0NjUwMjQ7</reference>
+          </front>
+          <back>
+            <elementId>1762169</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3NjIxNjk7</reference>
+          </back>
+          <back>
+            <elementId>3770216</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2018-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMTY7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2018-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+  <resource>
+    <link rel="external" href="https://campus.tum.de/tumonline/ee/ui/ca2/app/desktop/#/pl/ui/$ctx/wbstpcs.showSpoTree?pStpStpNr=4911&amp;pStpKnotenNr=3770221&amp;pSJNr=1617" type="text/html" name="CURRICULUM"></link>
+    <content type="model-slc.lib.cm.curriculumposition.coCurriculumPositionDto">
+      <coCurriculumPositionDto>
+        <studyNameInfoDto>
+          <curriculumVersionId>4911</curriculumVersionId>
+          <name coType="model-core.lib.model.langdata">
+            <value>Quantum Science &amp; Technology</value>
+            <translations>
+              <translation lang="de">Quantum Science &amp; Technology</translation>
+              <translation lang="en">Quantum Science &amp; Technology</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </name>
+          <studyIdentifier>090</studyIdentifier>
+          <displayedType coType="model-core.lib.model.langdata">
+            <value>Master of Science</value>
+            <translations>
+              <translation lang="de">Master of Science</translation>
+              <translation lang="en">Master of Science</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </displayedType>
+          <curriculumVersionIdentification>20201</curriculumVersionIdentification>
+          <supported>true</supported>
+        </studyNameInfoDto>
+        <curriculumVersionInfoDto>
+          <id>4911</id>
+          <curriculumInfo>
+            <id>5467</id>
+            <displayedName coType="model-core.lib.model.langdata">
+              <value>Quantum Science &amp; Technology</value>
+              <translations>
+                <translation lang="de">Quantum Science &amp; Technology</translation>
+                <translation lang="en">Quantum Science &amp; Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedName>
+            <displayedType coType="model-core.lib.model.langdata">
+              <value>Master of Science</value>
+              <translations>
+                <translation lang="de">Master of Science</translation>
+                <translation lang="en">Master of Science</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </displayedType>
+            <displayedCode>090</displayedCode>
+          </curriculumInfo>
+          <curriculumVersionIdentification>20201</curriculumVersionIdentification>
+          <dateRange>
+            <from coType="date">
+              <value>2020-10-01</value>
+            </from>
+          </dateRange>
+          <preconditions coType="model-core.lib.model.langdata">
+            <translations>
+              <translation lang="de"></translation>
+              <translation lang="en"></translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </preconditions>
+          <examCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</examCurriculumContextConfiguration>
+          <courseCurriculumContextConfiguration>ALL_SUBJECT_ALLOWED</courseCurriculumContextConfiguration>
+          <supported>true</supported>
+        </curriculumVersionInfoDto>
+        <curriculumPositionPathDto>
+          <path>
+            <elementId>1799263</elementId>
+            <designation>20201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Quantum Science &amp; Technology</value>
+              <translations>
+                <translation lang="de">Quantum Science &amp; Technology</translation>
+                <translation lang="en">Quantum Science &amp; Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20201] Quantum Science &amp; Technology (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20201] Quantum Science &amp; Technology (SPO-Version)</translation>
+                <translation lang="en">[20201] Quantum Science &amp; Technology (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3OTkyNjM7</reference>
+          </path>
+          <path>
+            <elementId>1800674</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Course Phase</value>
+              <translations>
+                <translation lang="de">Studienphase</translation>
+                <translation lang="en">Course Phase</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Course Phase (Part of programme)</value>
+              <translations>
+                <translation lang="de">Studienphase (Abschnitt)</translation>
+                <translation lang="en">Course Phase (Part of programme)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_1</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <sorting>1</sorting>
+            <reference>U1BPOzE4MDA2NzQ7</reference>
+          </path>
+          <path>
+            <elementId>1800777</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Course Work</value>
+              <translations>
+                <translation lang="de">Studienleistungen</translation>
+                <translation lang="en">Course Work</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Course Work (Rule node)</value>
+              <translations>
+                <translation lang="de">Studienleistungen (Regelknoten)</translation>
+                <translation lang="en">Course Work (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <sorting>3</sorting>
+            <reference>U1BPOzE4MDA3Nzc7</reference>
+          </path>
+          <path>
+            <elementId>1800781</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer</translation>
+                <translation lang="en">General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>General-Education Subjects (Rule node)</value>
+              <translations>
+                <translation lang="de">Allgemeinbildende Fächer (Regelknoten)</translation>
+                <translation lang="en">General-Education Subjects (Rule node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <sorting>5</sorting>
+            <reference>U1BPOzE4MDA3ODE7</reference>
+          </path>
+          <path>
+            <elementId>1800782</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer</translation>
+                <translation lang="en">Catalog of General-Education Subjects</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Catalog of General-Education Subjects (Rule node - Elective subject)</value>
+              <translations>
+                <translation lang="de">Katalog für allgemeinbildende Fächer (Regelknoten - Wahlfach)</translation>
+                <translation lang="en">Catalog of General-Education Subjects (Rule node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_5</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MDA3ODI7</reference>
+          </path>
+          <path>
+            <elementId>1801563</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MDE1NjM7</reference>
+          </path>
+          <path>
+            <elementId>3770221</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMjE7</reference>
+          </path>
+          <front>
+            <elementId>1799263</elementId>
+            <designation>20201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Quantum Science &amp; Technology</value>
+              <translations>
+                <translation lang="de">Quantum Science &amp; Technology</translation>
+                <translation lang="en">Quantum Science &amp; Technology</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[20201] Quantum Science &amp; Technology (Curriculum version)</value>
+              <translations>
+                <translation lang="de">[20201] Quantum Science &amp; Technology (SPO-Version)</translation>
+                <translation lang="en">[20201] Quantum Science &amp; Technology (Curriculum version)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_0</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE3OTkyNjM7</reference>
+          </front>
+          <back>
+            <elementId>1801563</elementId>
+            <designation>WI000201</designation>
+            <name coType="model-core.lib.model.langdata">
+              <value>Forest Economics</value>
+              <translations>
+                <translation lang="de">Forstliche Betriebswirtschaftslehre</translation>
+                <translation lang="en">Forest Economics</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>[WI000201] Forest Economics (Module node - Elective subject)</value>
+              <translations>
+                <translation lang="de">[WI000201] Forstliche Betriebswirtschaftslehre (Modulknoten - Wahlfach)</translation>
+                <translation lang="en">[WI000201] Forest Economics (Module node - Elective subject)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_3</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzE4MDE1NjM7</reference>
+          </back>
+          <back>
+            <elementId>3770221</elementId>
+            <name coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement</translation>
+                <translation lang="en">Economics for Forest and Resource Management</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </name>
+            <description coType="model-core.lib.model.langdata">
+              <value>Economics for Forest and Resource Management (Offer node)</value>
+              <translations>
+                <translation lang="de">Ökonomie für Forst- und Ressourcenmanagement (Angebotsknoten)</translation>
+                <translation lang="en">Economics for Forest and Resource Management (Offer node)</translation>
+                <translation lang="fr"></translation>
+                <translation lang="it"></translation>
+              </translations>
+            </description>
+            <iconName>stp_4</iconName>
+            <validFrom coType="date">
+              <value>2020-10-01</value>
+            </validFrom>
+            <reference>U1BPOzM3NzAyMjE7</reference>
+          </back>
+        </curriculumPositionPathDto>
+        <semesterRecommendationDto xsi:type="model-slc.lib.cm.curriculumposition.coSemesterRecommendationDefaultDto">
+          <type>DEFAULT</type>
+          <shortName coType="model-core.lib.model.langdata">
+            <value>-</value>
+            <translations>
+              <translation lang="de">-</translation>
+              <translation lang="en">-</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </shortName>
+          <description coType="model-core.lib.model.langdata">
+            <value>no semester recommended</value>
+            <translations>
+              <translation lang="de">keine Semesterempfehlung</translation>
+              <translation lang="en">no semester recommended</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </description>
+          <sort>100</sort>
+          <key>KA</key>
+        </semesterRecommendationDto>
+        <subjectTypeDto>
+          <value coType="model-core.lib.model.langdata">
+            <value>Elective subject</value>
+            <translations>
+              <translation lang="de">Wahlfach</translation>
+              <translation lang="en">Elective subject</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </value>
+        </subjectTypeDto>
+        <preconditionDto>
+          <precondition>false</precondition>
+          <text coType="model-core.lib.model.langdata">
+            <value>none</value>
+            <translations>
+              <translation lang="de">keine</translation>
+              <translation lang="en">none</translation>
+              <translation lang="fr"></translation>
+              <translation lang="it"></translation>
+            </translations>
+          </text>
+        </preconditionDto>
+        <validFrom coType="date">
+          <value>2020-10-01</value>
+        </validFrom>
+      </coCurriculumPositionDto>
+    </content>
+  </resource>
+</resources>

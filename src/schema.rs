@@ -20,6 +20,8 @@ diesel::table! {
         name_de -> Varchar,
         semester -> Varchar,
         curriculum -> Varchar,
+        faculty -> Varchar,
+        ects -> Float8,
     }
 }
 

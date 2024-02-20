@@ -3,7 +3,6 @@ use std::env;
 use std::str::FromStr;
 
 use chrono::NaiveTime;
-use chrono::Weekday;
 
 use super::TumApiError;
 use super::TumXmlError;
@@ -11,7 +10,7 @@ use super::TumXmlNode;
 
 #[derive(Debug)]
 pub struct Appointment {
-    pub weekdays: Vec<Weekday>,
+    pub weekdays: Vec<String>,
     pub from: NaiveTime,
     pub to: NaiveTime,
 }
@@ -33,10 +32,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
         let weekdays = appointment_series_node
             .get_all_nodes("weekday")
             .filter_map(|n| n.get_translations().ok())
-            .filter_map(|(_, t)| {
-                println!("{:#?}", t);
-                Weekday::from_str(&t).ok()
-            })
+            .map(|(_, w)| w)
             .collect();
 
         let app = Appointment {
@@ -51,8 +47,6 @@ impl TryFrom<TumXmlNode<'_, '_>> for Appointment {
 
 impl Appointment {
     fn read_all_from_page(xml: String) -> Result<Vec<Appointment>, TumApiError> {
-        let document = Document::parse(&xml)?;
-
         let mut appointments: Vec<Appointment> = vec![];
         let document = Document::parse(&xml)?;
         println!("Got valid document");
@@ -74,7 +68,7 @@ impl AppointmentEndpoint {
 
     pub async fn get_recurring_by_id(
         &self,
-        course_id: String,
+        course_id: &String,
     ) -> Result<Vec<Appointment>, TumApiError> {
         println!("Requesting appointement for {}", course_id);
         let request_url = format!("{}{}", self.base_request_url, course_id);
