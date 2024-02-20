@@ -16,6 +16,8 @@ CREATE TABLE lecture (
     name_de varchar NOT NULL,
     semester varchar NOT NULL,
     curriculum varchar NOT NULL REFERENCES curriculum (id),
+    faculty varchar NOT NULL,
+    ects float NOT NULL,
     PRIMARY KEY (id, start_time, weekday, curriculum)
 );
 
