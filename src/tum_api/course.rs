@@ -3,8 +3,7 @@ use std::{env, fs::File};
 
 use roxmltree::Document;
 
-use crate::db::lecture::Lecture;
-use crate::{db, utils::element_has_name};
+use crate::tum_api::lecture::Lecture;
 
 use super::appointment::AppointmentEndpoint;
 use super::{TumApiError, TumXmlError, TumXmlNode};
@@ -49,20 +48,15 @@ impl TryFrom<TumXmlNode<'_, '_>> for Course {
 
 impl Course {
     fn read_all_from_page(xml: String) -> Result<Vec<Course>, TumApiError> {
-        let document = Document::parse(&xml)?;
-
         let mut result = vec![];
-        let mut some_resource_element = document
-            .root_element()
-            .descendants()
-            .filter(|n| element_has_name(n, "resource"))
-            .next();
+        let document = Document::parse(&xml)?;
+        let root_element = TumXmlNode(document.root_element());
+
         // println!("{:#?}", some_resource_element.unwrap().tag_name().name());
-        while let Some(resource_element) = some_resource_element {
-            let basic_data = Self::try_from(TumXmlNode(resource_element))?;
-            println!("{:#?}", basic_data);
-            result.push(basic_data);
-            some_resource_element = resource_element.next_sibling_element();
+        for resource_element in root_element.resource_elements() {
+            let course = Self::try_from(resource_element)?;
+            println!("{:#?}", course);
+            result.push(course);
         }
         // println!("{:#?}", result.len());
         Ok(result)

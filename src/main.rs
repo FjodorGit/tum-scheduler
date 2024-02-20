@@ -6,8 +6,8 @@ use std::{fmt::write, fs::File};
 use tum_api::course::Course;
 use tum_api::curriculum::Curriculum;
 
-use db::db_setup::DbError;
-use db::lecture::Lecture;
+use crate::tum_api::lecture::Lecture;
+use db_setup::DbError;
 use diesel::QueryDsl;
 use diesel::{Insertable, RunQueryDsl};
 use dotenv::dotenv;
@@ -17,10 +17,9 @@ use tokio;
 
 use crate::tum_api::appointment::AppointmentEndpoint;
 
-pub mod db;
+pub mod db_setup;
 pub mod schema;
 pub mod tum_api;
-pub mod utils;
 
 const IDS_FILE_NAME: &str = "ids.txt";
 

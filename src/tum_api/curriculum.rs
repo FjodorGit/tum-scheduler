@@ -1,6 +1,6 @@
 use std::env;
 
-use crate::{db, schema::curriculum};
+use crate::schema::curriculum;
 use anyhow::Result;
 use diesel::RunQueryDsl;
 use diesel::{deserialize::Queryable, prelude::Insertable};
@@ -36,7 +36,6 @@ impl TryFrom<TumXmlNode<'_, '_>> for Curriculum {
 
 impl Curriculum {
     fn read_all_from_page(xml: String) -> Result<Vec<Curriculum>, TumApiError> {
-        let document = Document::parse(&xml)?;
         let mut curricula: Vec<Curriculum> = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode(document.root_element());

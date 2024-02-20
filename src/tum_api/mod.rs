@@ -1,4 +1,3 @@
-use crate::utils::element_has_name;
 use roxmltree::{Document, Node};
 use thiserror::Error;
 
@@ -6,6 +5,7 @@ pub mod appointment;
 pub mod course;
 pub mod course_variant;
 pub mod curriculum;
+pub mod lecture;
 
 pub struct TumXmlNode<'a, 'input>(Node<'a, 'input>);
 
@@ -122,4 +122,8 @@ impl TumXmlNode<'_, '_> {
             )))?;
         Ok((name_de.to_owned(), name_en.to_owned()))
     }
+}
+
+pub fn element_has_name(node: &Node<'_, '_>, name: &str) -> bool {
+    node.is_element() && node.tag_name().name() == name
 }
