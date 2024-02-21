@@ -1,6 +1,6 @@
 use crate::{db_setup::DbError, schema::lecture};
 use chrono::NaiveTime;
-use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection};
+use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl};
 
 use super::{
     appointment::{self, Appointment},
@@ -48,9 +48,20 @@ impl Lecture {
                 faculty: variant.facultiy.to_owned(),
                 ects,
             };
-            println!("{:#?}", lecture);
+            // println!("{:#?}", lecture);
             lectures.push(lecture);
         }
         lectures
+    }
+
+    pub fn insert(conn: &mut PgConnection, lectures: Vec<Self>) -> Result<(), DbError> {
+        use crate::schema::lecture::dsl::*;
+
+        diesel::insert_into(lecture)
+            .values(lectures)
+            .on_conflict_do_nothing()
+            .execute(conn)
+            .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
+        Ok(())
     }
 }

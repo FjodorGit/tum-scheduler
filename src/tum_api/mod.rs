@@ -1,6 +1,8 @@
 use roxmltree::{Document, Node};
 use thiserror::Error;
 
+use crate::db_setup;
+
 pub mod appointment;
 pub mod course;
 pub mod course_variant;
@@ -10,13 +12,15 @@ pub mod lecture;
 pub struct TumXmlNode<'a, 'input>(Node<'a, 'input>);
 
 #[derive(Debug, Error)]
-pub enum TumApiError {
+pub enum DataAquisitionError {
     #[error("Failed to parse resource node: {0}")]
     NodeParseError(#[from] TumXmlError),
     #[error("Failed to parse response document")]
     DocumentParseError(#[from] roxmltree::Error),
     #[error("Failed to request course basic data")]
     RequestError(#[from] reqwest::Error),
+    #[error("Failed interact with database `{0}`")]
+    DbError(#[from] db_setup::DbError),
 }
 
 #[derive(Debug, Error)]

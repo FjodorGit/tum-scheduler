@@ -1,17 +1,21 @@
-use diesel::pg::PgConnection;
 use diesel::r2d2::ConnectionManager;
+use diesel::RunQueryDsl;
+use diesel::{pg::PgConnection, query_dsl::methods::SelectDsl};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use lazy_static::lazy_static;
-use r2d2;
 use std::env;
 use thiserror::Error;
+
+use crate::schema::{self};
 
 #[derive(Error, Debug)]
 pub enum DbError {
     #[error("Could not establish connection to database")]
     InvalidConnection,
-    #[error("Could not insert `{0}` into database")]
+    #[error("Could not insert {0} into database")]
     InsertionFailed(String),
+    #[error("Could not query {0} from database")]
+    QueryError(String),
 }
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
@@ -36,4 +40,14 @@ pub fn init() {
 
 pub fn connection() -> Result<DbConnection, DbError> {
     POOL.get().map_err(|_| DbError::InvalidConnection)
+}
+
+pub fn get_all_lecture_ids(conn: &mut PgConnection) -> Result<Vec<String>, DbError> {
+    use schema::lecture::dsl::*;
+
+    let query_result = lecture
+        .select(id)
+        .load(conn)
+        .map_err(|e| DbError::QueryError(e.to_string()))?;
+    Ok(query_result)
 }
