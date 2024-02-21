@@ -4,7 +4,7 @@ use roxmltree::Document;
 
 use crate::tum_api::lecture::Lecture;
 
-use super::{TumApiError, TumXmlError, TumXmlNode};
+use super::{DataAquisitionError, TumXmlError, TumXmlNode};
 
 #[derive(Debug)]
 pub struct Course {
@@ -51,7 +51,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for Course {
 }
 
 impl Course {
-    fn read_all_from_page(xml: String) -> Result<Vec<Course>, TumApiError> {
+    fn read_all_from_page(xml: String) -> Result<Vec<Course>, DataAquisitionError> {
         let mut result = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode(document.root_element());
@@ -59,31 +59,32 @@ impl Course {
         // println!("{:#?}", some_resource_element.unwrap().tag_name().name());
         for resource_element in root_element.resource_elements() {
             let course = Self::try_from(resource_element)?;
-            println!("{:#?}", course);
+            // println!("{:#?}", course);
             result.push(course);
         }
         // println!("{:#?}", result.len());
         Ok(result)
     }
 
-    pub async fn build_lectues(&self) -> Result<Vec<Lecture>, TumApiError> {
+    pub async fn build_lectues(&self) -> Result<Vec<Lecture>, DataAquisitionError> {
         todo!()
     }
 }
 
 impl CourseEndpoint {
-    pub fn new() -> Self {
-        let base_request_url =
-            env::var("BASE_URL_IDS").expect("BASE_URL_IDS should exist in environment variables");
+    pub fn new(semester_id: &str) -> Self {
+        let base_url = env::var("BASE_COURSES_URL")
+            .expect("BASE_COURSES_URL should exist in environment variables");
+        let base_request_url = format!("{}{}&$skip=", base_url, semester_id);
         Self {
             base_request_url,
             current_page: 0,
         }
     }
 
-    pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, TumApiError> {
+    pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, DataAquisitionError> {
         let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
-        println!("url {:#?}", request_url);
+        println!("request_url: {}", request_url);
         let request_result = reqwest::get(request_url).await?;
         let xml = request_result.text().await?;
         let courses = Course::read_all_from_page(xml)?;

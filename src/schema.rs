@@ -5,6 +5,7 @@ diesel::table! {
         id -> Varchar,
         name_en -> Varchar,
         name_de -> Varchar,
+        semester -> Varchar,
     }
 }
 

@@ -2,7 +2,8 @@
 CREATE TABLE curriculum (
     id varchar NOT NULL PRIMARY KEY,
     name_en varchar NOT NULL,
-    name_de varchar NOT NULL
+    name_de varchar NOT NULL,
+    semester varchar NOT NULL
 );
 
 CREATE TABLE lecture (

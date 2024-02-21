@@ -1,4 +1,4 @@
-BASE_URL_IDS="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses?\$top=100&\$skip="
+BASE_COURSES_URL="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses?\$top=100&\$filter=termId-eq="
 APPOINTMENT_URL="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courseGroups/firstGroups/"
-CURRICULUM_URL="https://campus.tum.de/tumonline/ee/rest/slc.cm.cs.student/curricula/199"
+CURRICULUM_URL="https://campus.tum.de/tumonline/ee/rest/slc.cm.cs.student/curricula"
 COURSE_VARIANTS_URL="https://campus.tum.de/tumonline/ee/rest/slc.cm.curriculumposition/positions/"
