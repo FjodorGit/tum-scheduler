@@ -41,13 +41,3 @@ pub fn init() {
 pub fn connection() -> Result<DbConnection, DbError> {
     POOL.get().map_err(|_| DbError::InvalidConnection)
 }
-
-pub fn get_all_lecture_ids(conn: &mut PgConnection) -> Result<Vec<String>, DbError> {
-    use schema::lecture::dsl::*;
-
-    let query_result = lecture
-        .select(id)
-        .load(conn)
-        .map_err(|e| DbError::QueryError(e.to_string()))?;
-    Ok(query_result)
-}

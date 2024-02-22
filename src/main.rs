@@ -1,6 +1,7 @@
 use std::thread::sleep;
 use std::time::Duration;
 
+use crate::tum_api::course::Course;
 use crate::tum_api::course_variant::CourseVariantEndpoint;
 use crate::tum_api::curriculum::{Curriculum, CurriculumEndpoint};
 use crate::tum_api::lecture::Lecture;
@@ -15,7 +16,7 @@ use crate::tum_api::appointment::AppointmentEndpoint;
 pub mod db_setup;
 pub mod schema;
 pub mod tum_api;
-use tracing::info;
+use tracing::{debug, info};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(thiserror::Error, Debug)]
@@ -60,21 +61,24 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
         Curriculum::insert(conn, curricula)?;
         info!("Updated all curricula")
     }
-    let lectures_in_db = db_setup::get_all_lecture_ids(conn)?;
+    let already_processed_courses = Course::get_all_ids(conn)?;
     info!(
-        "{} lectures are already in the database",
-        lectures_in_db.len()
+        "{} courses are already in the database",
+        already_processed_courses.len()
     );
     info!("Requesting all other lectures");
     loop {
         let courses = course_endpoint.fetch_next_page().await?;
+        debug!("courses len: {}", courses.len());
         if courses.len() == 0 {
             info!("Downloaded all courses for semester {}.", semester_id);
             break;
         }
         let mut courses_count = 0;
-        let courses = courses.iter().filter(|c| !lectures_in_db.contains(&c.id));
-        for course in courses.into_iter() {
+        let courses_to_process = courses
+            .iter()
+            .filter(|c| !already_processed_courses.contains(&c.id));
+        for course in courses_to_process.into_iter() {
             let appointments = appointment_endpoint.get_recurring_by_id(&course.id).await?;
             let variants = course_variant_endpoint.get_all_by_id(&course.id).await;
             if let Err(_) = &variants {
@@ -88,6 +92,7 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
                     Lecture::insert(conn, lectures)?;
                 }
             }
+            Course::insert(conn, course)?;
             info!("Finished downloading course {}", course.id);
             courses_count += 1;
             if courses_count % 100 == 0 {

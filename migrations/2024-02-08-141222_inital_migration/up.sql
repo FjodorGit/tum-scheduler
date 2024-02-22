@@ -6,6 +6,15 @@ CREATE TABLE curriculum (
     semester varchar NOT NULL
 );
 
+CREATE TABLE course (
+    id varchar NOT NULL PRIMARY KEY,
+    course_type varchar NOT NULL,
+    sws varchar NOT NULL,
+    name_en varchar NOT NULL,
+    name_de varchar NOT NULL,
+    semester varchar NOT NULL
+);
+
 CREATE TABLE lecture (
     id varchar NOT NULL,
     start_time time NOT NULL,

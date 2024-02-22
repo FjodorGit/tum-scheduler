@@ -1,6 +1,17 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
+    course (id) {
+        id -> Varchar,
+        course_type -> Varchar,
+        sws -> Varchar,
+        name_en -> Varchar,
+        name_de -> Varchar,
+        semester -> Varchar,
+    }
+}
+
+diesel::table! {
     curriculum (id) {
         id -> Varchar,
         name_en -> Varchar,
@@ -28,7 +39,4 @@ diesel::table! {
 
 diesel::joinable!(lecture -> curriculum (curriculum));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    curriculum,
-    lecture,
-);
+diesel::allow_tables_to_appear_in_same_query!(course, curriculum, lecture,);

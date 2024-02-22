@@ -3,3 +3,5 @@ DROP TABLE lecture;
 
 DROP TABLE curriculum;
 
+DROP TABLE course;
+

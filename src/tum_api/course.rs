@@ -1,12 +1,18 @@
-use std::{env, fs::File};
+use std::env;
 
+use diesel::{
+    deserialize::Queryable, prelude::Insertable, query_dsl::methods::SelectDsl, PgConnection,
+    RunQueryDsl,
+};
 use roxmltree::Document;
+use tracing::info;
 
-use crate::tum_api::lecture::Lecture;
+use crate::{db_setup::DbError, schema::course};
 
 use super::{DataAquisitionError, TumXmlError, TumXmlNode};
 
-#[derive(Debug)]
+#[derive(Debug, Queryable, Insertable)]
+#[diesel(table_name = course)]
 pub struct Course {
     pub id: String,
     pub course_type: String,
@@ -19,7 +25,7 @@ pub struct Course {
 #[derive(Debug)]
 pub struct CourseEndpoint {
     pub base_request_url: String,
-    pub current_page: u8,
+    pub current_page: u32,
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for Course {
@@ -66,8 +72,22 @@ impl Course {
         Ok(result)
     }
 
-    pub async fn build_lectues(&self) -> Result<Vec<Lecture>, DataAquisitionError> {
-        todo!()
+    pub fn insert(conn: &mut PgConnection, new_course: &Self) -> Result<(), DbError> {
+        use crate::schema::course::dsl::*;
+        diesel::insert_into(course)
+            .values(new_course)
+            .execute(conn)
+            .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
+        Ok(())
+    }
+
+    pub fn get_all_ids(conn: &mut PgConnection) -> Result<Vec<String>, DbError> {
+        use crate::schema::course::dsl::*;
+        let courses = course
+            .select(id)
+            .load(conn)
+            .map_err(|e| DbError::QueryError(e.to_string()))?;
+        Ok(courses)
     }
 }
 
@@ -84,7 +104,7 @@ impl CourseEndpoint {
 
     pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, DataAquisitionError> {
         let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
-        println!("request_url: {}", request_url);
+        info!("Fetching from page {}", self.current_page);
         let request_result = reqwest::get(request_url).await?;
         let xml = request_result.text().await?;
         let courses = Course::read_all_from_page(xml)?;
