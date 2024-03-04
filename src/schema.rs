@@ -37,6 +37,19 @@ diesel::table! {
     }
 }
 
+diesel::table! {
+    test1 (id) {
+        id -> Int4,
+        name -> Nullable<Text>,
+        events -> Nullable<Array<Nullable<Text>>>,
+    }
+}
+
 diesel::joinable!(lecture -> curriculum (curriculum));
 
-diesel::allow_tables_to_appear_in_same_query!(course, curriculum, lecture,);
+diesel::allow_tables_to_appear_in_same_query!(
+    course,
+    curriculum,
+    lecture,
+    test1,
+);

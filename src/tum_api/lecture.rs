@@ -1,16 +1,16 @@
 use crate::{db_setup::DbError, schema::lecture};
 use chrono::NaiveTime;
-use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl};
+use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 
 use super::{
-    appointment::{self, Appointment},
-    course::Course,
+    appointment::{self, Appointment, SingleAppointment},
+    course::CourseFromXml,
     course_variant::CourseVariant,
 };
 
-#[derive(Debug, Clone, Insertable, Queryable, PartialEq)]
+#[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = lecture)]
-pub struct Lecture {
+pub struct NewLecture {
     pub id: String,
     pub start_time: NaiveTime,
     pub end_time: NaiveTime,
@@ -25,8 +25,25 @@ pub struct Lecture {
     pub ects: f64,
 }
 
-impl Lecture {
-    pub fn build(course: &Course, appointment: &Appointment, variant: &CourseVariant) -> Vec<Self> {
+#[derive(Debug, Clone, Queryable, PartialEq, Selectable)]
+#[diesel(table_name = lecture)]
+pub struct LectureAppointment {
+    pub id: String,
+    pub start_time: NaiveTime,
+    pub end_time: NaiveTime,
+    pub weekday: String,
+    pub subject: String,
+    pub course_type: String,
+    pub name_en: String,
+    pub ects: f64,
+}
+
+impl NewLecture {
+    pub fn build(
+        course: &CourseFromXml,
+        appointment: &Appointment,
+        variant: &CourseVariant,
+    ) -> Vec<Self> {
         let mut lectures = vec![];
         for weekday in appointment.weekdays.iter() {
             let ects = course
@@ -63,5 +80,15 @@ impl Lecture {
             .execute(conn)
             .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
         Ok(())
+    }
+}
+
+impl LectureAppointment {
+    pub fn appointment(&self) -> SingleAppointment {
+        SingleAppointment {
+            from: self.start_time,
+            to: self.end_time,
+            weekday: self.weekday.clone(),
+        }
     }
 }

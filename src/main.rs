@@ -1,10 +1,11 @@
 use std::thread::sleep;
 use std::time::Duration;
 
-use crate::tum_api::course::Course;
+use crate::ip_schedular::test_grb;
+use crate::tum_api::course::CourseFromXml;
 use crate::tum_api::course_variant::CourseVariantEndpoint;
 use crate::tum_api::curriculum::{Curriculum, CurriculumEndpoint};
-use crate::tum_api::lecture::Lecture;
+use crate::tum_api::lecture::NewLecture;
 use crate::{db_setup::connection, tum_api::course::CourseEndpoint};
 use anyhow::Result;
 use db_setup::DbError;
@@ -14,6 +15,7 @@ use tum_api::DataAquisitionError;
 use crate::tum_api::appointment::AppointmentEndpoint;
 
 pub mod db_setup;
+pub mod ip_schedular;
 pub mod schema;
 pub mod tum_api;
 use tracing::{debug, info};
@@ -41,7 +43,9 @@ async fn main() -> Result<()> {
         .init();
 
     info!("Starting web server!");
-    aquire_lecture_data("199").await?;
+    test_grb()?;
+    // println!("{:#?}", week_in_15min_intervalls());
+    // aquire_lecture_data("199").await?;
     Ok(())
 }
 
@@ -61,7 +65,7 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
         Curriculum::insert(conn, curricula)?;
         info!("Updated all curricula")
     }
-    let already_processed_courses = Course::get_all_ids(conn)?;
+    let already_processed_courses = CourseFromXml::get_all_ids(conn)?;
     info!(
         "{} courses are already in the database",
         already_processed_courses.len()
@@ -88,11 +92,11 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
 
             for appointment in appointments.iter() {
                 for variant in variants.iter() {
-                    let lectures = Lecture::build(&course, appointment, variant);
-                    Lecture::insert(conn, lectures)?;
+                    let lectures = NewLecture::build(&course, appointment, variant);
+                    NewLecture::insert(conn, lectures)?;
                 }
             }
-            Course::insert(conn, course)?;
+            CourseFromXml::insert(conn, course)?;
             info!("Finished downloading course {}", course.id);
             courses_count += 1;
             if courses_count % 100 == 0 {

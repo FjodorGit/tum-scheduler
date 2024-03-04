@@ -13,7 +13,7 @@ use super::{DataAquisitionError, TumXmlError, TumXmlNode};
 
 #[derive(Debug, Queryable, Insertable)]
 #[diesel(table_name = course)]
-pub struct Course {
+pub struct CourseFromXml {
     pub id: String,
     pub course_type: String,
     pub sws: String,
@@ -28,7 +28,7 @@ pub struct CourseEndpoint {
     pub current_page: u32,
 }
 
-impl TryFrom<TumXmlNode<'_, '_>> for Course {
+impl TryFrom<TumXmlNode<'_, '_>> for CourseFromXml {
     type Error = TumXmlError;
     fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
         let id = resource_node.get_text_of_next("id")?;
@@ -44,7 +44,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for Course {
         let course_norm_node = resource_node.get_next("courseNormConfigs")?;
         let sws = course_norm_node.get_text_of_last("value")?;
 
-        let course_basic_data = Course {
+        let course_basic_data = CourseFromXml {
             id,
             course_type,
             sws,
@@ -56,8 +56,8 @@ impl TryFrom<TumXmlNode<'_, '_>> for Course {
     }
 }
 
-impl Course {
-    fn read_all_from_page(xml: String) -> Result<Vec<Course>, DataAquisitionError> {
+impl CourseFromXml {
+    fn read_all_from_page(xml: String) -> Result<Vec<CourseFromXml>, DataAquisitionError> {
         let mut result = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode(document.root_element());
@@ -102,12 +102,12 @@ impl CourseEndpoint {
         }
     }
 
-    pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, DataAquisitionError> {
+    pub async fn fetch_next_page(&mut self) -> Result<Vec<CourseFromXml>, DataAquisitionError> {
         let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
         info!("Fetching from page {}", self.current_page);
         let request_result = reqwest::get(request_url).await?;
         let xml = request_result.text().await?;
-        let courses = Course::read_all_from_page(xml)?;
+        let courses = CourseFromXml::read_all_from_page(xml)?;
         self.current_page += 1;
         Ok(courses)
     }
@@ -117,13 +117,14 @@ impl CourseEndpoint {
 mod test {
     use std::fs;
 
-    use crate::tum_api::course::Course;
+    use crate::tum_api::course::CourseFromXml;
 
     #[test]
     fn test_reading_courses_page() {
         let test_xml: String = fs::read_to_string("test_xmls/course.xml")
             .expect("Should be able to read course test file");
-        let courses = Course::read_all_from_page(test_xml).expect("should be able to read courses");
+        let courses =
+            CourseFromXml::read_all_from_page(test_xml).expect("should be able to read courses");
         assert_eq!(courses.len(), 100);
     }
 }

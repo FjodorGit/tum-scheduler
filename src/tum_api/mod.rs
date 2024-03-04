@@ -8,6 +8,7 @@ pub mod course;
 pub mod course_variant;
 pub mod curriculum;
 pub mod lecture;
+pub mod subject_appointments;
 
 pub struct TumXmlNode<'a, 'input>(Node<'a, 'input>);
 
