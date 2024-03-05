@@ -9,9 +9,9 @@ use diesel::PgConnection;
 use super::lecture::LectureAppointment;
 
 pub struct FilterSettings {
-    subject: Option<String>,
-    faculty: Option<String>,
-    curriculum: Option<String>,
+    pub subject: Option<String>,
+    pub faculty: Option<String>,
+    pub curriculum: Option<String>,
 }
 
 #[derive(Debug)]
@@ -25,8 +25,6 @@ impl CourseSelection {
     pub fn takes_place_on(&self, weekday: &String) -> bool {
         self.appointments.iter().any(|a| a.weekday == *weekday)
     }
-
-    pub fn build_from_db() {}
 
     pub fn weekdays(&self) -> impl Iterator<Item = String> + '_ {
         self.appointments
@@ -87,23 +85,34 @@ impl CourseSelection {
                 }
             }
 
-            if vis.len() != 0 && ues.len() == 0 && vos.len() != 0 {
+            if vis.len() != 0 && ues.len() != 0 && vos.len() != 0 {
                 println!("Messed up subject {:#?}", subject)
             }
-            // let mut course_selection_for_subject =
-            //     Self::course_selection_from_course_groups(vos, vis, ues);
+            let mut ects = 0.;
+            if let Some(c) = vos.get(0) {
+                ects += c.ects;
+            }
+            if let Some(c) = vis.get(0) {
+                ects += c.ects;
+            }
+            if let Some(c) = ues.get(0) {
+                ects += c.ects;
+            }
+            ects = f64::ceil(ects);
+            let lectures = [vos, vis].concat();
+            let mut course_selection_for_subject =
+                Self::course_selection_from_course_groups(lectures, ues, ects);
             // println!(
             //     "Course selection for subject: {:#?}",
             //     course_selection_for_subject
             // );
-            // course_choices.append(&mut course_selection_for_subject);
+            course_choices.append(&mut course_selection_for_subject);
         }
         course_choices
     }
 
-    fn from_teaching_lectures(lec: Vec<&LectureAppointment>) -> Self {
+    fn from_teaching_lectures(lec: &Vec<&LectureAppointment>, ects: &f64) -> Self {
         let name = lec[0].subject.to_owned();
-        let ects = lec[0].ects;
         let appointments = lec
             .into_iter()
             .map(|l| SingleAppointment {
@@ -115,11 +124,11 @@ impl CourseSelection {
         CourseSelection {
             name,
             appointments,
-            ects: f64::ceil(ects),
+            ects: f64::ceil(*ects),
         }
     }
 
-    fn from_exercise_lectures(lec: Vec<&LectureAppointment>) -> Vec<Self> {
+    fn from_exercise_lectures(lec: &Vec<&LectureAppointment>, ects: &f64) -> Vec<Self> {
         lec.into_iter()
             .map(|l| {
                 let name = l.subject.to_owned();
@@ -132,19 +141,19 @@ impl CourseSelection {
                 Self {
                     name,
                     appointments: vec![appointment],
-                    ects: f64::ceil(ects),
+                    ects,
                 }
             })
             .collect_vec()
     }
 
     fn from_lecture_with_exercises(
-        lec: Vec<&LectureAppointment>,
-        exer: Vec<&LectureAppointment>,
+        lec: &Vec<&LectureAppointment>,
+        exer: &Vec<&LectureAppointment>,
+        ects: &f64,
     ) -> Vec<Self> {
         let mut selections = vec![];
         let name = &lec[0].subject;
-        let ects = lec[0].ects;
         let teaching_appointments = lec
             .into_iter()
             .map(|l| SingleAppointment {
@@ -160,7 +169,7 @@ impl CourseSelection {
             let selection = CourseSelection {
                 name: name.to_owned(),
                 appointments,
-                ects: f64::ceil(ects + ex.ects),
+                ects: *ects,
             };
             selections.push(selection);
         }
@@ -168,34 +177,20 @@ impl CourseSelection {
     }
 
     fn course_selection_from_course_groups<'a>(
-        vos: Vec<&'a LectureAppointment>,
-        vis: Vec<&'a LectureAppointment>,
-        ues: Vec<&'a LectureAppointment>,
+        lec: Vec<&'a LectureAppointment>,
+        exec: Vec<&'a LectureAppointment>,
+        ects: f64,
     ) -> Vec<CourseSelection> {
-        match (vos.len(), vis.len(), ues.len()) {
-            (0, 0, 0) => vec![],
-            (_, 0, 0) => {
-                let selection = Self::from_teaching_lectures(vos);
-                vec![selection]
-            }
-            (0, _, 0) => {
-                let selection = Self::from_teaching_lectures(vis);
-                vec![selection]
-            }
-            (0, 0, _) => Self::from_exercise_lectures(ues),
-            (0, _, _) => Self::from_lecture_with_exercises(vis, ues),
-            (_, 0, _) => Self::from_lecture_with_exercises(vos, ues),
-            (_, _, 0) => {
-                vos[0].ects = vos[0].ects + vis[0].ects;
-                let teaching_lectures = [vos, vis].concat();
-                let selection = Self::from_teaching_lectures(teaching_lectures);
-                vec![selection]
-            }
-            (_, _, _) => {
-                let teaching_lectures = [vos, vis].concat();
-                Self::from_lecture_with_exercises(teaching_lectures, ues)
-            }
+        match (lec.len(), exec.len()) {
+            (0, 0) => vec![],
+            (0, _) => Self::from_exercise_lectures(&exec, &ects),
+            (_, 0) => Self::from_teaching_lectures(&lec, &ects).to_vec(),
+            (_, _) => Self::from_lecture_with_exercises(&lec, &exec, &ects),
         }
+    }
+
+    fn to_vec(self) -> Vec<Self> {
+        vec![self]
     }
 }
 
@@ -212,7 +207,7 @@ mod test {
         dotenv().ok();
         let filters = super::FilterSettings {
             subject: None,
-            faculty: None,
+            faculty: None, //Some("IN".to_string()),
             curriculum: None,
         };
         let conn = &mut connection().expect("should be able to establish connection");

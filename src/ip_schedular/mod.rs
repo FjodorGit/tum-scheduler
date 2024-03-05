@@ -6,7 +6,9 @@ use std::fmt::Display;
 use std::io::Read;
 
 use crate::tum_api::{
-    appointment::SingleAppointment, lecture::NewLecture, subject_appointments::CourseSelection,
+    appointment::SingleAppointment,
+    lecture::NewLecture,
+    subject_appointments::{CourseSelection, FilterSettings},
 };
 use chrono::{Duration, NaiveTime};
 use grb::{add_binvar, c, expr::LinExpr, param, Env, Expr, Model, Var, VarType::Binary};
@@ -43,21 +45,21 @@ impl SchedulingProblem {
         }
     }
 
-    pub fn add_subjects(
+    pub fn add_courses(
         &mut self,
-        subject_aps: Vec<CourseSelection>,
+        subject_aps: &Vec<CourseSelection>,
     ) -> Result<(), SchedularError> {
         let mut vars_count = 0;
         for subject_ap in subject_aps.into_iter() {
-            self.add_subject_schedule(subject_ap, vars_count)?;
+            self.add_course(subject_ap, vars_count)?;
             vars_count += 1;
         }
         Ok(())
     }
 
-    pub fn add_subject_schedule(
+    pub fn add_course(
         &mut self,
-        subject_schedule: CourseSelection,
+        subject_schedule: &CourseSelection,
         schedule_num: i32,
     ) -> Result<(), SchedularError> {
         let appointment_var_name = format!("{}_v{}", subject_schedule.name, schedule_num);
@@ -106,7 +108,7 @@ impl SchedulingProblem {
         }
     }
 
-    pub fn solve(&mut self) -> Result<(), SchedularError> {
+    pub fn solve(&mut self) -> Result<Vec<f64>, SchedularError> {
         // let mut env = Env::new("schedular.log").expect("should be able to init env");
         // env.set(param::LogToConsole, 0)
         //     .expect("should be able to init logger");
@@ -126,14 +128,14 @@ impl SchedulingProblem {
             self.model.add_constr(constr, expr)?;
         }
         self.model
-            .add_constr("min_ects", c!(self.min_amount_ects.clone() >= 13))?;
+            .add_constr("min_ects", c!(self.min_amount_ects.clone() >= 24))?;
         self.model.update()?;
         println!("Writing model to file");
         self.model.write("schedular.lp")?;
         self.model.optimize()?;
         let vals = self.model.get_obj_attr_batch(attr::X, self.vars.clone())?;
         println!("{:#?}", vals);
-        Ok(())
+        Ok(vals)
     }
 }
 
@@ -142,8 +144,23 @@ pub fn test_grb() -> Result<(), SchedularError> {
     use crate::db_setup::connection;
     let conn = &mut connection().expect("should be able to establish connection to db");
     let mut scheduling_problem = SchedulingProblem::new();
-    for subject in ["MA3080", "MA3205", "MA3442", "MA4804", "CIT4100003"] {}
-    scheduling_problem.solve()?;
+
+    let filters = FilterSettings {
+        subject: None,
+        faculty: Some("MA".to_string()),
+        curriculum: Some("5244".to_string()),
+    };
+    let possible_lectures = CourseSelection::addmissiable_lectures(conn, filters)
+        .expect("should be able to request possible lectures");
+    let course_selections = CourseSelection::build_from_lectures(possible_lectures);
+    scheduling_problem.add_courses(&course_selections)?;
+    let solution = scheduling_problem.solve()?;
+    let resulting_courses: Vec<CourseSelection> = course_selections
+        .into_iter()
+        .zip(solution.iter())
+        .filter_map(|(value, &mask)| if mask == 1. { Some(value) } else { None })
+        .collect();
+    println!("Result: {:#?}", resulting_courses);
     Ok(())
 }
 
