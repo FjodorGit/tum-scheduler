@@ -9,7 +9,7 @@ use tracing::info;
 
 use crate::{db_setup::DbError, schema::course};
 
-use super::{DataAquisitionError, TumXmlError, TumXmlNode};
+use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
 #[derive(Debug, Queryable, Insertable)]
 #[diesel(table_name = course)]
@@ -60,7 +60,7 @@ impl CourseFromXml {
     fn read_all_from_page(xml: String) -> Result<Vec<CourseFromXml>, DataAquisitionError> {
         let mut result = vec![];
         let document = Document::parse(&xml)?;
-        let root_element = TumXmlNode(document.root_element());
+        let root_element = TumXmlNode::new(document.root_element());
 
         // println!("{:#?}", some_resource_element.unwrap().tag_name().name());
         for resource_element in root_element.resource_elements() {

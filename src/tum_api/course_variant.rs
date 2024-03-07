@@ -3,7 +3,7 @@ use std::env;
 use reqwest::Client;
 use roxmltree::Document;
 
-use super::{DataAquisitionError, TumXmlError, TumXmlNode};
+use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
 #[derive(Debug)]
 pub struct CourseVariant {
@@ -41,7 +41,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseVariant {
 impl CourseVariant {
     fn read_all_from_page(xml: String) -> Result<Vec<CourseVariant>, DataAquisitionError> {
         let document = Document::parse(&xml)?;
-        let root_element = TumXmlNode(document.root_element());
+        let root_element = TumXmlNode::new(document.root_element());
 
         let mut variants = vec![];
         for resource_elem in root_element.resource_elements() {

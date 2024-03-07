@@ -1,11 +1,11 @@
 use std::thread::sleep;
 use std::time::Duration;
 
-use crate::ip_schedular::test_grb;
+use crate::schedular::scheduling_problem::test_grb;
 use crate::tum_api::course::CourseFromXml;
 use crate::tum_api::course_variant::CourseVariantEndpoint;
 use crate::tum_api::curriculum::{Curriculum, CurriculumEndpoint};
-use crate::tum_api::lecture::NewLecture;
+use crate::tum_api::lecture::LectureFromXml;
 use crate::{db_setup::connection, tum_api::course::CourseEndpoint};
 use anyhow::Result;
 use db_setup::DbError;
@@ -15,7 +15,7 @@ use tum_api::DataAquisitionError;
 use crate::tum_api::appointment::AppointmentEndpoint;
 
 pub mod db_setup;
-pub mod ip_schedular;
+pub mod schedular;
 pub mod schema;
 pub mod tum_api;
 use tracing::{debug, info};
@@ -92,8 +92,8 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
 
             for appointment in appointments.iter() {
                 for variant in variants.iter() {
-                    let lectures = NewLecture::build(&course, appointment, variant);
-                    NewLecture::insert(conn, lectures)?;
+                    let lectures = LectureFromXml::build(&course, appointment, variant);
+                    LectureFromXml::insert(conn, lectures)?;
                 }
             }
             CourseFromXml::insert(conn, course)?;

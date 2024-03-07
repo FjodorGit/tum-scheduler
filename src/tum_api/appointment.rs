@@ -4,9 +4,9 @@ use std::str::FromStr;
 
 use chrono::NaiveTime;
 
+use super::tum_xml_node::TumXmlNode;
 use super::DataAquisitionError;
 use super::TumXmlError;
-use super::TumXmlNode;
 
 #[derive(Debug)]
 pub struct AppointmentFromXml {
@@ -63,7 +63,7 @@ impl AppointmentFromXml {
     fn read_all_from_page(xml: String) -> Result<Vec<AppointmentFromXml>, DataAquisitionError> {
         let mut appointments: Vec<AppointmentFromXml> = vec![];
         let document = Document::parse(&xml)?;
-        let root_element = TumXmlNode(document.root_element());
+        let root_element = TumXmlNode::new(document.root_element());
         for appointment_series_element in root_element.get_all_nodes("appointmentSeriesDtos") {
             let appointment = AppointmentFromXml::try_from(appointment_series_element)?;
             appointments.push(appointment);

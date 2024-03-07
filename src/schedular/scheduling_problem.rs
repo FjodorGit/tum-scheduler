@@ -1,29 +1,18 @@
+use super::{
+    settings::{ConstraintSettings, SolutionObjective},
+    WEEKDAYS,
+};
 use grb::prelude::*;
-use std::array;
-use std::cmp::Ordering;
 use std::collections::HashMap;
-use std::fmt::Display;
-use std::io::Read;
 
 use crate::tum_api::{
     appointment::SingleAppointment,
-    lecture::NewLecture,
     subject_appointments::{CourseSelection, FilterSettings},
 };
-use chrono::{Duration, NaiveTime};
-use grb::{add_binvar, c, expr::LinExpr, param, Env, Expr, Model, Var, VarType::Binary};
-use thiserror::Error;
+use chrono::Duration;
+use grb::{c, expr::LinExpr};
 
-pub const NUM_INTERVALS_PER_WEEK: usize = 355;
-pub const NUM_INTERVALS_PER_DAY: usize = 71; // from 6:00 to 23:45
-pub const NUM_DAYS_PER_WEEK: usize = 5;
-pub const WEEKDAYS: [&str; 5] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-
-#[derive(Error, Debug)]
-pub enum SchedularError {
-    #[error("Failed to add vairiable {0}")]
-    VariableAddingError(#[from] grb::Error),
-}
+use super::SchedularError;
 
 pub struct SchedulingProblem {
     model: Model,
@@ -32,17 +21,6 @@ pub struct SchedulingProblem {
     on_weekday_vars: HashMap<String, Vec<Var>>,
     interval_exprs: HashMap<String, LinExpr>,
     amount_ects: LinExpr,
-}
-
-pub struct ConstraintSettings {
-    min_num_ects: Option<i32>,
-    max_num_days: Option<i32>,
-}
-
-pub enum SolutionObjective {
-    NoObjective,
-    MinimizeNumCourses,
-    MaximizeNumEcts,
 }
 
 impl SchedulingProblem {
@@ -76,7 +54,6 @@ impl SchedulingProblem {
         schedule_num: i32,
     ) -> Result<(), SchedularError> {
         let appointment_var_name = format!("{}_v{}", subject_schedule.abbr, schedule_num);
-        println!("Name {}", appointment_var_name);
         let appointment_var = self
             .model
             .add_var(&appointment_var_name, Binary, 0., 0., 1., [])?;
@@ -87,7 +64,6 @@ impl SchedulingProblem {
         }
 
         for weekday in subject_schedule.weekdays() {
-            println!("Takes place on {}", weekday);
             self.add_weekday(appointment_var, weekday)
         }
 
@@ -242,17 +218,8 @@ pub fn test_grb() -> Result<(), SchedularError> {
 
 #[cfg(test)]
 mod test {
-    use std::str::FromStr;
 
-    use chrono::NaiveTime;
-
-    use crate::{
-        db_setup::connection,
-        tum_api::{
-            lecture::NewLecture,
-            subject_appointments::{self},
-        },
-    };
+    use crate::db_setup::connection;
 
     use super::SchedulingProblem;
 

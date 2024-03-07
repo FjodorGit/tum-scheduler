@@ -8,7 +8,7 @@ use diesel::{
 };
 use roxmltree::Document;
 
-use super::{DataAquisitionError, TumXmlError, TumXmlNode};
+use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
 #[derive(Debug, Insertable, Queryable)]
 #[diesel(table_name = curriculum)]
@@ -41,7 +41,7 @@ impl Curriculum {
     ) -> Result<Vec<Curriculum>, DataAquisitionError> {
         let mut curricula: Vec<Curriculum> = vec![];
         let document = Document::parse(&xml)?;
-        let root_element = TumXmlNode(document.root_element());
+        let root_element = TumXmlNode::new(document.root_element());
         for resource_element in root_element.resource_elements() {
             let appointment = Curriculum::from_xml(resource_element, semester)?;
             curricula.push(appointment);

@@ -1,12 +1,9 @@
+use diesel::pg::PgConnection;
 use diesel::r2d2::ConnectionManager;
-use diesel::RunQueryDsl;
-use diesel::{pg::PgConnection, query_dsl::methods::SelectDsl};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use lazy_static::lazy_static;
 use std::env;
 use thiserror::Error;
-
-use crate::schema::{self};
 
 #[derive(Error, Debug)]
 pub enum DbError {

@@ -3,14 +3,14 @@ use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 
 use super::{
-    appointment::{self, AppointmentFromXml, SingleAppointment},
+    appointment::{AppointmentFromXml, SingleAppointment},
     course::CourseFromXml,
     course_variant::CourseVariant,
 };
 
 #[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = lecture)]
-pub struct NewLecture {
+pub struct LectureFromXml {
     pub id: String,
     pub start_time: NaiveTime,
     pub end_time: NaiveTime,
@@ -38,7 +38,7 @@ pub struct LectureAppointment {
     pub ects: f64,
 }
 
-impl NewLecture {
+impl LectureFromXml {
     pub fn build(
         course: &CourseFromXml,
         appointment: &AppointmentFromXml,
