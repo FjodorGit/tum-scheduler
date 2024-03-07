@@ -20,3 +20,8 @@ Cargo.lock
 
 #environment variables
 .env
+
+#gurobi solver files
+**.lp
+**.log
+**.sol
