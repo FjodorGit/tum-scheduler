@@ -3,7 +3,7 @@ use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 
 use super::{
-    appointment::{self, Appointment, SingleAppointment},
+    appointment::{self, AppointmentFromXml, SingleAppointment},
     course::CourseFromXml,
     course_variant::CourseVariant,
 };
@@ -41,7 +41,7 @@ pub struct LectureAppointment {
 impl NewLecture {
     pub fn build(
         course: &CourseFromXml,
-        appointment: &Appointment,
+        appointment: &AppointmentFromXml,
         variant: &CourseVariant,
     ) -> Vec<Self> {
         let mut lectures = vec![];
@@ -89,6 +89,7 @@ impl LectureAppointment {
             from: self.start_time,
             to: self.end_time,
             weekday: self.weekday.clone(),
+            course_type: self.course_type.to_owned(),
         }
     }
 }

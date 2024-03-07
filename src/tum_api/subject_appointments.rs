@@ -9,14 +9,16 @@ use diesel::PgConnection;
 use super::lecture::LectureAppointment;
 
 pub struct FilterSettings {
-    pub subject: Option<String>,
-    pub faculty: Option<String>,
+    pub subjects: Option<Vec<String>>,
+    pub exclude_subject: Option<Vec<String>>,
+    pub facultys: Option<Vec<String>>,
     pub curriculum: Option<String>,
 }
 
 #[derive(Debug)]
 pub struct CourseSelection {
-    pub name: String,
+    pub abbr: String,
+    pub name_en: String,
     pub appointments: Vec<SingleAppointment>,
     pub ects: f64,
 }
@@ -43,11 +45,14 @@ impl CourseSelection {
         if let Some(curr) = filters.curriculum {
             lectures = lectures.filter(lecture::curriculum.eq(curr));
         }
-        if let Some(fac) = filters.faculty {
-            lectures = lectures.filter(lecture::faculty.eq(fac));
+        if let Some(fac) = filters.facultys {
+            lectures = lectures.filter(lecture::faculty.eq_any(fac));
         }
-        if let Some(subj) = filters.subject {
-            lectures = lectures.filter(lecture::subject.eq(subj));
+        if let Some(subj) = filters.subjects {
+            lectures = lectures.filter(lecture::subject.eq_any(subj));
+        }
+        if let Some(exclude_subj) = filters.exclude_subject {
+            lectures = lectures.filter(lecture::subject.ne_all(exclude_subj));
         }
 
         let addmissiable_lectures = lectures
@@ -112,34 +117,26 @@ impl CourseSelection {
     }
 
     fn from_teaching_lectures(lec: &Vec<&LectureAppointment>, ects: &f64) -> Self {
-        let name = lec[0].subject.to_owned();
-        let appointments = lec
-            .into_iter()
-            .map(|l| SingleAppointment {
-                from: l.start_time,
-                to: l.end_time,
-                weekday: l.weekday.clone(),
-            })
-            .collect_vec();
+        let abbr = lec[0].subject.to_owned();
+        let name_en = lec[0].name_en.to_owned();
+        let appointments = lec.into_iter().map(|l| l.appointment()).collect_vec();
         CourseSelection {
-            name,
+            abbr,
+            name_en,
             appointments,
             ects: f64::ceil(*ects),
         }
     }
 
-    fn from_exercise_lectures(lec: &Vec<&LectureAppointment>, ects: &f64) -> Vec<Self> {
+    fn from_exercise_lectures(lec: &Vec<&LectureAppointment>, ects: f64) -> Vec<Self> {
         lec.into_iter()
             .map(|l| {
-                let name = l.subject.to_owned();
-                let ects = l.ects;
-                let appointment = SingleAppointment {
-                    from: l.start_time,
-                    to: l.end_time,
-                    weekday: l.weekday.clone(),
-                };
+                let abbr = l.subject.to_owned();
+                let name_en = l.name_en.to_owned();
+                let appointment = l.appointment();
                 Self {
-                    name,
+                    abbr,
+                    name_en,
                     appointments: vec![appointment],
                     ects,
                 }
@@ -153,21 +150,16 @@ impl CourseSelection {
         ects: &f64,
     ) -> Vec<Self> {
         let mut selections = vec![];
-        let name = &lec[0].subject;
-        let teaching_appointments = lec
-            .into_iter()
-            .map(|l| SingleAppointment {
-                from: l.start_time,
-                to: l.end_time,
-                weekday: l.weekday.clone(),
-            })
-            .collect_vec();
+        let abbr = &lec[0].subject;
+        let name_en = &lec[0].name_en;
+        let teaching_appointments = lec.into_iter().map(|l| l.appointment()).collect_vec();
 
         for ex in exer.into_iter() {
             let mut appointments = teaching_appointments.clone();
             appointments.push(ex.appointment());
             let selection = CourseSelection {
-                name: name.to_owned(),
+                abbr: abbr.to_owned(),
+                name_en: name_en.to_owned(),
                 appointments,
                 ects: *ects,
             };
@@ -183,7 +175,7 @@ impl CourseSelection {
     ) -> Vec<CourseSelection> {
         match (lec.len(), exec.len()) {
             (0, 0) => vec![],
-            (0, _) => Self::from_exercise_lectures(&exec, &ects),
+            (0, _) => Self::from_exercise_lectures(&exec, ects),
             (_, 0) => Self::from_teaching_lectures(&lec, &ects).to_vec(),
             (_, _) => Self::from_lecture_with_exercises(&lec, &exec, &ects),
         }
@@ -200,14 +192,15 @@ mod test {
 
     use crate::db_setup::connection;
 
-    use super::CourseSelection;
+    use super::{CourseSelection, FilterSettings};
 
     #[test]
     fn test_building_subject_appointment() {
         dotenv().ok();
-        let filters = super::FilterSettings {
-            subject: None,
-            faculty: None, //Some("IN".to_string()),
+        let filters = FilterSettings {
+            subjects: None,
+            exclude_subject: None,
+            facultys: None, //Some("IN".to_string()),
             curriculum: None,
         };
         let conn = &mut connection().expect("should be able to establish connection");
