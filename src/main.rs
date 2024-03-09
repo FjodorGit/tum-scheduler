@@ -1,14 +1,13 @@
 use std::thread::sleep;
 use std::time::Duration;
 
-use crate::schedular::scheduling_problem::test_grb;
+use crate::schedular::scheduling_problem::test_run;
 use crate::tum_api::course::CourseFromXml;
 use crate::tum_api::course_variant::CourseVariantEndpoint;
-use crate::tum_api::curriculum::{Curriculum, CurriculumEndpoint};
-use crate::tum_api::lecture::LectureFromXml;
+use crate::tum_api::curriculum::{CurriculumEndpoint, CurriculumFromXml};
+use crate::tum_api::lecture::LectureSessionFromXml;
 use crate::{db_setup::connection, tum_api::course::CourseEndpoint};
 use anyhow::Result;
-use db_setup::DbError;
 use dotenv::dotenv;
 use tum_api::DataAquisitionError;
 
@@ -20,14 +19,6 @@ pub mod schema;
 pub mod tum_api;
 use tracing::{debug, info};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
-#[derive(thiserror::Error, Debug)]
-pub enum FillDbError {
-    #[error("Encountered {0}")]
-    DbError(#[from] DbError),
-    #[error("Request Error while filling db")]
-    RequestError(#[from] reqwest::Error),
-}
 
 // use paging mechnism to get course ids then use allCurriculum to get type of course
 #[tokio::main]
@@ -43,7 +34,7 @@ async fn main() -> Result<()> {
         .init();
 
     info!("Starting web server!");
-    test_grb()?;
+    test_run()?;
     // println!("{:#?}", week_in_15min_intervalls());
     // aquire_lecture_data("199").await?;
     Ok(())
@@ -54,7 +45,7 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
     let appointment_endpoint = AppointmentEndpoint::new();
     let course_variant_endpoint = CourseVariantEndpoint::new();
     let mut course_endpoint = CourseEndpoint::new(semester_id);
-    let curricula = Curriculum::get_all(conn, semester_id)?;
+    let curricula = CurriculumFromXml::db_get_all(conn, semester_id)?;
     info!(
         "Got {} curricula currently in the database",
         curricula.len()
@@ -62,7 +53,7 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
     if curricula.len() == 0 {
         let curriculum_endpoint = CurriculumEndpoint::new();
         let curricula = curriculum_endpoint.get_all(semester_id).await?;
-        Curriculum::insert(conn, curricula)?;
+        CurriculumFromXml::db_insert(conn, curricula)?;
         info!("Updated all curricula")
     }
     let already_processed_courses = CourseFromXml::get_all_ids(conn)?;
@@ -92,8 +83,8 @@ pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisition
 
             for appointment in appointments.iter() {
                 for variant in variants.iter() {
-                    let lectures = LectureFromXml::build(&course, appointment, variant);
-                    LectureFromXml::insert(conn, lectures)?;
+                    let lectures = LectureSessionFromXml::build(&course, appointment, variant);
+                    LectureSessionFromXml::insert(conn, lectures)?;
                 }
             }
             CourseFromXml::insert(conn, course)?;

@@ -12,7 +12,7 @@ use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
 #[derive(Debug, Insertable, Queryable)]
 #[diesel(table_name = curriculum)]
-pub struct Curriculum {
+pub struct CurriculumFromXml {
     pub id: String,
     pub name_en: String,
     pub name_de: String,
@@ -23,11 +23,11 @@ pub struct CurriculumEndpoint {
     pub base_request_url: String,
 }
 
-impl Curriculum {
-    fn from_xml(resource_node: TumXmlNode<'_, '_>, semester: &str) -> Result<Self, TumXmlError> {
+impl CurriculumFromXml {
+    fn build(resource_node: TumXmlNode<'_, '_>, semester: &str) -> Result<Self, TumXmlError> {
         let id = resource_node.get_text_of_next("id")?;
         let (name_de, name_en) = resource_node.get_translations()?;
-        let curriculum = Curriculum {
+        let curriculum = CurriculumFromXml {
             id,
             name_de,
             name_en,
@@ -38,18 +38,18 @@ impl Curriculum {
     fn read_all_from_page(
         xml: String,
         semester: &str,
-    ) -> Result<Vec<Curriculum>, DataAquisitionError> {
-        let mut curricula: Vec<Curriculum> = vec![];
+    ) -> Result<Vec<CurriculumFromXml>, DataAquisitionError> {
+        let mut curricula: Vec<CurriculumFromXml> = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
         for resource_element in root_element.resource_elements() {
-            let appointment = Curriculum::from_xml(resource_element, semester)?;
+            let appointment = CurriculumFromXml::build(resource_element, semester)?;
             curricula.push(appointment);
         }
         Ok(curricula)
     }
 
-    pub fn insert(conn: &mut PgConnection, curricula: Vec<Self>) -> Result<(), DbError> {
+    pub fn db_insert(conn: &mut PgConnection, curricula: Vec<Self>) -> Result<(), DbError> {
         use crate::schema::curriculum::dsl::*;
 
         diesel::insert_into(curriculum)
@@ -60,7 +60,10 @@ impl Curriculum {
         Ok(())
     }
 
-    pub fn get_all(conn: &mut PgConnection, semester_id: &str) -> Result<Vec<Curriculum>, DbError> {
+    pub fn db_get_all(
+        conn: &mut PgConnection,
+        semester_id: &str,
+    ) -> Result<Vec<CurriculumFromXml>, DbError> {
         use crate::schema::curriculum::dsl::*;
 
         let curricula = curriculum
@@ -78,11 +81,14 @@ impl CurriculumEndpoint {
         CurriculumEndpoint { base_request_url }
     }
 
-    pub async fn get_all(&self, semester: &str) -> Result<Vec<Curriculum>, DataAquisitionError> {
+    pub async fn get_all(
+        &self,
+        semester: &str,
+    ) -> Result<Vec<CurriculumFromXml>, DataAquisitionError> {
         let request_url = format!("{}/{}", self.base_request_url, semester);
         let request_result = reqwest::get(request_url).await?;
         let xml: String = request_result.text().await?;
-        Curriculum::read_all_from_page(xml, semester)
+        CurriculumFromXml::read_all_from_page(xml, semester)
     }
 }
 
@@ -90,13 +96,13 @@ impl CurriculumEndpoint {
 mod test {
     use std::fs;
 
-    use crate::tum_api::curriculum::Curriculum;
+    use crate::tum_api::curriculum::CurriculumFromXml;
 
     #[test]
     fn test_reading_curricula() {
         let test_xml: String = fs::read_to_string("test_xmls/curricula.xml")
             .expect("Should be able to read curricula test file");
-        let curricula = Curriculum::read_all_from_page(test_xml, "199")
+        let curricula = CurriculumFromXml::read_all_from_page(test_xml, "199")
             .expect("should be able to read curricula");
         println!("{:#?}", curricula);
         assert_eq!(curricula.len(), 1148);

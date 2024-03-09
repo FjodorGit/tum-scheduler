@@ -1,14 +1,14 @@
+use crate::schedular::settings::FilterSettings;
+
 use super::{
+    course_selection::CourseSelection,
+    session::SingleAppointment,
     settings::{ConstraintSettings, SolutionObjective},
     WEEKDAYS,
 };
 use grb::prelude::*;
 use std::collections::HashMap;
 
-use crate::tum_api::{
-    appointment::SingleAppointment,
-    subject_appointments::{CourseSelection, FilterSettings},
-};
 use chrono::Duration;
 use grb::{c, expr::LinExpr};
 
@@ -21,6 +21,7 @@ pub struct SchedulingProblem {
     on_weekday_vars: HashMap<String, Vec<Var>>,
     interval_exprs: HashMap<String, LinExpr>,
     amount_ects: LinExpr,
+    faculties: HashMap<String, LinExpr>,
 }
 
 impl SchedulingProblem {
@@ -33,6 +34,7 @@ impl SchedulingProblem {
             on_weekday_vars: HashMap::new(),
             interval_exprs: HashMap::new(),
             amount_ects: LinExpr::new(),
+            faculties: HashMap::new(),
         }
     }
 
@@ -50,26 +52,37 @@ impl SchedulingProblem {
 
     pub fn add_course(
         &mut self,
-        subject_schedule: &CourseSelection,
+        course_selection: &CourseSelection,
         schedule_num: i32,
     ) -> Result<(), SchedularError> {
-        let appointment_var_name = format!("{}_v{}", subject_schedule.abbr, schedule_num);
-        let appointment_var = self
+        let course_var_name = format!("{}_v{}", course_selection.subject, schedule_num);
+        let course_var = self
             .model
-            .add_var(&appointment_var_name, Binary, 0., 0., 1., [])?;
+            .add_var(&course_var_name, Binary, 0., 0., 1., [])?;
 
-        self.vars.push(appointment_var);
-        for appointment in subject_schedule.appointments.iter() {
-            self.add_session(appointment_var, &appointment);
+        self.vars.push(course_var);
+        self.add_faculty(course_var, course_selection);
+        for appointment in course_selection.appointments.iter() {
+            self.add_session(course_var, &appointment);
         }
 
-        for weekday in subject_schedule.weekdays() {
-            self.add_weekday(appointment_var, weekday)
+        for weekday in course_selection.weekdays() {
+            self.add_weekday(course_var, weekday)
         }
 
-        self.amount_ects
-            .add_term(subject_schedule.ects, appointment_var);
+        self.amount_ects.add_term(course_selection.ects, course_var);
         Ok(())
+    }
+
+    fn add_faculty(&mut self, course_var: Var, course_selection: &CourseSelection) {
+        if let Some(expr) = self.faculties.get_mut(&course_selection.faculty) {
+            expr.add_term(1., course_var);
+        } else {
+            let mut expr = LinExpr::new();
+            expr.add_term(1.0, course_var);
+            self.faculties
+                .insert(course_selection.faculty.clone(), expr);
+        }
     }
 
     fn add_session(&mut self, appointment_var: Var, appointment: &SingleAppointment) {
@@ -109,6 +122,14 @@ impl SchedulingProblem {
         if let Some(min_ects) = constraints.min_num_ects {
             self.model
                 .add_constr("min_ects", c!(self.amount_ects.clone() >= min_ects))?;
+        }
+
+        if let Some(courses_per_faculty) = constraints.max_courses_per_faculty {
+            for (fac, num) in courses_per_faculty.iter() {
+                if let Some(expr) = self.faculties.get(fac) {
+                    self.model.add_constr(fac, c!(expr.clone() <= num))?;
+                }
+            }
         }
         if let Some(max_days) = constraints.max_num_days {
             let mut weekday_sum_expr = LinExpr::new();
@@ -169,7 +190,7 @@ impl SchedulingProblem {
     }
 }
 
-pub fn test_grb() -> Result<(), SchedularError> {
+pub fn test_run() -> Result<(), SchedularError> {
     dotenv::dotenv().ok();
     use crate::db_setup::connection;
     let conn = &mut connection().expect("should be able to establish connection to db");
@@ -191,14 +212,16 @@ pub fn test_grb() -> Result<(), SchedularError> {
             "CIT4130024".to_string(),
             "MA4304".to_string(),
             "MA5619".to_string(),
+            "IN2339".to_string(),
         ]),
-        facultys: Some(vec!["MA".to_string(), "CIT".to_string()]),
+        faculties: Some(vec!["MA".to_string(), "IN".to_string(), "CIT".to_string()]),
         curriculum: Some("5244".to_string()),
     };
 
     let constraints = ConstraintSettings {
-        min_num_ects: None,
+        min_num_ects: Some(25),
         max_num_days: Some(3),
+        max_courses_per_faculty: Some(vec![("IN".to_string(), 1)]),
     };
 
     let possible_lectures = CourseSelection::addmissiable_lectures(conn, filters)
@@ -206,7 +229,7 @@ pub fn test_grb() -> Result<(), SchedularError> {
     let course_selections = CourseSelection::build_from_lectures(possible_lectures);
     scheduling_problem.add_courses(&course_selections)?;
     scheduling_problem.add_additional_constraints(constraints)?;
-    let solution = scheduling_problem.solve(SolutionObjective::MaximizeNumEcts)?;
+    let solution = scheduling_problem.solve(SolutionObjective::MinimizeNumCourses)?;
     let resulting_courses: Vec<CourseSelection> = course_selections
         .into_iter()
         .zip(solution.iter())

@@ -15,14 +15,6 @@ pub struct AppointmentFromXml {
     pub to: NaiveTime,
 }
 
-#[derive(Debug, Hash, PartialEq, Eq, Clone)]
-pub struct SingleAppointment {
-    pub weekday: String,
-    pub from: NaiveTime,
-    pub to: NaiveTime,
-    pub course_type: String,
-}
-
 #[derive(Debug)]
 pub struct AppointmentEndpoint {
     base_request_url: String,
@@ -50,12 +42,6 @@ impl TryFrom<TumXmlNode<'_, '_>> for AppointmentFromXml {
         };
 
         Ok(app)
-    }
-}
-
-impl SingleAppointment {
-    pub fn takes_place_at(&self, time: NaiveTime, weekday: &str) -> bool {
-        self.from <= time && self.to > time && self.weekday == weekday
     }
 }
 

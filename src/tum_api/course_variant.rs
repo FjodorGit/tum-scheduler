@@ -6,7 +6,7 @@ use roxmltree::Document;
 use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
 #[derive(Debug)]
-pub struct CourseVariant {
+pub struct CourseVariantFromXml {
     pub curriculum: String,
     pub facultiy: String,
     pub abbreviation: String,
@@ -19,7 +19,7 @@ pub struct CourseVariantEndpoint {
     pub request_url_end: String,
 }
 
-impl TryFrom<TumXmlNode<'_, '_>> for CourseVariant {
+impl TryFrom<TumXmlNode<'_, '_>> for CourseVariantFromXml {
     type Error = TumXmlError;
     fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
         let curriculum = resource_node.get_text_of_next("curriculumVersionId")?;
@@ -29,7 +29,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseVariant {
             .chars()
             .filter(|c| c.is_ascii_alphabetic())
             .collect();
-        let variant = CourseVariant {
+        let variant = CourseVariantFromXml {
             curriculum,
             facultiy,
             abbreviation,
@@ -38,8 +38,8 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseVariant {
     }
 }
 
-impl CourseVariant {
-    fn read_all_from_page(xml: String) -> Result<Vec<CourseVariant>, DataAquisitionError> {
+impl CourseVariantFromXml {
+    fn read_all_from_page(xml: String) -> Result<Vec<CourseVariantFromXml>, DataAquisitionError> {
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
 
@@ -64,7 +64,10 @@ impl CourseVariantEndpoint {
             request_url_end,
         }
     }
-    pub async fn get_all_by_id(&self, id: &str) -> Result<Vec<CourseVariant>, DataAquisitionError> {
+    pub async fn get_all_by_id(
+        &self,
+        id: &str,
+    ) -> Result<Vec<CourseVariantFromXml>, DataAquisitionError> {
         let request_url = format!("{}{}{}", self.base_request_url, id, self.request_url_end);
         let request_result = self
             .client
@@ -74,7 +77,7 @@ impl CourseVariantEndpoint {
             .await?;
         let xml: String = request_result.text().await?;
         // println!("Xml: {:#?}", xml);
-        CourseVariant::read_all_from_page(xml)
+        CourseVariantFromXml::read_all_from_page(xml)
     }
 }
 #[cfg(test)]
@@ -82,14 +85,14 @@ mod test {
     use dotenv::dotenv;
     use std::fs;
 
-    use crate::tum_api::course_variant::{CourseVariant, CourseVariantEndpoint};
+    use crate::tum_api::course_variant::{CourseVariantEndpoint, CourseVariantFromXml};
 
     #[test]
     fn test_reading_variants() {
         let test_xml: String = fs::read_to_string("test_xmls/course_variants.xml")
             .expect("Should be able to read course variant test file");
-        let variants =
-            CourseVariant::read_all_from_page(test_xml).expect("should be able to read variants");
+        let variants = CourseVariantFromXml::read_all_from_page(test_xml)
+            .expect("should be able to read variants");
         assert_eq!(variants.len(), 26);
     }
 
@@ -97,8 +100,8 @@ mod test {
     fn test_reading_variants_other() {
         let test_xml: String = fs::read_to_string("test_xmls/course_variants2.xml")
             .expect("Should be able to read course variant test file");
-        let variants =
-            CourseVariant::read_all_from_page(test_xml).expect("should be able to read variants");
+        let variants = CourseVariantFromXml::read_all_from_page(test_xml)
+            .expect("should be able to read variants");
         assert_eq!(variants.len(), 11);
     }
 

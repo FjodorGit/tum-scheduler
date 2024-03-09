@@ -3,14 +3,12 @@ use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 
 use super::{
-    appointment::{AppointmentFromXml, SingleAppointment},
-    course::CourseFromXml,
-    course_variant::CourseVariant,
+    appointment::AppointmentFromXml, course::CourseFromXml, course_variant::CourseVariantFromXml,
 };
 
 #[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = lecture)]
-pub struct LectureFromXml {
+pub struct LectureSessionFromXml {
     pub id: String,
     pub start_time: NaiveTime,
     pub end_time: NaiveTime,
@@ -25,24 +23,11 @@ pub struct LectureFromXml {
     pub ects: f64,
 }
 
-#[derive(Debug, Clone, Queryable, PartialEq, Selectable)]
-#[diesel(table_name = lecture)]
-pub struct LectureAppointment {
-    pub id: String,
-    pub start_time: NaiveTime,
-    pub end_time: NaiveTime,
-    pub weekday: String,
-    pub subject: String,
-    pub course_type: String,
-    pub name_en: String,
-    pub ects: f64,
-}
-
-impl LectureFromXml {
+impl LectureSessionFromXml {
     pub fn build(
         course: &CourseFromXml,
         appointment: &AppointmentFromXml,
-        variant: &CourseVariant,
+        variant: &CourseVariantFromXml,
     ) -> Vec<Self> {
         let mut lectures = vec![];
         for weekday in appointment.weekdays.iter() {
@@ -80,16 +65,5 @@ impl LectureFromXml {
             .execute(conn)
             .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
         Ok(())
-    }
-}
-
-impl LectureAppointment {
-    pub fn appointment(&self) -> SingleAppointment {
-        SingleAppointment {
-            from: self.start_time,
-            to: self.end_time,
-            weekday: self.weekday.clone(),
-            course_type: self.course_type.to_owned(),
-        }
     }
 }
