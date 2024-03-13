@@ -14,6 +14,7 @@ Cargo.lock
 *.pdb
 node_modules/
 dist/
+package-lock.json
 
 # Added by cargo
 
