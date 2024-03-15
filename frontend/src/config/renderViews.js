@@ -3,7 +3,7 @@ import setDatepicker from "../components/menus/datepicker";
 import { getClosest, throttle } from "../utilities/helpers";
 import setEntryForm from "../components/forms/entryForm";
 import handleShortCutsModal from "../components/menus/shortcutsModal";
-import getSidebarSubMenu from "../components/menus/sidebarSubMenu";
+import setupConfigMenu from "../components/menus/sidebarSubMenu";
 import createGoTo from "../components/forms/goto";
 import createCategoryForm from "../components/menus/editCategory";
 
@@ -26,6 +26,9 @@ const options = document.querySelectorAll(".view-option");
 const viewsContainer = document.querySelector(".container__calendars");
 const yearwrapper = document.querySelector(".yearview");
 const monthwrapper = document.querySelector(".monthview");
+
+const configMenu = document.querySelector("#configMenu");
+configMenu.style.zIndex = "-1";
 
 export default function renderViews(context, datepickerContext, store) {
   function setColorScheme() {
@@ -171,12 +174,6 @@ export default function renderViews(context, datepickerContext, store) {
     form.classList.remove("hide-form");
     formOverlay.classList.remove("hide-form-overlay");
     store.addActiveOverlay("hide-form-overlay");
-  }
-
-  // the submenu (meatball menu) adjacent to "create" button in sidebar
-  // opens instance of settings menu
-  function handleToggleSubmenu() {
-    getSidebarSubMenu(store, context);
   }
 
   // open / close sidebar
@@ -502,28 +499,30 @@ export default function renderViews(context, datepickerContext, store) {
     getKeyPressThrottled(e);
   }
 
+  function closeConfigMenu() {
+    configMenu.style.zIndex = -1;
+  }
+
   const appinit = () => {
-    /*************************/
     // render initial view and set initial attributes
     renderOption(context.getComponent(), true);
     handleBtnMainMenu();
 
-    /*************************/
     // supply callbacks to store for opening form and sidebar
     store.setRenderFormCallback(handleForm);
     const ensureSidebarIsOpen = () => {
       context.setSidebarState("open");
       handleBtnMainMenu();
     };
+
     store.setRenderSidebarCallback(ensureSidebarIsOpen);
+    setupConfigMenu(context, closeConfigMenu);
 
-    /*************************/
-    // establish global event listeners
-    settings.onclick = handleToggleSubmenu;
+    settings.onclick = () => {
+      configMenu.style.zIndex *= -1;
+    };
+    configMenu.style.zIndex *= -1;
     search.onclick = () => createGoTo(context, store, datepickerContext);
-    handleToggleSubmenu();
-
-    document.addEventListener("keydown", handleGlobalKeydown);
   };
   appinit();
 }

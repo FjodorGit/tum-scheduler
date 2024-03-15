@@ -66,23 +66,31 @@ class Context {
     this.monthArray = this.getMonthArray();
     this.week = this.getWeek();
 
+    this.curriculum = "";
     this.selectedPrefixes = [];
     this.excludedCourses = [];
-    this.additionalConstraintInputIds = [];
+    this.addAdditionalConstraints = [];
+    this.objective = "";
+  }
+
+  setCurriculum(curriculum) {
+    this.curriculum = curriculum;
   }
 
   addPrefix(prefix) {
     this.selectedPrefixes.push(prefix);
-    console.log(this.selectedPrefixes);
   }
 
   excludeCourse(course) {
     this.excludedCourses.push(course);
-    console.log(this.excludedCourses);
   }
 
-  addAdditionalConstraintInput(id) {
-    this.additionalConstraintInputIds.push(id);
+  addAdditionalConstraint(name, amount) {
+    this.addAdditionalConstraints.push((name, amount));
+  }
+
+  setObjective(objective) {
+    this.objective = objective;
   }
 
   setDateDefaults() {

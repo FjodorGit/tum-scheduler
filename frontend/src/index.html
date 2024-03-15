@@ -13,7 +13,7 @@
   <title>Weekly Schedule</title>
 </head>
 
-<body class="body preload" style="cursor: default;">
+<body class="body preload z-0" style="cursor: default;">
   <!-- app header -- fixed -->
 
   <div class="flex justify-center my-6">
@@ -327,251 +327,147 @@
     </div>
   </aside>
 
-  <!-- SETTINGS -->
-  <aside class="sidebar-sub-menu hide-sidebar-sub-menu">
-    <div class="sub-menu__header">
+  <!-- Configuration -->
+  <aside
+    class="fixed top-0 left-0 right-0 bottom-0 max-h-[600px] max-w-[920px] w-auto h-auto m-auto rounded-md border-solid bg-mainblack"
+    id="configMenu">
+    <div class="h-14 px-3 flex items-center justify-between bg-headergray">
 
-      <div class="sub-menu--title">
+      <div class="">
         Configuration
       </div>
 
-      <div class="sub-menu--icons">
-        <div class="toggle-animations-icon__sm" data-tooltip="Animations Enabled">
-          <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24"
-            width="24px" fill="var(--primary2)" class="tai-on">
-            <rect fill="none" height="24" width="24" />
-            <path
-              d="M2.88,7.88l1.54,1.54C4.15,10.23,4,11.1,4,12c0,4.41,3.59,8,8,8s8-3.59,8-8s-3.59-8-8-8c-0.9,0-1.77,0.15-2.58,0.42 L7.89,2.89C9.15,2.32,10.54,2,12,2c5.52,0,10,4.48,10,10s-4.48,10-10,10S2,17.52,2,12C2,10.53,2.32,9.14,2.88,7.88z M7,5.5 C7,6.33,6.33,7,5.5,7S4,6.33,4,5.5S4.67,4,5.5,4S7,4.67,7,5.5z" />
-          </svg>
-
-          <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24"
-            width="24px" fill="var(--red1)" class="tai-off hide-tai">
-            <g>
-              <rect fill="none" height="24" width="24" />
-              <path
-                d="M22,12c0,5.52-4.48,10-10,10S2,17.52,2,12c0-1.19,0.22-2.32,0.6-3.38L4.48,9.3C4.17,10.14,4,11.05,4,12c0,4.41,3.59,8,8,8 s8-3.59,8-8s-3.59-8-8-8c-0.95,0-1.85,0.17-2.69,0.48L8.63,2.59C9.69,2.22,10.82,2,12,2C17.52,2,22,6.48,22,12z M5.5,4 C4.67,4,4,4.67,4,5.5S4.67,7,5.5,7S7,6.33,7,5.5S6.33,4,5.5,4z M11,16V8H9v8H11z M15,16V8h-2v8H15z" />
-            </g>
-          </svg>
-        </div>
-        <div class="keyboard-disabled-sm" data-tooltip="Keyboard Shortcuts Disabled">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="var(--red1)">
-            <path
-              d="M4 19q-.825 0-1.412-.587Q2 17.825 2 17V7q0-.825.588-1.412Q3.175 5 4 5h16q.825 0 1.413.588Q22 6.175 22 7v10q0 .825-.587 1.413Q20.825 19 20 19Zm0-2h16V7H4v10Zm4-1h8v-2H8Zm-3-3h2v-2H5Zm3 0h2v-2H8Zm3 0h2v-2h-2Zm3 0h2v-2h-2Zm3 0h2v-2h-2ZM5 10h2V8H5Zm3 0h2V8H8Zm3 0h2V8h-2Zm3 0h2V8h-2Zm3 0h2V8h-2ZM4 17V7v10Z" />
-          </svg>
-        </div>
-
-        <div class="close-sub-menu">
-          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="var(--white2)">
-            <path
-              d="M6.062 15 5 13.938 8.938 10 5 6.062 6.062 5 10 8.938 13.938 5 15 6.062 11.062 10 15 13.938 13.938 15 10 11.062Z" />
-          </svg>
-        </div>
+      <div class="hover:cursor-pointer" id="closeConfigMenuBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="var(--white2)">
+          <path
+            d="M6.062 15 5 13.938 8.938 10 5 6.062 6.062 5 10 8.938 13.938 5 15 6.062 11.062 10 15 13.938 13.938 15 10 11.062Z" />
+        </svg>
       </div>
     </div>
 
-    <div class="sub-menu__body">
+    <div class="h-full overflow-x-hidden overflow-y-scroll pl-3 pt-2 pr-2 pb-4 bg-mainblack">
 
-      <div class="sub-menu-content">
-
-        <!-- curriculum -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Curriculum</div>
-          <div class="py-3.5 text-white text-base leading-5">
-            First select your curriculum.
-          </div>
-          <div class="h-14 flex justify-start items-center">
-            <span class="font-medium font-sans ml-4 mr-2 flex items-center">Type your the curriculum id</span>
-            <input class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-800" name="curriculumid"
-              type="text">
-            <span class="font-medium font-sans mx-2 flex items-center"> or find by </span>
-            <button class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-800">URL</button>
-            <span class="font-medium font-sans mx-2 flex items-center"> or by </span>
-            <button class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-800">Search</button>
-          </div>
+      <!-- curriculum -->
+      <div class="sub-menu--item smi-theme-actions">
+        <div class="sub-menu--item__title">Curriculum</div>
+        <div class="py-3.5 text-white text-base leading-5">
+          First select your curriculum.
         </div>
-
-        <!-- prefixes -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Course Prefixes</div>
-          <div class="py-3.5 text-white text-base leading-5">
-            Choose the prefixes of courses that you consider taking.
-          </div>
-          <div class="h-32 flex justify-start items-center">
-            <div class="flex items-center ml-2">
-              <input class="h-10 w-20 ml-2 text-center rounded-l-md border-l-2 border-y-2 border-solid border-800"
-                id="prefixInput" name="prefix" type="text">
-              <button class="h-10 w-20 mr-2 text-center rounded-r-md border-r-2 border-y-2 border-solid border-800"
-                id="addPrefixBtn">Add</button>
-            </div>
-            <div class="vl h-28 w-0.5 mx-4 bg-slate-200"></div>
-            <div class="w-full h-full mx-4">
-              <span class="font-medium font-sans">Prefixes:</span>
-              <div class="h-fit w-full flex items-center justify-start my-2" id="prefixStorage">
-              </div>
-            </div>
-          </div>
+        <div class="h-14 flex justify-start items-center">
+          <span class="font-medium font-sans ml-4 mr-2 flex items-center">Type your the curriculum id</span>
+          <input class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-gray-200" id="curriculumId"
+            type="text">
+          <span class="font-medium font-sans mx-2 flex items-center"> or find by </span>
+          <button class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-800">URL</button>
+          <span class="font-medium font-sans mx-2 flex items-center"> or by </span>
+          <button class="h-10 w-20 mx-2 text-center rounded-md border-2 border-solid border-800">Search</button>
         </div>
+      </div>
 
-        <!-- excludes courses -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Excluded Courses</div>
-          <div class="py-3.5 text-white text-base leading-5">
-            Now you can choose specific courses to exclude.
-          </div>
-          <div class="h-32 flex justify-start items-center">
-            <div class="flex items-center ml-2">
-              <input class="h-10 w-24 ml-2 text-center rounded-l-md border-l-2 border-y-2 border-solid border-800"
-                id="excludeCourseInput" name="prefix" type="text">
-              <button class="h-10 w-24 mr-2 text-center rounded-r-md border-r-2 border-y-2 border-solid border-800"
-                id="excludeCourseBtn">Exclude</button>
-            </div>
-            <div class="vl h-28 w-0.5 mx-4 bg-slate-200"></div>
-            <div class="w-full h-full mx-4">
-              <span class="font-medium font-sans">Excluded:</span>
-              <div class="h-fit w-full flex items-center justify-start my-2" id="excludedCoursesStorage">
-              </div>
-            </div>
-          </div>
+      <!-- prefixes -->
+      <div class="sub-menu--item smi-theme-actions">
+        <div class="sub-menu--item__title">Course Prefixes</div>
+        <div class="py-3.5 text-white text-base leading-5">
+          Choose the prefixes of courses that you consider taking.
         </div>
-
-        <!-- additional constraints -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Additional Constraints</div>
-          <div class="py-3.5 text-white text-base leading-5">
-            Add further optimization parameters.
+        <div class="h-36 flex justify-start items-center">
+          <div class="flex items-center ml-2">
+            <input class="h-10 w-20 ml-2 text-center rounded-l-md border-l-2 border-y-2 border-solid border-800"
+              id="prefixInput" name="prefix" type="text">
+            <button class="h-10 w-20 mr-2 text-center rounded-r-md border-r-2 border-y-2 border-solid border-800"
+              id="addPrefixBtn">Add</button>
           </div>
-          <div id="additionalConstraintsContainer">
-            <div class="h-14 m-3 p-2 flex content-center">
-              <span class="flex items-center font-medium">Have courses on a maximum of </span>
-              <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid border-800" type="number"
-                value="maxects">
-              <span class="flex items-center font-medium mr-2">days per week.</span>
-              <input class="scale-125 ml-2" type="checkbox" value="constraintweekdays">
-            </div>
-            <div class="h-14 m-3 p-2 flex content-center">
-              <span class="flex items-center font-medium">Have a mimimum of </span>
-              <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid border-800" type="number"
-                value="maxects">
-              <span class="flex items-center font-medium mr-2">total ects in this semester.</span>
-              <input class="scale-125 ml-2" type="checkbox" value="constraintweekdays">
-            </div>
-          </div>
-        </div>
-
-        <!-- objectives -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Objective</div>
-          <div class="py-3.5 text-white text-base leading-5">
-            Select the objective the schedular should follow.
-          </div>
-          <div class="sub-menu--item__actions theme-actions">
-            <div
-              class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800">
-              <input class="scale-125 ml-2" name="objectiveoption" type="radio" value="noobjective">
-              <span class="flex items-center font-medium mr-2">No Objective</span>
-            </div>
-            <div
-              class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800">
-              <input class="scale-125 ml-2" name="objectiveoption" type="radio" value="maxects">
-              <span class="flex items-center font-medium mr-2">Maximize ECTS</span>
-            </div>
-            <div
-              class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800">
-              <input class="scale-125 ml-2" name="objectiveoption" type="radio" value="minweekdays">
-              <span class="flex items-center font-medium mr-2">Minimize weekdays</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- row two -->
-        <div class="sub-menu--item smi-theme-actions">
-          <div class="sub-menu--item__title">Configure Application Theme</div>
-          <div class="sub-menu--item__description">
-            light, dark, and high contrast themes.
-          </div>
-          <div class="sub-menu--item__actions theme-actions">
-            <div class="theme-option theme-option-dark">
-              <input class="theme-radio__input" name="themeoption" type="radio" value="dark" checked>
-              <span>Dark</span>
-            </div>
-            <div class="theme-option theme-option-light">
-              <input class="theme-radio__input" name="themeoption" type="radio" value="light">
-              <span>Light</span>
-            </div>
-            <div class="theme-option theme-option-contrast">
-              <input class="theme-radio__input" name="themeoption" type="radio" value="contrast">
-              <span>High Contrast</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- row three -->
-        <div class="sub-menu--item smias">
-          <div class="sub-menu--item__title">
-            Keyboard Shortcuts
-          </div>
-          <div class="sub-menu--item__description">
-            <span>
-              30 individual keys in use for 23 different actions.
-            </span>
-            <br>
-            <span>
-              ("Escape" key actions will always be enabled.)
-            </span>
-          </div>
-          <div class="smia-shortcuts">
-
-            <div class="toggle-kb-shortcuts-btn__smia">
-              <span>
-                Open Shortcuts Menu
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="var(--white2)">
-                <path
-                  d="M4 19q-.825 0-1.412-.587Q2 17.825 2 17V7q0-.825.588-1.412Q3.175 5 4 5h16q.825 0 1.413.588Q22 6.175 22 7v10q0 .825-.587 1.413Q20.825 19 20 19Zm0-2h16V7H4v10Zm4-1h8v-2H8Zm-3-3h2v-2H5Zm3 0h2v-2H8Zm3 0h2v-2h-2Zm3 0h2v-2h-2Zm3 0h2v-2h-2ZM5 10h2V8H5Zm3 0h2V8H8Zm3 0h2V8h-2Zm3 0h2V8h-2Zm3 0h2V8h-2ZM4 17V7v10Z" />
-              </svg>
-            </div>
-
-            <div class="smia-set-shortcut-status">
-              <span class="smia-set-status-title">toggle on/off</span>
-              <div class="smia-disable-shortcuts__btn">
-                <label>
-                  <input type="checkbox" class="smia-toggle-shortcuts-checkbox" checked>
-                  <span class="smia-slider"></span>
-                </label>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-
-        <!-- row four -->
-        <div class="sub-menu--item">
-          <div class="sub-menu--item__title smias">
-            Transitions/Animations
-          </div>
-          <div class="sub-menu--item__description smi-last">
-            <span>
-              All transitions and animations can be toggled on/off.
-            </span>
-            <br>
-            <span>
-
-            </span>
-          </div>
-          <div class="smia-ani">
-            <span class="smdt-title">
-              toggle on/off
-            </span>
-            <div class="smdt-toggle">
-              <label>
-                <input type="checkbox" class="smdt-toggle-checkbox" checked>
-                <span class="smdt-slider"></span>
-              </label>
+          <div class="vl h-28 w-0.5 mx-4 bg-slate-200 "></div>
+          <div class="w-full h-full mx-4 overflow-y-scroll">
+            <span class="font-medium font-sans">Prefixes:</span>
+            <div class="w-full flex items-center justify-start flex-wrap my-2" id="prefixStorage">
             </div>
           </div>
         </div>
       </div>
+
+      <!-- excludes courses -->
+      <div class="sub-menu--item smi-theme-actions">
+        <div class="sub-menu--item__title">Excluded Courses</div>
+        <div class="py-3.5 text-white text-base leading-5">
+          Now you can choose specific courses to exclude.
+        </div>
+        <div class="h-36 flex justify-start items-center">
+          <div class="flex items-center ml-2">
+            <input class="h-10 w-24 ml-2 text-center rounded-l-md border-l-2 border-y-2 border-solid border-800"
+              id="excludeCourseInput" name="prefix" type="text">
+            <button class="h-10 w-24 mr-2 text-center rounded-r-md border-r-2 border-y-2 border-solid border-800"
+              id="excludeCourseBtn">Exclude</button>
+          </div>
+          <div class="vl h-28 w-0.5 mx-4 bg-slate-200"></div>
+          <div class="w-full h-full mx-4 overflow-y-scroll">
+            <span class="font-medium font-sans">Excluded:</span>
+            <div class="h-fit w-full flex items-center justify-start flex-wrap my-2" id="excludedCoursesStorage">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- additional constraints -->
+      <div class="py-6 px-1 border-solid border-b border-neutral-600">
+        <div class="text-2xl text-white font-normal font-gsans">Additional Constraints</div>
+        <div class="py-3.5 text-white text-base leading-5">
+          Add further optimization parameters.
+        </div>
+        <div id="additionalConstraintsContainer">
+          <div class="h-14 m-3 p-2 flex content-center additionalPrefixConstraint">
+            <span class="flex items-center font-medium additionalConstraintSpan">Have courses on a maximum of </span>
+            <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid placeholder:text-darkgrey additionalConstraintInput"
+              type="number" value="" placeholder="0" name="maxweekdays" disabled>
+            <span class="flex items-center font-medium mr-2 additionalConstraintSpan">days per week.</span>
+            <input class="scale-125 ml-2 additionalConstraintCheck" type="checkbox" value="constraintweekdays">
+          </div>
+          <div class="h-14 m-3 p-2 flex content-center additionalPrefixConstraint">
+            <span class="flex items-center font-medium additionalConstraintSpan">Have a mimimum of </span>
+            <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid placeholder:text-darkgrey additionalConstraintInput"
+              type="number" value="" placeholder="0" name="minects" disabled>
+            <span class="flex items-center font-medium mr-2 additionalConstraintSpan">total ects in this
+              semester.</span>
+            <input class="scale-125 ml-2 additionalConstraintCheck" type="checkbox" value="constraintweekdays">
+          </div>
+        </div>
+      </div>
+
+      <!-- objectives -->
+      <div class="py-6 px-1 border-solid border-b border-neutral-600">
+        <div class="text-2xl text-white font-normal font-gsans">Objective</div>
+        <div class="py-3.5 text-white text-base leading-5">
+          Select the objective the schedular should follow.
+        </div>
+        <div class="sub-menu--item__actions theme-actions">
+          <div
+            class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800 hover:bg-neutral-800 hover:cursor-pointer objective-container"
+            id="nothingobjective">
+            <input class="scale-125 ml-2 hover:cursor-pointer" name="objectiveoption" type="radio" value="noobjective"
+              checked="true">
+            <span class="flex items-center font-medium mr-2">No Objective</span>
+          </div>
+          <div
+            class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800 hover:bg-neutral-800 hover:cursor-pointer objective-container"
+            id="maxectsobjective">
+            <input class="scale-125 ml-2 hover:cursor-pointer" name="objectiveoption" type="radio" value="maxects">
+            <span class="flex items-center font-medium mr-2">Maximize ECTS</span>
+          </div>
+          <div
+            class="h-14 mx-3 p-2 w-full flex content-center justify-between rounded-md border-2 border-solid border-800 hover:bg-neutral-800 hover:cursor-pointer objective-container"
+            id="minweedaysobjective">
+            <input class="scale-125 ml-2 hover:cursor-pointer" name="objectiveoption" type="radio" value="minweekdays">
+            <span class="flex items-center font-medium mr-2">Minimize weekdays</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="py-6 px-6 flex content-center justify-center">
+        <button
+          class="h-14 w-full px-2 p-2 font-sans font-medium text-lg rounded-md border-2 border-solid border-800 text-center hover:bg-neutral-800" id="setConfigurationBtn">
+          Set Configuration</button>
+      </div>
+
     </div>
 
     </div>
@@ -698,7 +594,7 @@
   </aside>
 
   <template id="choosenTag">
-    <div class="w-fit h-fit mx-1 flex items-center rounded-md border-2 border-dashed border-gray-600">
+    <div class="w-fit h-fit m-1 flex items-center rounded-md border-2 border-dashed border-gray-600">
       <span class="h-10 w-fit mx-2 flex items-center text-center"></span>
       <button class="h-10 w-6 mx-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 15 15" fill="none">
@@ -710,12 +606,13 @@
     </div>
   </template>
 
-  <template id="additionalPrefixConstraint">
-    <div class="h-14 m-3 p-2 flex content-center">
-      <span class="flex items-center font-medium">Take a maximum of</span>
-      <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid border-800" type="number">
-      <span class="flex items-center font-medium mr-2"></span>
-      <input class="scale-125 ml-2" type="checkbox">
+  <template id="additionalPrefixConstraintTemplate">
+    <div class="h-14 m-3 p-2 flex content-center additionalPrefixConstraint">
+      <span class="flex items-center font-medium additionalConstraintSpan">Take a maximum of</span>
+      <input class="h-10 w-14 mx-2 text-center rounded-md border-2 border-solid placeholder:text-darkgrey additionalConstraintInput" type="number"
+        value="" placeholder="0" disabled>
+      <span class="flex items-center font-medium mr-2 additionalConstraintSpan"></span>
+      <input class="scale-125 ml-2 additionalConstraintCheck" type="checkbox">
     </div>
   </template>
 

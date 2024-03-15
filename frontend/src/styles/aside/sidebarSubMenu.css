@@ -8,30 +8,38 @@
   z-index: 1040
 }
 
+.additionalPrefixConstraint span {
+  color: var(--darkgrey3);
+}
+
+.additionalPrefixConstraint input[type="number"] {
+  color: var(--darkgrey3);
+  border-color: var(--darkgrey3);
+}
+
 .sub-overlay-vis {
   backdrop-filter: blur(6px);
   background: rgba(0, 0, 0, .6);
   z-index: 1042;
 }
 
-.sidebar-sub-menu {
-  background: var(--black1);
-  border-radius: 8px;
-  bottom: 2%;
-  box-shadow: var(--box-shadow1);
-  height: auto;
-  left: 2%;
-  margin: auto;
-  max-height: 600px;
-  max-width: 920px;
-  overflow: hidden;
-  position: absolute;
-  right: 2%;
-  top: 36px;
-  transition: all 200ms ease-in-out;
-  width: auto;
-  z-index: 1041
-}
+/* .sidebar-sub-menu { */
+/*   background: var(--black1); #181a1b */
+/*   border-radius: 8px; */
+/*   bottom: 2%; */
+/*   box-shadow: var(--box-shadow1); */
+/*   height: auto; */
+/*   left: 2%; */
+/*   margin: auto; */
+/*   max-height: 600px; */
+/*   max-width: 920px; */
+/*   position: absolute; */
+/*   right: 2%; */
+/*   top: 36px; */
+/*   transition: all 200ms ease-in-out; */
+/*   width: auto; */
+/*   z-index: 1041 */
+/* } */
 
 .hide-sidebar-sub-menu,
 .hide-tai {

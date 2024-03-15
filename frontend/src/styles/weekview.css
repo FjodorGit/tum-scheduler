@@ -579,7 +579,6 @@
   margin-top: -62.5px;
   background: var(--black1);
   position: relative;
-  z-index: 50;
   border-top: var(--borderdarkgrey);
 }
 
