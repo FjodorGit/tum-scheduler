@@ -65,32 +65,6 @@ class Context {
     this.month = this.getMonth();
     this.monthArray = this.getMonthArray();
     this.week = this.getWeek();
-
-    this.curriculum = "";
-    this.selectedPrefixes = [];
-    this.excludedCourses = [];
-    this.addAdditionalConstraints = [];
-    this.objective = "";
-  }
-
-  setCurriculum(curriculum) {
-    this.curriculum = curriculum;
-  }
-
-  addPrefix(prefix) {
-    this.selectedPrefixes.push(prefix);
-  }
-
-  excludeCourse(course) {
-    this.excludedCourses.push(course);
-  }
-
-  addAdditionalConstraint(name, amount) {
-    this.addAdditionalConstraints.push((name, amount));
-  }
-
-  setObjective(objective) {
-    this.objective = objective;
   }
 
   setDateDefaults() {
