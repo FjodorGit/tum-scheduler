@@ -30,7 +30,12 @@ const monthwrapper = document.querySelector(".monthview");
 const configMenu = document.querySelector("#configMenu");
 configMenu.style.zIndex = "-1";
 
-export default function renderViews(context, datepickerContext, store) {
+export default function renderViews(
+  context,
+  configuration,
+  datepickerContext,
+  store,
+) {
   function setColorScheme() {
     const setlight = () => {
       context.setColorScheme("light");
@@ -516,7 +521,7 @@ export default function renderViews(context, datepickerContext, store) {
     };
 
     store.setRenderSidebarCallback(ensureSidebarIsOpen);
-    setupConfigMenu(context, closeConfigMenu);
+    setupConfigMenu(configuration, closeConfigMenu);
 
     settings.onclick = () => {
       configMenu.style.zIndex *= -1;

@@ -19,7 +19,7 @@ const additionalConstraints = document.querySelectorAll(
 const objectiveContainers = document.querySelectorAll(".objective-container");
 const setConfigurationBtn = document.querySelector("#setConfigurationBtn");
 
-export default function getConfigMenu(context, callBackToClose) {
+export default function setupConfigMenu(configuration, callBackToClose) {
   function addSelectedPrefix() {
     const prefix = prefixInput.value;
     if (prefix === "") {
@@ -28,7 +28,7 @@ export default function getConfigMenu(context, callBackToClose) {
     const prefixTag = createPrefixTag(prefix);
     prefixStorage.appendChild(prefixTag);
     prefixInput.value = "";
-    context.addPrefix(prefix);
+    configuration.addPrefix(prefix);
   }
 
   function excludeSelectedCourse() {
@@ -39,7 +39,7 @@ export default function getConfigMenu(context, callBackToClose) {
     const excludedCourseTag = createExcludedCourseTag(excludedCourse);
     excludedCourseStorage.appendChild(excludedCourseTag);
     excludedCourseInput.value = "";
-    context.excludeCourse(excludedCourse);
+    configuration.excludeCourse(excludedCourse);
   }
 
   function setConfiguration() {
@@ -48,13 +48,15 @@ export default function getConfigMenu(context, callBackToClose) {
       ".additionalConstraintInput",
     );
 
-    context.setCurriculum(curriculum);
+    configuration.setCurriculum(curriculum);
     additionalConstraintInputs.forEach((input) => {
-      context.addAdditionalConstraint(input.name, input.value);
+      if (!input.disabled) {
+        configuration.addAdditionalConstraint(input.name, input.value);
+      }
     });
 
     callBackToClose();
-    console.log(context);
+    console.log(configuration.as_json());
   }
 
   function openSubMenu() {
@@ -92,8 +94,8 @@ export default function getConfigMenu(context, callBackToClose) {
 
     objectiveContainers.forEach((cont) => {
       cont.onclick = () => {
-        const objective = cont.textContent;
-        context.setObjective(objective);
+        const objective = cont.querySelector("input").value;
+        configuration.setObjective(objective);
         const radioinput = cont.querySelector('[name="objectiveoption"]');
         radioinput.checked = true;
       };

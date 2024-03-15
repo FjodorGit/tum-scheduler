@@ -1,5 +1,6 @@
 import context, { datepickerContext } from "./context/appContext";
 import store from "./context/store";
+import configuration from "./context/configuration";
 import setAppDefaults from "./config/appDefaults";
 import renderViews from "./config/renderViews";
 
@@ -44,5 +45,4 @@ import "./styles/aside/shortcuts.css";
 
 /*!*************************************!*/
 setAppDefaults(context, store);
-renderViews(context, datepickerContext, store);
-
+renderViews(context, configuration, datepickerContext, store);
