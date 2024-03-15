@@ -1,3 +1,5 @@
+use serde::Deserialize;
+
 type CoursesPerFaculty = Vec<(String, i32)>;
 
 pub struct ConstraintSettings {
@@ -13,8 +15,14 @@ pub struct FilterSettings {
     pub curriculum: Option<String>,
 }
 
+#[derive(Deserialize, Debug)]
 pub enum SolutionObjective {
+    #[serde(rename = "noobjective")]
     NoObjective,
+    #[serde(rename = "mincourses")]
     MinimizeNumCourses,
+    #[serde(rename = "minweekdays")]
+    MinimizeNumWeekdays,
+    #[serde(rename = "maxects")]
     MaximizeNumEcts,
 }

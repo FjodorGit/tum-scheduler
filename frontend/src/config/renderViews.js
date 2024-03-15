@@ -10,7 +10,7 @@ import createCategoryForm from "../components/menus/editCategory";
 const appBody = document.querySelector(".body");
 const colorSchemeMeta = document.getElementsByName("color-scheme")[0];
 
-const settings = document.querySelector(".settings");
+const configureBtn = document.querySelector("#configureBtn");
 const search = document.querySelector(".h-search");
 
 const formOverlay = document.querySelector(".form-overlay");
@@ -26,6 +26,8 @@ const options = document.querySelectorAll(".view-option");
 const viewsContainer = document.querySelector(".container__calendars");
 const yearwrapper = document.querySelector(".yearview");
 const monthwrapper = document.querySelector(".monthview");
+
+const optimizeBtn = document.querySelector("#optimizeBtn");
 
 const configMenu = document.querySelector("#configMenu");
 configMenu.style.zIndex = "-1";
@@ -310,8 +312,7 @@ export default function renderViews(
     const btnNext = getClosest(e, ".next");
     const dateTime = getClosest(e, ".datetime-content");
     const search = getClosest(e, ".h-search");
-    const settings = getClosest(e, ".settings");
-    const select = getClosest(e, ".select__modal");
+    const configure = getClosest(e, "#configureBtn");
 
     if (btnMainMenu) {
       context.toggleSidebarState();
@@ -344,7 +345,7 @@ export default function renderViews(
       return;
     }
 
-    if (settings) {
+    if (configure) {
       handleToggleSubmenu(e);
       return;
     }
@@ -508,6 +509,17 @@ export default function renderViews(
     configMenu.style.zIndex = -1;
   }
 
+  function sendOptimizationRequest() {
+    let data = configuration.as_json();
+    fetch("/api/optimize", {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+
   const appinit = () => {
     // render initial view and set initial attributes
     renderOption(context.getComponent(), true);
@@ -523,10 +535,11 @@ export default function renderViews(
     store.setRenderSidebarCallback(ensureSidebarIsOpen);
     setupConfigMenu(configuration, closeConfigMenu);
 
-    settings.onclick = () => {
+    configureBtn.onclick = () => {
       configMenu.style.zIndex *= -1;
     };
     configMenu.style.zIndex *= -1;
+    optimizeBtn.onclick = sendOptimizationRequest;
     search.onclick = () => createGoTo(context, store, datepickerContext);
   };
   appinit();

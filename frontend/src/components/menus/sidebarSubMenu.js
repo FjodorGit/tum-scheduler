@@ -51,7 +51,10 @@ export default function setupConfigMenu(configuration, callBackToClose) {
     configuration.setCurriculum(curriculum);
     additionalConstraintInputs.forEach((input) => {
       if (!input.disabled) {
-        configuration.addAdditionalConstraint(input.name, input.value);
+        configuration.addAdditionalConstraint(
+          input.name,
+          parseInt(input.value),
+        );
       }
     });
 

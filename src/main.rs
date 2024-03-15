@@ -1,6 +1,7 @@
 use std::thread::sleep;
 use std::time::Duration;
 
+use crate::api::run_server;
 use crate::schedular::scheduling_problem::test_run;
 use crate::tum_api::course::CourseFromXml;
 use crate::tum_api::course_variant::CourseVariantEndpoint;
@@ -13,6 +14,7 @@ use tum_api::DataAquisitionError;
 
 use crate::tum_api::appointment::AppointmentEndpoint;
 
+pub mod api;
 pub mod db_setup;
 pub mod schedular;
 pub mod schema;
@@ -21,7 +23,7 @@ use tracing::{debug, info};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 // use paging mechnism to get course ids then use allCurriculum to get type of course
-#[tokio::main]
+#[actix_web::main]
 async fn main() -> Result<()> {
     dotenv().ok();
     dotenv::from_filename("request_urls").ok();
@@ -34,7 +36,7 @@ async fn main() -> Result<()> {
         .init();
 
     info!("Starting web server!");
-    test_run()?;
+    run_server().await?;
     // println!("{:#?}", week_in_15min_intervalls());
     // aquire_lecture_data("199").await?;
     Ok(())

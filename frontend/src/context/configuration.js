@@ -3,7 +3,7 @@ class Configuration {
     this.curriculum = "";
     this.selectedPrefixes = [];
     this.excludedCourses = [];
-    this.addAdditionalConstraints = {};
+    this.additionalConstraints = {};
     this.objective = "noobjective";
   }
 
@@ -20,7 +20,7 @@ class Configuration {
   }
 
   addAdditionalConstraint(name, amount) {
-    this.addAdditionalConstraints[name] = amount;
+    this.additionalConstraints[name] = amount;
   }
 
   setObjective(objective) {

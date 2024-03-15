@@ -176,6 +176,9 @@ impl SchedulingProblem {
             SolutionObjective::MaximizeNumEcts => {
                 self.model.set_objective(self.amount_ects.clone(), Maximize)
             }
+            SolutionObjective::MinimizeNumWeekdays => {
+                todo!()
+            }
             SolutionObjective::NoObjective => self.model.set_objective(0, Minimize),
         }?;
         for (constr, expr) in interval_constraints {
