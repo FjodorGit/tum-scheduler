@@ -63,12 +63,10 @@ export default function setupConfigMenu(configuration, callBackToClose) {
   }
 
   function openSubMenu() {
-    console.log("Opening Config Menu");
     // included prefixes
     addPrefixBtn.onclick = addSelectedPrefix;
     // excluded courses
     excludedCourseBtn.onclick = excludeSelectedCourse;
-    console.log(additionalConstraints);
 
     additionalConstraints.forEach((constr) => {
       const checkBox = constr.querySelector(".additionalConstraintCheck");

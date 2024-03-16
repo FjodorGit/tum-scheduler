@@ -544,7 +544,7 @@ export default function renderViews(
     configureBtn.onclick = () => {
       configMenu.style.zIndex *= -1;
     };
-    configMenu.style.zIndex *= -1;
+    // configMenu.style.zIndex *= -1;
     optimizeBtn.onclick = optimize;
     search.onclick = () => createGoTo(context, store, datepickerContext);
   };

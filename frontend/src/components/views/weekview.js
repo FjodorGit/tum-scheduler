@@ -35,6 +35,7 @@ import handleOverlap, {
 } from "../../utilities/dragutils";
 
 import { getClosest, placePopup } from "../../utilities/helpers";
+import configuration from "../../context/configuration";
 
 // main app sidebar
 const sidebar = document.querySelector(".sidebar");
@@ -50,9 +51,24 @@ const weekviewSideGrid = document.querySelector(".weekview--sidebar");
 
 const topCols = document.querySelectorAll(".allday--col");
 
-const boxTemplate = document.querySelector("#appointmentBoxTemplate");
+const appointmentTemplate = document.querySelector("#appointmentBoxTemplate");
+const blockerTemplate = document.querySelector("#blockerBoxTemplate");
+const weekdayCols = document.querySelectorAll(".week--col");
 
-const cols = document.querySelectorAll(".week--col");
+function calculateTimeFromYCoord(yCoord, startOrEnd) {
+  let starthour = 6 + Math.floor(yCoord / 50);
+  const plus15 = startOrEnd === "end" ? 15 : 0;
+  let startmin = (Math.floor(yCoord / 12.5) % 4) * 15 + plus15;
+  if (startmin === 60) {
+    startmin = 0;
+    starthour += 1;
+  }
+  startmin = startmin == 0 ? startmin.toString() + "0" : startmin.toString();
+  starthour =
+    starthour < 10 ? "0" + starthour.toString() : starthour.toString();
+
+  return starthour + ":" + startmin + ":00";
+}
 
 export default function setWeekView(context, store, datepickerContext) {
   const weekArray = context.getWeekArray();
@@ -66,6 +82,47 @@ export default function setWeekView(context, store, datepickerContext) {
     context.setDateSelected(da);
     context.setComponent("day");
     setViews("day", context, store, datepickerContext);
+  }
+
+  function columnClick(clickEvent) {
+    const col = clickEvent.target;
+    var blockerBoxHeight;
+
+    const blockerBox = blockerTemplate.content.cloneNode(true).children[0];
+    blockerBox.style.left = col.style.left;
+    const yStart = Math.floor(clickEvent.offsetY / 25) * 25;
+    blockerBox.style.height = "23px";
+    blockerBox.style.top = yStart.toString() + "px";
+
+    function onBlockerDragging(event) {
+      const offset = event.screenY < clickEvent.screenY ? 0 : event.offsetY;
+      blockerBoxHeight = 23 + Math.floor(offset / 12.5) * 12.5;
+      blockerBox.style.height = blockerBoxHeight.toString() + "px";
+    }
+
+    function onBlockDragFinished() {
+      container.removeEventListener("mousemove", onBlockerDragging);
+      const blockerId = document.createAttribute("blocker-id");
+
+      const yEnd = yStart + blockerBoxHeight;
+      const from = calculateTimeFromYCoord(yStart, "start");
+      const until = calculateTimeFromYCoord(yEnd, "end");
+
+      blockerId.value = configuration.addBlocker(col, from, until);
+      blockerBox.setAttributeNode(blockerId);
+
+      document.removeEventListener("mouseup", onBlockDragFinished);
+
+      console.log(configuration.as_json());
+    }
+
+    container.addEventListener("mousemove", onBlockerDragging);
+
+    document.addEventListener("mouseup", onBlockDragFinished);
+
+    console.log(clickEvent);
+
+    col.appendChild(blockerBox);
   }
 
   function createWVSideGridCells() {
@@ -107,7 +164,7 @@ export default function setWeekView(context, store, datepickerContext) {
   }
 
   function resetWeekviewBoxes() {
-    cols.forEach((col) => {
+    weekdayCols.forEach((col) => {
       col.innerText = "";
     });
     topCols.forEach((col) => {
@@ -119,7 +176,7 @@ export default function setWeekView(context, store, datepickerContext) {
   }
 
   function renderBoxes() {
-    cols.forEach((col) => {
+    weekdayCols.forEach((col) => {
       col.innerText = "";
     });
     topCols.forEach((col) => {
@@ -129,7 +186,7 @@ export default function setWeekView(context, store, datepickerContext) {
     boxes.getBoxes().forEach((entry) => {
       const y = entry.coordinates.y;
       firstY == null || y < firstY ? (firstY = y) : null;
-      const col = cols[+entry.coordinates.x];
+      const col = weekdayCols[+entry.coordinates.x];
       createBox(col, entry, "week", store.getCtgColor(entry.category));
     });
 
@@ -441,7 +498,7 @@ export default function setWeekView(context, store, datepickerContext) {
         leftColX = null;
       }
 
-      if (+currentColumn + 1 < cols.length) {
+      if (+currentColumn + 1 < weekdayCols.length) {
         rightColX = parseInt(
           getcol(+currentColumn + 1).getBoundingClientRect().left,
         );
@@ -772,6 +829,11 @@ export default function setWeekView(context, store, datepickerContext) {
     // main.onmousedown = delegateGridEvents;
     // need to use onclick to delegate header events in order to allow for tab + enter
     weekviewHeader.onclick = delegateWvHeader;
+
+    weekdayCols.forEach((col) =>
+      col.addEventListener("mousedown", (e) => columnClick(e)),
+    );
+
     store.setResetPreviousViewCallback(resetWeekviewBoxes);
     if (firstY !== null) {
       setTimeout(() => {
@@ -786,7 +848,7 @@ export default function setWeekView(context, store, datepickerContext) {
   initWeek();
 }
 
-function calculateYCoord(time) {
+function calculateYCoordFromAppointment(time) {
   const [hoursString, minutesString, _] = time.split(":");
 
   // Parse hours and minutes as integers
@@ -797,7 +859,8 @@ function calculateYCoord(time) {
 }
 
 function createBoxFromAppointment(subject, appointment) {
-  const appointmentBox = boxTemplate.content.cloneNode(true).children[0];
+  const appointmentBox =
+    appointmentTemplate.content.cloneNode(true).children[0];
   appointmentBox.children[0].textContent =
     subject + " " + appointment.course_type;
 
@@ -806,8 +869,8 @@ function createBoxFromAppointment(subject, appointment) {
 
   const weekdayCol = document.querySelector(weekdayId);
 
-  const yStartCoord = calculateYCoord(appointment.from);
-  const yEndCoord = calculateYCoord(appointment.to);
+  const yStartCoord = calculateYCoordFromAppointment(appointment.from);
+  const yEndCoord = calculateYCoordFromAppointment(appointment.to);
   const height = yEndCoord - yStartCoord;
 
   console.log("yStart: ", yStartCoord);

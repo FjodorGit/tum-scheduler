@@ -1,10 +1,20 @@
+const indexToWeekday = {
+  0: "Monday",
+  1: "Tuesday",
+  2: "Wednesday",
+  3: "Thursday",
+  4: "Friday",
+};
+
 class Configuration {
   constructor() {
+    this.num_of_blockers = 0;
     this.curriculum = "";
     this.selectedPrefixes = [];
     this.excludedCourses = [];
     this.additionalConstraints = {};
     this.objective = "noobjective";
+    this.blockers = {};
   }
 
   setCurriculum(curriculum) {
@@ -25,6 +35,21 @@ class Configuration {
 
   setObjective(objective) {
     this.objective = objective;
+  }
+
+  addBlocker(col, from, until) {
+    const weekday = indexToWeekday[col.getAttribute("data-column-index")];
+    console.log(col.getAttribute("data-column-index"));
+    console.log(weekday);
+    const appointment = { weekday: weekday, from: from, until: until };
+    const blockerId = "blocker" + this.num_of_blockers.toString();
+    this.num_of_blockers += 1;
+    this.blockers[blockerId] = appointment;
+    return blockerId;
+  }
+
+  removeBlocker(blockerId) {
+    delete this.blockers[blockerId];
   }
 
   as_json() {
