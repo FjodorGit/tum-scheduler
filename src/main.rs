@@ -37,6 +37,7 @@ async fn main() -> Result<()> {
 
     info!("Starting web server!");
     run_server().await?;
+    // run_server().await?;
     // println!("{:#?}", week_in_15min_intervalls());
     // aquire_lecture_data("199").await?;
     Ok(())

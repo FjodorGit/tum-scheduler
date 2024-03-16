@@ -420,11 +420,8 @@ function createTempBoxHeader(view) {
 }
 
 function startEndDefault(y) {
-  console.log(y);
   let tempstarthour = 6 + Math.floor(y / 50);
   let tempstartmin = (Math.floor(y / 12.5) % 4) * 15;
-  console.log("Start hour", tempstarthour);
-  console.log("Start min", tempstartmin);
   return [
     tempstarthour, // start hour
     tempstartmin, // start minute
@@ -482,4 +479,3 @@ export {
   getOriginalBoxObject,
   resetOriginalBox,
 };
-

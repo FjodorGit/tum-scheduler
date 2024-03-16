@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use serde::Deserialize;
 
 type CoursesPerFaculty = Vec<(String, i32)>;
@@ -8,11 +10,11 @@ pub struct ConstraintSettings {
     pub max_courses_per_faculty: Option<CoursesPerFaculty>,
 }
 
-pub struct FilterSettings {
-    pub subjects: Option<Vec<String>>,
-    pub exclude_subject: Option<Vec<String>>,
-    pub faculties: Option<Vec<String>>,
-    pub curriculum: Option<String>,
+pub struct FilterSettings<'a> {
+    pub subjects: Option<&'a Vec<String>>,
+    pub excluded_courses: Option<&'a Vec<String>>,
+    pub faculties: Option<&'a Vec<String>>,
+    pub curriculum: Option<&'a str>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -25,4 +27,28 @@ pub enum SolutionObjective {
     MinimizeNumWeekdays,
     #[serde(rename = "maxects")]
     MaximizeNumEcts,
+}
+
+impl From<&HashMap<String, i32>> for ConstraintSettings {
+    fn from(value: &HashMap<String, i32>) -> Self {
+        let mut max_num_days = None;
+        let mut min_num_ects = None;
+        let mut max_courses_per_faculty_vec = vec![];
+        for (key, amount) in value.into_iter() {
+            match key.as_str() {
+                "maxweekdays" => max_num_days = Some(amount),
+                "minects" => min_num_ects = Some(amount),
+                _ => max_courses_per_faculty_vec.push((key.to_owned(), *amount)),
+            }
+        }
+        let mut max_courses_per_faculty = None;
+        if max_courses_per_faculty_vec.len() > 0 {
+            max_courses_per_faculty = Some(max_courses_per_faculty_vec);
+        }
+        Self {
+            max_num_days: max_num_days.copied(),
+            min_num_ects: min_num_ects.copied(),
+            max_courses_per_faculty,
+        }
+    }
 }

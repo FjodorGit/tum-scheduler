@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-use actix_web::{post, web::Json, HttpResponse, Responder};
+use actix_web::{post, web::Json, HttpResponse, Responder, Result};
 use serde::Deserialize;
-use serde_json::{Map, Value};
 
-use crate::schedular::settings::SolutionObjective;
+use crate::schedular::scheduling_problem::SchedulingProblem;
+use crate::schedular::settings::{ConstraintSettings, FilterSettings, SolutionObjective};
 
 #[derive(Deserialize, Debug)]
 struct FrontendConfiguration {
@@ -19,7 +19,23 @@ struct FrontendConfiguration {
 }
 
 #[post("/api/optimize")]
-pub async fn optimize(configuration: Json<FrontendConfiguration>) -> impl Responder {
-    println!("Welcome {:#?}!", configuration);
-    HttpResponse::Ok()
+pub async fn optimize(configuration: Json<FrontendConfiguration>) -> Result<impl Responder> {
+    let mut scheduling_problem = SchedulingProblem::new();
+    let additional_contraints: ConstraintSettings =
+        ConstraintSettings::from(&configuration.additional_constraints);
+    let filter_settings = FilterSettings {
+        subjects: None,
+        excluded_courses: Some(&configuration.excluded_courses),
+        faculties: Some(&configuration.selected_prefixes),
+        curriculum: Some(&configuration.curriculum),
+    };
+
+    let solution = scheduling_problem.solve(
+        filter_settings,
+        additional_contraints,
+        &configuration.objective,
+    );
+
+    println!("Result: {:#?}", solution);
+    Ok(Json(solution.unwrap()))
 }

@@ -4,7 +4,7 @@
   "description": "zero dependency weekly schedule builder written in vanilla javascript",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --watch",
     "dev": "webpack serve --open",
     "deploy": "gh-pages -d dist"
   },

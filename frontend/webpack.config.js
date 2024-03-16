@@ -20,6 +20,11 @@ module.exports = {
     compress: true,
   },
   devtool: "source-map",
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+  },
+
   module: {
     rules: [
       {
@@ -90,4 +95,3 @@ module.exports = {
 //     },
 //   },
 // },
-

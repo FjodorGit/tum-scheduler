@@ -50,6 +50,8 @@ const weekviewSideGrid = document.querySelector(".weekview--sidebar");
 
 const topCols = document.querySelectorAll(".allday--col");
 
+const boxTemplate = document.querySelector("#appointmentBoxTemplate");
+
 const cols = document.querySelectorAll(".week--col");
 
 export default function setWeekView(context, store, datepickerContext) {
@@ -91,28 +93,6 @@ export default function setWeekView(context, store, datepickerContext) {
       wvSideGridCell.textContent = `${hour} ${md}`;
       weekviewSideGrid.appendChild(wvSideGridCell);
     }
-  }
-
-  function configureDaysOfWeek() {
-    let hasToday;
-    let hasSelected;
-    let ymd = [];
-    const today = context.getToday();
-    let [ty, tm, td] = [today.getFullYear(), today.getMonth(), today.getDate()];
-
-    weekArray.forEach((day, idx) => {
-      let [y, m, d] = [day.getFullYear(), day.getMonth(), day.getDate()];
-
-      ymd.push(`${y}-${m}-${d}`);
-
-      if (d === context.getDateSelected() && m === context.getMonth()) {
-        hasSelected = d;
-      }
-
-      if (d === td && m === tm && y === ty) {
-        hasToday = d;
-      }
-    });
   }
 
   function renderSidebarDatepickerWeek() {
@@ -741,8 +721,10 @@ export default function setWeekView(context, store, datepickerContext) {
 
   /** delegate via grid */
   function delegateGridEvents(e) {
+    console.log("Some event?", e);
     const getBoxResizeHandle = getClosest(e, ".box-resize-s");
     const getBox = getClosest(e, ".box");
+    console.log("getBox: ", getBox);
     const getWeekCol = getClosest(e, ".week--col");
     const getAllDayCol = getClosest(e, ".allday--col");
 
@@ -775,9 +757,6 @@ export default function setWeekView(context, store, datepickerContext) {
     colsToCheck.forEach((col) => handleOverlap(col, "week", boxes));
   }
 
-  /*
-  
-  */
   function delegateWvHeader(e) {
     const getHeaderDayNumber = getClosest(e, ".weekview--header-day__number");
     if (getHeaderDayNumber) {
@@ -789,9 +768,8 @@ export default function setWeekView(context, store, datepickerContext) {
   const initWeek = () => {
     weekviewSideGrid.innerText = "";
     createWVSideGridCells();
-    configureDaysOfWeek();
     renderDataForGrid();
-    main.onmousedown = delegateGridEvents;
+    // main.onmousedown = delegateGridEvents;
     // need to use onclick to delegate header events in order to allow for tab + enter
     weekviewHeader.onclick = delegateWvHeader;
     store.setResetPreviousViewCallback(resetWeekviewBoxes);
@@ -808,3 +786,38 @@ export default function setWeekView(context, store, datepickerContext) {
   initWeek();
 }
 
+function calculateYCoord(time) {
+  const [hoursString, minutesString, _] = time.split(":");
+
+  // Parse hours and minutes as integers
+  const appointmentHours = parseInt(hoursString);
+  const appointmentMinutes = parseInt(minutesString);
+
+  return (appointmentHours - 6) * 50 + Math.floor(appointmentMinutes * (5 / 6));
+}
+
+function createBoxFromAppointment(subject, appointment) {
+  const appointmentBox = boxTemplate.content.cloneNode(true).children[0];
+  appointmentBox.children[0].textContent =
+    subject + " " + appointment.course_type;
+
+  const weekdayId = "#" + appointment.weekday.toLowerCase() + "col";
+  console.log("weekdayId:", weekdayId);
+
+  const weekdayCol = document.querySelector(weekdayId);
+
+  const yStartCoord = calculateYCoord(appointment.from);
+  const yEndCoord = calculateYCoord(appointment.to);
+  const height = yEndCoord - yStartCoord;
+
+  console.log("yStart: ", yStartCoord);
+  console.log("yEnd: ", yEndCoord);
+
+  appointmentBox.style.left = weekdayCol.style.left;
+  appointmentBox.style.top = yStartCoord.toString() + "px";
+  appointmentBox.style.height = height.toString() + "px";
+
+  weekdayCol.appendChild(appointmentBox);
+}
+
+export { createBoxFromAppointment };

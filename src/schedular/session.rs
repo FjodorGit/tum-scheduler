@@ -1,5 +1,6 @@
 use chrono::NaiveTime;
 use diesel::{Queryable, Selectable};
+use serde::Serialize;
 
 use crate::schema::lecture;
 
@@ -17,7 +18,7 @@ pub struct LectureSession {
     pub ects: f64,
 }
 
-#[derive(Debug, Hash, PartialEq, Eq, Clone)]
+#[derive(Debug, Hash, PartialEq, Eq, Clone, Serialize)]
 pub struct SingleAppointment {
     pub weekday: String,
     pub from: NaiveTime,

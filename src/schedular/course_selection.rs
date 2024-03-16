@@ -2,6 +2,7 @@ use itertools::Itertools;
 
 use diesel::result;
 use diesel::PgConnection;
+use serde::Serialize;
 
 use crate::schema::lecture;
 
@@ -9,7 +10,7 @@ use super::session::LectureSession;
 use super::session::SingleAppointment;
 use super::settings::FilterSettings;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct CourseSelection {
     pub subject: String,
     pub name_en: String,
@@ -38,6 +39,7 @@ impl CourseSelection {
 
         let mut lectures = lecture::table.into_boxed();
         if let Some(curr) = filters.curriculum {
+            println!("curriculum filter: {:#?}", curr);
             lectures = lectures.filter(lecture::curriculum.eq(curr));
         }
         if let Some(fac) = filters.faculties {
@@ -46,7 +48,7 @@ impl CourseSelection {
         if let Some(subj) = filters.subjects {
             lectures = lectures.filter(lecture::subject.eq_any(subj));
         }
-        if let Some(exclude_subj) = filters.exclude_subject {
+        if let Some(exclude_subj) = filters.excluded_courses {
             lectures = lectures.filter(lecture::subject.ne_all(exclude_subj));
         }
 
@@ -201,7 +203,7 @@ mod test {
         dotenv().ok();
         let filters = FilterSettings {
             subjects: None,
-            exclude_subject: None,
+            excluded_courses: None,
             faculties: None, //Some("IN".to_string()),
             curriculum: None,
         };

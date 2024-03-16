@@ -6,6 +6,7 @@ import handleShortCutsModal from "../components/menus/shortcutsModal";
 import setupConfigMenu from "../components/menus/sidebarSubMenu";
 import createGoTo from "../components/forms/goto";
 import createCategoryForm from "../components/menus/editCategory";
+import { createBoxFromAppointment } from "../components/views/weekview";
 
 const appBody = document.querySelector(".body");
 const colorSchemeMeta = document.getElementsByName("color-scheme")[0];
@@ -509,15 +510,20 @@ export default function renderViews(
     configMenu.style.zIndex = -1;
   }
 
-  function sendOptimizationRequest() {
+  async function optimize() {
     let data = configuration.as_json();
-    fetch("/api/optimize", {
+    const course_selection = await fetch("/api/optimize", {
       method: "POST",
       body: data,
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    });
+    }).then((response) => response.json());
+    for (const selected_course of course_selection) {
+      selected_course.appointments.forEach((appointment) =>
+        createBoxFromAppointment(selected_course.subject, appointment),
+      );
+    }
   }
 
   const appinit = () => {
@@ -539,7 +545,7 @@ export default function renderViews(
       configMenu.style.zIndex *= -1;
     };
     configMenu.style.zIndex *= -1;
-    optimizeBtn.onclick = sendOptimizationRequest;
+    optimizeBtn.onclick = optimize;
     search.onclick = () => createGoTo(context, store, datepickerContext);
   };
   appinit();

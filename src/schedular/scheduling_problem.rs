@@ -1,4 +1,4 @@
-use crate::schedular::settings::FilterSettings;
+use crate::{db_setup::connection, schedular::settings::FilterSettings};
 
 use super::{
     course_selection::CourseSelection,
@@ -115,10 +115,18 @@ impl SchedulingProblem {
         }
     }
 
-    pub fn add_additional_constraints(
+    pub fn add_constraints(
         &mut self,
         constraints: ConstraintSettings,
     ) -> Result<(), SchedularError> {
+        let interval_constraints = self
+            .interval_exprs
+            .iter()
+            .map(|(name, expr)| (name, c!(expr.clone() <= 1)));
+        for (constr, expr) in interval_constraints {
+            self.model.add_constr(constr, expr)?;
+        }
+
         if let Some(min_ects) = constraints.min_num_ects {
             self.model
                 .add_constr("min_ects", c!(self.amount_ects.clone() >= min_ects))?;
@@ -164,11 +172,7 @@ impl SchedulingProblem {
         Ok(())
     }
 
-    pub fn solve(&mut self, objective: SolutionObjective) -> Result<Vec<f64>, SchedularError> {
-        let interval_constraints = self
-            .interval_exprs
-            .iter()
-            .map(|(name, expr)| (name, c!(expr.clone() <= 1)));
+    fn set_objective(&mut self, objective: &SolutionObjective) -> Result<(), SchedularError> {
         match objective {
             SolutionObjective::MinimizeNumCourses => self
                 .model
@@ -181,44 +185,64 @@ impl SchedulingProblem {
             }
             SolutionObjective::NoObjective => self.model.set_objective(0, Minimize),
         }?;
-        for (constr, expr) in interval_constraints {
-            self.model.add_constr(constr, expr)?;
-        }
+        Ok(())
+    }
+
+    pub fn solve(
+        &mut self,
+        filter_settings: FilterSettings,
+        constraint_settings: ConstraintSettings,
+        objective: &SolutionObjective,
+    ) -> Result<Vec<CourseSelection>, SchedularError> {
+        let conn = &mut connection().expect("should be able to establish connection to db");
+        let possible_lectures = CourseSelection::addmissiable_lectures(conn, filter_settings)
+            .expect("should be able to request possible lectures");
+
+        // println!("Possible lectures: {:#?}", possible_lectures);
+        let mut course_selections = CourseSelection::build_from_lectures(possible_lectures);
+        // println!("Course selections: {:#?}", course_selections);
+        self.add_courses(&course_selections)?;
+        self.add_constraints(constraint_settings)?;
+        self.set_objective(objective)?;
         self.model.update()?;
         println!("Writing model to file");
         self.model.write("schedular.lp")?;
         self.model.optimize()?;
-        let vals = self.model.get_obj_attr_batch(attr::X, self.vars.clone())?;
-        Ok(vals)
+        let solution_vec = self.model.get_obj_attr_batch(attr::X, self.vars.clone())?;
+        let mut solution_iter = solution_vec.iter();
+        // println!("Solution vec: {:#?}", solution_vec);
+        course_selections.retain(|_| solution_iter.next() == Some(&1.));
+        // println!("retained courses len: {:#?}", course_selections.len());
+        Ok(course_selections)
     }
 }
 
 pub fn test_run() -> Result<(), SchedularError> {
     dotenv::dotenv().ok();
-    use crate::db_setup::connection;
-    let conn = &mut connection().expect("should be able to establish connection to db");
     let mut scheduling_problem = SchedulingProblem::new();
 
+    let faculties = vec!["MA".to_string(), "IN".to_string(), "CIT".to_string()];
+    let excluded_courses = vec![
+        "MA5617".to_string(),
+        "MA0003".to_string(),
+        "MA3601".to_string(),
+        "MA5120".to_string(),
+        "MA2409".to_string(),
+        "MA3405".to_string(),
+        "MA3407".to_string(),
+        "MA3442".to_string(),
+        "MA3703".to_string(),
+        "CIT4130023".to_string(),
+        "CIT4130024".to_string(),
+        "MA4304".to_string(),
+        "MA5619".to_string(),
+        "IN2339".to_string(),
+    ];
     let filters = FilterSettings {
         subjects: None,
-        exclude_subject: Some(vec![
-            "MA5617".to_string(),
-            "MA0003".to_string(),
-            "MA3601".to_string(),
-            "MA5120".to_string(),
-            "MA2409".to_string(),
-            "MA3405".to_string(),
-            "MA3407".to_string(),
-            "MA3442".to_string(),
-            "MA3703".to_string(),
-            "CIT4130023".to_string(),
-            "CIT4130024".to_string(),
-            "MA4304".to_string(),
-            "MA5619".to_string(),
-            "IN2339".to_string(),
-        ]),
-        faculties: Some(vec!["MA".to_string(), "IN".to_string(), "CIT".to_string()]),
-        curriculum: Some("5244".to_string()),
+        excluded_courses: Some(&excluded_courses),
+        faculties: Some(&faculties),
+        curriculum: Some("5244"),
     };
 
     let constraints = ConstraintSettings {
@@ -227,18 +251,9 @@ pub fn test_run() -> Result<(), SchedularError> {
         max_courses_per_faculty: Some(vec![("IN".to_string(), 1)]),
     };
 
-    let possible_lectures = CourseSelection::addmissiable_lectures(conn, filters)
-        .expect("should be able to request possible lectures");
-    let course_selections = CourseSelection::build_from_lectures(possible_lectures);
-    scheduling_problem.add_courses(&course_selections)?;
-    scheduling_problem.add_additional_constraints(constraints)?;
-    let solution = scheduling_problem.solve(SolutionObjective::MinimizeNumCourses)?;
-    let resulting_courses: Vec<CourseSelection> = course_selections
-        .into_iter()
-        .zip(solution.iter())
-        .filter_map(|(value, &mask)| if mask == 1. { Some(value) } else { None })
-        .collect();
-    println!("Result: {:#?}", resulting_courses);
+    let solution =
+        scheduling_problem.solve(filters, constraints, &SolutionObjective::MinimizeNumCourses)?;
+    println!("Result: {:#?}", solution);
     Ok(())
 }
 
@@ -255,9 +270,5 @@ mod test {
         let conn = &mut connection().expect("should be able to establish connection to db");
         let mut scheduling_problem = SchedulingProblem::new();
         for subject in ["MA3080", "MA3205", "MA3442", "MA4804", "CIT4100003"] {}
-        println!("Added appointements");
-        scheduling_problem
-            .solve(super::SolutionObjective::NoObjective)
-            .expect("should be able to start solve");
     }
 }
