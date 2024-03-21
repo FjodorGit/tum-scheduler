@@ -8,6 +8,7 @@ use crate::schedular::settings::{ConstraintSettings, FilterSettings, SolutionObj
 
 #[derive(Deserialize, Debug)]
 struct FrontendConfiguration {
+    semester: String,
     curriculum: String,
     #[serde(rename = "selectedPrefixes")]
     selected_prefixes: Vec<String>,
@@ -24,7 +25,7 @@ pub async fn optimize(configuration: Json<FrontendConfiguration>) -> Result<impl
     let additional_contraints: ConstraintSettings =
         ConstraintSettings::from(&configuration.additional_constraints);
     let filter_settings = FilterSettings {
-        subjects: None,
+        semester: Some(&configuration.semester),
         excluded_courses: Some(&configuration.excluded_courses),
         faculties: Some(&configuration.selected_prefixes),
         curriculum: Some(&configuration.curriculum),

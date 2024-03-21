@@ -38,15 +38,14 @@ impl CourseSelection {
         use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 
         let mut lectures = lecture::table.into_boxed();
+        if let Some(sems) = filters.semester {
+            lectures = lectures.filter(lecture::semester.eq(sems));
+        }
         if let Some(curr) = filters.curriculum {
-            println!("curriculum filter: {:#?}", curr);
             lectures = lectures.filter(lecture::curriculum.eq(curr));
         }
         if let Some(fac) = filters.faculties {
             lectures = lectures.filter(lecture::faculty.eq_any(fac));
-        }
-        if let Some(subj) = filters.subjects {
-            lectures = lectures.filter(lecture::subject.eq_any(subj));
         }
         if let Some(exclude_subj) = filters.excluded_courses {
             lectures = lectures.filter(lecture::subject.ne_all(exclude_subj));
@@ -202,7 +201,7 @@ mod test {
     fn test_building_subject_appointment() {
         dotenv().ok();
         let filters = FilterSettings {
-            subjects: None,
+            semester: Some("23W"),
             excluded_courses: None,
             faculties: None, //Some("IN".to_string()),
             curriculum: None,

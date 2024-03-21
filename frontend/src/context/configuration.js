@@ -9,12 +9,17 @@ const indexToWeekday = {
 class Configuration {
   constructor() {
     this.num_of_blockers = 0;
+    this.semester = "";
     this.curriculum = "";
     this.selectedPrefixes = [];
     this.excludedCourses = [];
     this.additionalConstraints = {};
     this.objective = "noobjective";
     this.blockers = {};
+  }
+
+  setSemester(semester) {
+    this.semester = semester;
   }
 
   setCurriculum(curriculum) {

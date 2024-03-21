@@ -54,6 +54,7 @@ impl CurriculumFromXml {
 
         diesel::insert_into(curriculum)
             .values(curricula)
+            .on_conflict_do_nothing()
             .execute(conn)
             .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
 

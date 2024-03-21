@@ -239,7 +239,7 @@ pub fn test_run() -> Result<(), SchedularError> {
         "IN2339".to_string(),
     ];
     let filters = FilterSettings {
-        subjects: None,
+        semester: Some("23W"),
         excluded_courses: Some(&excluded_courses),
         faculties: Some(&faculties),
         curriculum: Some("5244"),

@@ -10,8 +10,9 @@ pub struct ConstraintSettings {
     pub max_courses_per_faculty: Option<CoursesPerFaculty>,
 }
 
+#[derive(Debug)]
 pub struct FilterSettings<'a> {
-    pub subjects: Option<&'a Vec<String>>,
+    pub semester: Option<&'a str>,
     pub excluded_courses: Option<&'a Vec<String>>,
     pub faculties: Option<&'a Vec<String>>,
     pub curriculum: Option<&'a str>,

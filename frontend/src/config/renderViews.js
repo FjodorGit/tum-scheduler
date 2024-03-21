@@ -28,6 +28,7 @@ const viewsContainer = document.querySelector(".container__calendars");
 const yearwrapper = document.querySelector(".yearview");
 const monthwrapper = document.querySelector(".monthview");
 
+const semesterSelect = document.querySelector("#semesterSelect");
 const optimizeBtn = document.querySelector("#optimizeBtn");
 
 const configMenu = document.querySelector("#configMenu");
@@ -526,6 +527,11 @@ export default function renderViews(
     }
   }
 
+  function semesterSelectionChanged(event) {
+    const semester = event.target.options[event.target.selectedIndex].value;
+    configuration.setSemester = semester;
+  }
+
   const appinit = () => {
     // render initial view and set initial attributes
     renderOption(context.getComponent(), true);
@@ -546,6 +552,7 @@ export default function renderViews(
     };
     // configMenu.style.zIndex *= -1;
     optimizeBtn.onclick = optimize;
+    semesterSelect.onchange = semesterSelectionChanged;
     search.onclick = () => createGoTo(context, store, datepickerContext);
   };
   appinit();
