@@ -14,7 +14,7 @@ pub struct LectureSession {
     pub subject: String,
     pub course_type: String,
     pub name_en: String,
-    pub faculty: String,
+    pub organization: String,
     pub ects: f64,
 }
 

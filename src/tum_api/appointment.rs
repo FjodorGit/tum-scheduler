@@ -4,6 +4,7 @@ use std::str::FromStr;
 
 use chrono::NaiveTime;
 
+use super::lecture::LectureTemplate;
 use super::tum_xml_node::TumXmlNode;
 use super::DataAquisitionError;
 use super::TumXmlError;
@@ -11,12 +12,12 @@ use super::TumXmlError;
 #[derive(Debug)]
 pub struct AppointmentFromXml {
     pub weekdays: Vec<String>,
-    pub from: NaiveTime,
-    pub to: NaiveTime,
+    pub start_time: NaiveTime,
+    pub end_time: NaiveTime,
 }
 
 #[derive(Debug)]
-pub struct AppointmentEndpoint {
+pub struct AppointmentsEndpoint {
     base_request_url: String,
 }
 
@@ -37,8 +38,8 @@ impl TryFrom<TumXmlNode<'_, '_>> for AppointmentFromXml {
 
         let app = AppointmentFromXml {
             weekdays,
-            from: start_time,
-            to: end_time,
+            start_time,
+            end_time,
         };
 
         Ok(app)
@@ -58,16 +59,16 @@ impl AppointmentFromXml {
     }
 }
 
-impl AppointmentEndpoint {
+impl AppointmentsEndpoint {
     pub fn new() -> Self {
         let base_request_url = env::var("APPOINTMENT_URL")
             .expect("APPOINTMENT_URL should exist in environment variables");
-        AppointmentEndpoint { base_request_url }
+        AppointmentsEndpoint { base_request_url }
     }
 
     pub async fn get_recurring_by_id(
         &self,
-        course_id: &String,
+        course_id: &str,
     ) -> Result<Vec<AppointmentFromXml>, DataAquisitionError> {
         let request_url = format!("{}{}", self.base_request_url, course_id);
         let request_result = reqwest::get(request_url).await?;

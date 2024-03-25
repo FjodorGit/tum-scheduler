@@ -42,10 +42,8 @@ impl SchedulingProblem {
         &mut self,
         subject_aps: &Vec<CourseSelection>,
     ) -> Result<(), SchedularError> {
-        let mut vars_count = 0;
-        for subject_ap in subject_aps.into_iter() {
-            self.add_course(subject_ap, vars_count)?;
-            vars_count += 1;
+        for (var_num, subject_ap) in subject_aps.iter().enumerate() {
+            self.add_course(subject_ap, var_num)?;
         }
         Ok(())
     }
@@ -53,7 +51,7 @@ impl SchedulingProblem {
     pub fn add_course(
         &mut self,
         course_selection: &CourseSelection,
-        schedule_num: i32,
+        schedule_num: usize,
     ) -> Result<(), SchedularError> {
         let course_var_name = format!("{}_v{}", course_selection.subject, schedule_num);
         let course_var = self

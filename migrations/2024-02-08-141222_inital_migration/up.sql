@@ -6,13 +6,11 @@ CREATE TABLE curriculum (
     semester varchar NOT NULL
 );
 
-CREATE TABLE course (
+CREATE TABLE organization (
     id varchar NOT NULL PRIMARY KEY,
-    course_type varchar NOT NULL,
-    sws varchar NOT NULL,
-    name_en varchar NOT NULL,
-    name_de varchar NOT NULL,
-    semester varchar NOT NULL
+    name varchar NOT NULL,
+    parent varchar NOT NULL,
+    kind varchar NOT NULL
 );
 
 CREATE TABLE lecture (
@@ -26,7 +24,8 @@ CREATE TABLE lecture (
     name_de varchar NOT NULL,
     semester varchar NOT NULL,
     curriculum varchar NOT NULL REFERENCES curriculum (id),
-    faculty varchar NOT NULL,
+    description varchar NOT NULL,
+    organization varchar NOT NULL REFERENCES organization (id),
     ects float NOT NULL,
     PRIMARY KEY (id, start_time, weekday, curriculum)
 );

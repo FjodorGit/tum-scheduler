@@ -17,12 +17,8 @@ impl<'a, 'input> TumXmlNode<'a, 'input> {
     pub fn new(node: Node<'a, 'input>) -> Self {
         Self(node)
     }
-    pub fn resource_elements(self) -> impl std::iter::Iterator<Item = Self> {
-        self.0
-            .descendants()
-            .filter(|n| element_has_name(n, "resource"))
-            .map(|n| TumXmlNode(n))
-            .into_iter()
+    pub fn resource_elements(&self) -> impl std::iter::Iterator<Item = Self> + '_ {
+        self.get_all_nodes("resource")
     }
 
     pub fn get_all_nodes<'b>(
@@ -31,9 +27,8 @@ impl<'a, 'input> TumXmlNode<'a, 'input> {
     ) -> impl std::iter::Iterator<Item = Self> + '_ {
         self.0
             .descendants()
-            .filter(move |n| element_has_name(n, &nodes_name))
-            .map(|n| TumXmlNode(n))
-            .into_iter()
+            .filter(move |n| element_has_name(n, nodes_name))
+            .map(TumXmlNode)
     }
 
     pub fn get_text_of_next(&self, node_name: &str) -> Result<String, TumXmlError> {
@@ -67,8 +62,7 @@ impl<'a, 'input> TumXmlNode<'a, 'input> {
         let node = self
             .0
             .descendants()
-            .filter(|n| element_has_name(n, node_name))
-            .next()
+            .find(|n| element_has_name(n, node_name))
             .ok_or(TumXmlError::TumNodeParseError(format!(
                 "No with name `{}` node found",
                 node_name

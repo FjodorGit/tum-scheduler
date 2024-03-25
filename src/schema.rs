@@ -1,17 +1,6 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    course (id) {
-        id -> Varchar,
-        course_type -> Varchar,
-        sws -> Varchar,
-        name_en -> Varchar,
-        name_de -> Varchar,
-        semester -> Varchar,
-    }
-}
-
-diesel::table! {
     curriculum (id) {
         id -> Varchar,
         name_en -> Varchar,
@@ -32,24 +21,26 @@ diesel::table! {
         name_de -> Varchar,
         semester -> Varchar,
         curriculum -> Varchar,
-        faculty -> Varchar,
+        description -> Varchar,
+        organization -> Varchar,
         ects -> Float8,
     }
 }
 
 diesel::table! {
-    test1 (id) {
-        id -> Int4,
-        name -> Nullable<Text>,
-        events -> Nullable<Array<Nullable<Text>>>,
+    organization (id) {
+        id -> Varchar,
+        name -> Varchar,
+        parent -> Varchar,
+        kind -> Varchar,
     }
 }
 
 diesel::joinable!(lecture -> curriculum (curriculum));
+diesel::joinable!(lecture -> organization (organization));
 
 diesel::allow_tables_to_appear_in_same_query!(
-    course,
     curriculum,
     lecture,
-    test1,
+    organization,
 );

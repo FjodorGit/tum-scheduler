@@ -7,16 +7,15 @@ use diesel::{
 use roxmltree::Document;
 use tracing::info;
 
-use crate::{db_setup::DbError, schema::course};
+use crate::db_setup::DbError;
 
 use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 
-#[derive(Debug, Queryable, Insertable)]
-#[diesel(table_name = course)]
+#[derive(Debug)]
 pub struct CourseFromXml {
     pub id: String,
     pub course_type: String,
-    pub sws: String,
+    pub sws: f64,
     pub name_en: String,
     pub name_de: String,
     pub semester: String,
@@ -25,7 +24,7 @@ pub struct CourseFromXml {
 #[derive(Debug)]
 pub struct CourseEndpoint {
     pub base_request_url: String,
-    pub current_page: u32,
+    pub current_page: usize,
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for CourseFromXml {
@@ -42,7 +41,10 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseFromXml {
         let course_type = course_type_node.get_text_of_next("key")?;
 
         let course_norm_node = resource_node.get_next("courseNormConfigs")?;
-        let sws = course_norm_node.get_text_of_last("value")?;
+        let sws_text = course_norm_node.get_text_of_last("value")?;
+        let sws = sws_text
+            .parse::<f64>()
+            .expect("sws should be parsable to float");
 
         let course_basic_data = CourseFromXml {
             id,
@@ -71,28 +73,10 @@ impl CourseFromXml {
         // println!("{:#?}", result.len());
         Ok(result)
     }
-
-    pub fn insert(conn: &mut PgConnection, new_course: &Self) -> Result<(), DbError> {
-        use crate::schema::course::dsl::*;
-        diesel::insert_into(course)
-            .values(new_course)
-            .execute(conn)
-            .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
-        Ok(())
-    }
-
-    pub fn get_all_ids(conn: &mut PgConnection) -> Result<Vec<String>, DbError> {
-        use crate::schema::course::dsl::*;
-        let courses = course
-            .select(id)
-            .load(conn)
-            .map_err(|e| DbError::QueryError(e.to_string()))?;
-        Ok(courses)
-    }
 }
 
 impl CourseEndpoint {
-    pub fn new(semester_id: &str) -> Self {
+    pub fn for_semester(semester_id: &str) -> Self {
         let base_url = env::var("BASE_COURSES_URL")
             .expect("BASE_COURSES_URL should exist in environment variables");
         let base_request_url = format!("{}{}&$skip=", base_url, semester_id);
@@ -109,6 +93,9 @@ impl CourseEndpoint {
         let xml = request_result.text().await?;
         let courses = CourseFromXml::read_all_from_page(xml)?;
         self.current_page += 1;
+        if courses.is_empty() {
+            return Err(DataAquisitionError::ZeroCoursesFound(self.current_page));
+        }
         Ok(courses)
     }
 }

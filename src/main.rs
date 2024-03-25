@@ -1,4 +1,4 @@
-use clap::{Parser, Subcommand};
+use clap::Parser;
 
 use crate::{api::run_server, tum_api::aquire_lecture_data};
 use anyhow::Result;
@@ -52,4 +52,3 @@ async fn main() -> Result<()> {
     }
     Ok(())
 }
-// use paging mechnism to get course ids then use allCurriculum to get type of course

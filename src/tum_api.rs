@@ -2,15 +2,19 @@ use std::{thread::sleep, time::Duration};
 
 use thiserror::Error;
 
-use self::tum_xml_node::TumXmlError;
+use self::{
+    lecture::{LectureTemplate, LecturesBuilder},
+    tum_xml_node::TumXmlError,
+};
 use crate::{
     db_setup::{self, connection},
     tum_api::{
-        appointment::AppointmentEndpoint,
+        appointment::AppointmentsEndpoint,
         course::{CourseEndpoint, CourseFromXml},
+        course_description::CourseDescriptionEndpoint,
         course_variant::CourseVariantEndpoint,
         curriculum::{CurriculumEndpoint, CurriculumFromXml},
-        lecture::LectureSessionFromXml,
+        lecture::{Lecture, Lectures},
     },
 };
 
@@ -26,8 +30,12 @@ pub mod tum_xml_node;
 pub enum DataAquisitionError {
     #[error("Failed to parse resource node: {0}")]
     NodeParseError(#[from] TumXmlError),
-    #[error("Failed to parse response document")]
-    DocumentParseError(#[from] roxmltree::Error),
+    #[error("Failed to parse response document: {0}")]
+    DocumentParseError(String),
+    #[error("Zero courses found on page {0}")]
+    ZeroCoursesFound(usize),
+    #[error("roxml failed to parse xml: {0}")]
+    InvalidXml(#[from] roxmltree::Error),
     #[error("Failed to request course basic data")]
     RequestError(#[from] reqwest::Error),
     #[error("Failed interact with database `{0}`")]
@@ -39,52 +47,37 @@ pub async fn aquire_lecture_data(
     with_curricula: bool,
 ) -> Result<(), DataAquisitionError> {
     let conn = &mut connection()?;
-    let appointment_endpoint = AppointmentEndpoint::new();
-    let course_variant_endpoint = CourseVariantEndpoint::new();
-    let mut course_endpoint = CourseEndpoint::new(semester_id);
-    if with_curricula {
-        let curriculum_endpoint = CurriculumEndpoint::new();
-        let curricula = curriculum_endpoint.get_all(semester_id).await?;
-        tracing::info!(
-            "Got {} curricula currently in the database",
-            &curricula.len()
-        );
-        CurriculumFromXml::db_insert(conn, curricula)?;
-        tracing::info!("Updated all curricula");
-    }
-    let already_processed_courses = CourseFromXml::get_all_ids(conn)?;
+    let mut course_endpoint = CourseEndpoint::for_semester(semester_id);
+    let already_processed_courses = Lectures::get_all_subjects(conn, semester_id)?;
+    let appointment_endpoint = AppointmentsEndpoint::new();
+    let variants_endpoint = CourseVariantEndpoint::new();
+    let description_endpoint = CourseDescriptionEndpoint::for_semester(semester_id);
     tracing::info!(
         "{} courses are already in the database",
         already_processed_courses.len()
     );
     tracing::info!("Requesting all other lectures");
-    loop {
-        let courses = course_endpoint.fetch_next_page().await?;
-        tracing::debug!("courses len: {}", courses.len());
-        if courses.len() == 0 {
-            tracing::info!("Downloaded all courses for semester {}.", semester_id);
-            break;
-        }
-        let mut courses_count = 0;
+    let mut courses_count = 0;
+    while let Ok(courses) = course_endpoint.fetch_next_page().await {
         let courses_to_process = courses
-            .iter()
+            .into_iter()
             .filter(|c| !already_processed_courses.contains(&c.id));
-        for course in courses_to_process.into_iter() {
+        for course in courses_to_process {
+            let variants = variants_endpoint.get_all_by_id(&course.id).await?;
             let appointments = appointment_endpoint.get_recurring_by_id(&course.id).await?;
-            let variants = course_variant_endpoint.get_all_by_id(&course.id).await;
-            if let Err(_) = &variants {
-                continue;
-            }
-            let variants = variants?;
-
-            for appointment in appointments.iter() {
-                for variant in variants.iter() {
-                    let lectures = LectureSessionFromXml::build(&course, appointment, variant);
-                    LectureSessionFromXml::insert(conn, lectures)?;
-                }
-            }
-            CourseFromXml::insert(conn, course)?;
+            let representative_subject = &variants
+                .first()
+                .expect("variants should have at least one")
+                .subject;
+            let description = description_endpoint
+                .get_subject_description(representative_subject)
+                .await?;
             tracing::info!("Finished downloading course {}", course.id);
+            Lectures::build_from(course)
+                .with_appointments(&appointments)
+                .with_varaints(&variants)
+                .with_description(&description)
+                .add_to_db(conn)?;
             courses_count += 1;
             if courses_count % 100 == 0 {
                 tracing::info!(
@@ -95,5 +88,11 @@ pub async fn aquire_lecture_data(
             }
         }
     }
+
+    tracing::info!(
+        "Downloaded {} courses for semester {}.",
+        courses_count,
+        semester_id
+    );
     Ok(())
 }

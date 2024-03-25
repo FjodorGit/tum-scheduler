@@ -45,7 +45,7 @@ impl CourseSelection {
             lectures = lectures.filter(lecture::curriculum.eq(curr));
         }
         if let Some(fac) = filters.faculties {
-            lectures = lectures.filter(lecture::faculty.eq_any(fac));
+            lectures = lectures.filter(lecture::organization.eq_any(fac));
         }
         if let Some(exclude_subj) = filters.excluded_courses {
             lectures = lectures.filter(lecture::subject.ne_all(exclude_subj));
@@ -60,7 +60,7 @@ impl CourseSelection {
                 lecture::subject,
                 lecture::course_type,
                 lecture::name_en,
-                lecture::faculty,
+                lecture::organization,
                 lecture::ects,
             ))
             .filter(lecture::course_type.eq_any(["VO", "VI", "UE"]))
@@ -87,17 +87,17 @@ impl CourseSelection {
                 }
             }
 
-            if vis.len() == 0 && ues.len() == 0 && vos.len() == 0 {
-                println!("Messed up subject {:#?}", subject)
-            }
+            // if vis.is_empty() && ues.is_empty() && vos.len() == 0 {
+            //     println!("Messed up subject {:#?}", subject)
+            // }
             let mut ects = 0.;
-            if let Some(c) = vos.get(0) {
+            if let Some(c) = vos.first() {
                 ects += c.ects;
             }
-            if let Some(c) = vis.get(0) {
+            if let Some(c) = vis.first() {
                 ects += c.ects;
             }
-            if let Some(c) = ues.get(0) {
+            if let Some(c) = ues.first() {
                 ects += c.ects;
             }
             ects = f64::ceil(ects);
@@ -116,8 +116,8 @@ impl CourseSelection {
     fn from_teaching_lectures(lec: &Vec<&LectureSession>, ects: &f64) -> Self {
         let subject = lec[0].subject.to_owned();
         let name_en = lec[0].name_en.to_owned();
-        let faculty = lec[0].faculty.to_owned();
-        let appointments = lec.into_iter().map(|l| l.appointment()).collect_vec();
+        let faculty = lec[0].organization.to_owned();
+        let appointments = lec.iter().map(|l| l.appointment()).collect_vec();
         Self {
             subject,
             name_en,
@@ -128,12 +128,12 @@ impl CourseSelection {
     }
 
     fn from_exercise_lectures(lec: &Vec<&LectureSession>, ects: f64) -> Vec<Self> {
-        lec.into_iter()
+        lec.iter()
             .map(|l| {
                 let subject = l.subject.to_owned();
                 let name_en = l.name_en.to_owned();
                 let appointment = l.appointment();
-                let faculty = l.faculty.to_owned();
+                let faculty = l.organization.to_owned();
                 Self {
                     subject,
                     name_en,
@@ -153,8 +153,8 @@ impl CourseSelection {
         let mut selections = vec![];
         let subject = &lec[0].subject;
         let name_en = &lec[0].name_en;
-        let faculty = &lec[0].faculty;
-        let teaching_appointments = lec.into_iter().map(|l| l.appointment()).collect_vec();
+        let faculty = &lec[0].organization;
+        let teaching_appointments = lec.iter().map(|l| l.appointment()).collect_vec();
 
         for ex in exer.into_iter() {
             let mut appointments = teaching_appointments.clone();
@@ -179,12 +179,12 @@ impl CourseSelection {
         match (lec.len(), exec.len()) {
             (0, 0) => vec![],
             (0, _) => Self::from_exercise_lectures(&exec, ects),
-            (_, 0) => Self::from_teaching_lectures(&lec, &ects).to_vec(),
+            (_, 0) => Self::from_teaching_lectures(&lec, &ects).convert_to_vec(),
             (_, _) => Self::from_lecture_with_exercises(&lec, &exec, &ects),
         }
     }
 
-    fn to_vec(self) -> Vec<Self> {
+    fn convert_to_vec(self) -> Vec<Self> {
         vec![self]
     }
 }

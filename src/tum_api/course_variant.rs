@@ -8,8 +8,8 @@ use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 #[derive(Debug)]
 pub struct CourseVariantFromXml {
     pub curriculum: String,
-    pub facultiy: String,
-    pub abbreviation: String,
+    pub organization: String,
+    pub subject: String,
 }
 
 #[derive(Debug)]
@@ -31,8 +31,8 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseVariantFromXml {
             .collect();
         let variant = CourseVariantFromXml {
             curriculum,
-            facultiy,
-            abbreviation,
+            organization: facultiy,
+            subject: abbreviation,
         };
         Ok(variant)
     }
