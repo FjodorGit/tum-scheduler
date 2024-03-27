@@ -4,3 +4,4 @@ CURRICULUM_URL="https://campus.tum.de/tumonline/ee/rest/slc.cm.cs.student/curric
 COURSE_VARIANTS_URL="https://campus.tum.de/tumonline/ee/rest/slc.cm.curriculumposition/positions/"
 DESCRIPTION_LIST_URL="https://campus.tum.de/tumonline/pl/ui/\$ctx/WBMODHB.cbShowMHBListe/NC_0?pCaller=tabIdOrgModules&pOrgNr=1"
 DESCRIPTION_URL="https://campus.tum.de/tumonline/pl/ui/\$ctx/WBMODHB.cbShowMHBReadOnly/NC_0?pOrgNr=1&pLangCode=EN"
+ORGANIZATION_URL="https://campus.tum.de/tumonline/ee/rest/slc.tm.cp/student/courses/"

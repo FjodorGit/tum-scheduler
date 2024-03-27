@@ -11,7 +11,7 @@ use super::course_variant::{CourseVariantEndpoint, CourseVariantFromXml};
 use super::DataAquisitionError;
 use super::{appointment::AppointmentFromXml, course::CourseFromXml};
 
-pub struct Lectures(Vec<Lecture>);
+pub struct Lectures;
 
 #[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = lecture)]
@@ -31,11 +31,12 @@ pub struct Lecture {
     pub ects: f64,
 }
 
+#[derive(Debug)]
 pub struct LecturesBuilder {
     pub templates: Vec<LectureTemplate>,
 }
 
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Debug)]
 pub struct LectureTemplate {
     pub id: Option<String>,
     pub start_time: Option<NaiveTime>,
@@ -89,8 +90,9 @@ impl Lectures {
 
 impl LecturesBuilder {
     pub fn with_appointments(mut self, appointments: &[AppointmentFromXml]) -> Self {
-        self.templates
-            .iter_mut()
+        let templates = self
+            .templates
+            .iter()
             .flat_map(|template| {
                 appointments.into_iter().flat_map(|appoint| {
                     appoint
@@ -106,6 +108,7 @@ impl LecturesBuilder {
                 })
             })
             .collect_vec();
+        self.templates = templates;
         self
     }
 
@@ -166,5 +169,58 @@ impl Lecture {
             organization: template.organization.expect("organization has to be set"),
             ects: template.ects.expect("ects has to be set"),
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use std::str::FromStr;
+
+    use chrono::NaiveTime;
+
+    use crate::tum_api::{appointment::AppointmentFromXml, course::CourseFromXml};
+
+    use super::Lectures;
+
+    #[test]
+    fn test_adding_appointments() {
+        let course = CourseFromXml {
+            id: "11111".to_string(),
+            course_type: "VO".to_string(),
+            sws: 4.,
+            name_en: "TestKurs".to_string(),
+            name_de: "TestCourse".to_string(),
+            semester: "200".to_string(),
+        };
+        let appointment1 = AppointmentFromXml {
+            weekdays: vec!["Monday".to_string(), "Tuesday".to_string()],
+            start_time: NaiveTime::from_str("13:30").expect("should be able to parse time"),
+            end_time: NaiveTime::from_str("15:30").expect("should be able to parse time"),
+        };
+        let appointment2 = AppointmentFromXml {
+            weekdays: vec!["Tuesday".to_string()],
+            start_time: NaiveTime::from_str("9:30").expect("should be able to parse time"),
+            end_time: NaiveTime::from_str("11:30").expect("should be able to parse time"),
+        };
+        let lectures =
+            Lectures::build_from(course).with_appointments(&[appointment1, appointment2]);
+        assert_eq!(lectures.templates.len(), 3);
+        for lec in lectures.templates.iter() {
+            assert!(lec.start_time.is_some());
+            assert!(lec.end_time.is_some());
+            assert!(lec.weekday.is_some());
+        }
+        assert_eq!(
+            lectures.templates.first().unwrap().start_time.unwrap(),
+            NaiveTime::from_str("13:30").expect("should be able to parse time")
+        );
+        assert_eq!(
+            lectures.templates.first().unwrap().end_time.unwrap(),
+            NaiveTime::from_str("15:30").expect("should be able to parse time")
+        );
+        assert_eq!(
+            lectures.templates.last().unwrap().weekday.clone().unwrap(),
+            "Tuesday".to_string()
+        );
     }
 }

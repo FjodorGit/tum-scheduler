@@ -1,13 +1,18 @@
+use core::panic;
 use std::env;
 
 use diesel::{
     deserialize::Queryable, prelude::Insertable, query_dsl::methods::SelectDsl, PgConnection,
     RunQueryDsl,
 };
+use lazy_static::lazy_static;
 use roxmltree::Document;
 use tracing::info;
 
-use crate::db_setup::DbError;
+use crate::{
+    db_setup::{connection, DbError},
+    tum_api::organization::TumOrganization,
+};
 
 use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
 

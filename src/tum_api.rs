@@ -24,6 +24,7 @@ pub mod course_description;
 pub mod course_variant;
 pub mod curriculum;
 pub mod lecture;
+pub mod organization;
 pub mod tum_xml_node;
 
 #[derive(Debug, Error)]
@@ -42,10 +43,15 @@ pub enum DataAquisitionError {
     DbError(#[from] db_setup::DbError),
 }
 
-pub async fn aquire_lecture_data(
-    semester_id: &str,
-    with_curricula: bool,
-) -> Result<(), DataAquisitionError> {
+pub async fn aquire_curriculum_data(semester_id: &str) -> Result<(), DataAquisitionError> {
+    let conn = &mut connection()?;
+    let curriculum_endpoint = CurriculumEndpoint::new();
+    let curricula = curriculum_endpoint.get_all(semester_id).await?;
+    CurriculumFromXml::db_insert(conn, curricula)?;
+    Ok(())
+}
+
+pub async fn aquire_lecture_data(semester_id: &str) -> Result<(), DataAquisitionError> {
     let conn = &mut connection()?;
     let mut course_endpoint = CourseEndpoint::for_semester(semester_id);
     let already_processed_courses = Lectures::get_all_subjects(conn, semester_id)?;

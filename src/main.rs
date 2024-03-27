@@ -1,6 +1,9 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 
-use crate::{api::run_server, tum_api::aquire_lecture_data};
+use crate::{
+    api::run_server,
+    tum_api::{aquire_curriculum_data, aquire_lecture_data},
+};
 use anyhow::Result;
 use dotenv::dotenv;
 
@@ -11,6 +14,12 @@ pub mod schema;
 pub mod tum_api;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
+#[derive(Debug, Subcommand)]
+enum ScraperMode {
+    Lectures,
+    Curriculum,
+}
+
 #[derive(Parser)]
 #[command(name = "tum-schedular")]
 #[command(version, about)]
@@ -19,10 +28,10 @@ enum RunMode {
     Server,
     /// Starts scraping the TUM-API for course data
     Scraper {
+        #[command(subcommand)]
+        mode: ScraperMode,
         #[arg(long)]
-        with_curriculum: bool,
-        #[arg(short, long)]
-        semester_id: String,
+        semester: String,
     },
 }
 
@@ -39,13 +48,17 @@ async fn main() -> Result<()> {
         .init();
     let runmode = RunMode::parse();
 
-    if let RunMode::Scraper {
-        ref semester_id,
-        with_curriculum,
-    } = runmode
-    {
-        tracing::info!("Starting to scrape the courses from TUM");
-        aquire_lecture_data(semester_id, with_curriculum).await?;
+    if let RunMode::Scraper { mode, semester } = runmode {
+        match mode {
+            ScraperMode::Lectures => {
+                tracing::info!("Starting to scrape the courses from TUM");
+                aquire_lecture_data(&semester).await?;
+            }
+            ScraperMode::Curriculum => {
+                tracing::info!("Starting to scrape the curricula from TUM");
+                aquire_curriculum_data(&semester).await?;
+            }
+        }
     } else {
         tracing::info!("Starting web server");
         run_server().await?;

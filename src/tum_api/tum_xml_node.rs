@@ -9,6 +9,8 @@ pub enum TumXmlError {
     TumNodeParseError(String),
     #[error("Failed to parse weekday `{0}`")]
     TumWeekdayParseError(#[from] chrono::ParseWeekdayError),
+    #[error("Failed to find organization")]
+    MissingOrganization,
     #[error("Failed to parse time `{0}`")]
     TumTimeParseError(#[from] chrono::ParseError),
 }

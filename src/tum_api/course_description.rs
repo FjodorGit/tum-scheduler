@@ -49,7 +49,7 @@ impl CourseDescriptionEndpoint {
         let knoten_nr = Self::get_knoten_nr(course_list_response)?;
         let course_description_url =
             format!("{}&pKnotenNr={}", self.course_description_url, knoten_nr);
-        println!("Course description url: {:#?}", course_description_url);
+        // println!("Course description url: {:#?}", course_description_url);
         let course_description = self
             .client
             .get(course_description_url)
@@ -112,7 +112,7 @@ impl CourseDescriptionEndpoint {
             .chars()
             .take(end_of_content_index)
             .collect::<String>();
-        println!("Content_text: {:#?}", content_text);
+        // println!("Content_text: {:#?}", content_text);
         Self::remove_special_whitespaces(&mut content_text);
         Ok(content_text)
     }
