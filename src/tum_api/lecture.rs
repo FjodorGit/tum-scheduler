@@ -1,14 +1,12 @@
-use crate::db_setup::DbError;
 use crate::schema::lecture;
 use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
-use diesel::{ExpressionMethods, QueryDsl};
+use diesel::{result, ExpressionMethods, QueryDsl};
 use itertools::Itertools;
 
-use super::appointment::AppointmentsEndpoint;
 use super::course_description::{CourseDescription, CourseDescriptionEndpoint};
-use super::course_variant::{CourseVariantEndpoint, CourseVariantFromXml};
-use super::DataAquisitionError;
+use super::course_variant::CourseVariantFromXml;
+use super::organization::{TumOrganization, TumOrganizationFromXml};
 use super::{appointment::AppointmentFromXml, course::CourseFromXml};
 
 pub struct Lectures;
@@ -72,25 +70,14 @@ impl From<Vec<CourseFromXml>> for LecturesBuilder {
 }
 
 impl Lectures {
-    pub fn build_from(course: CourseFromXml) -> LecturesBuilder {
-        LecturesBuilder::from(vec![course])
-    }
-
-    pub fn get_all_subjects(
-        conn: &mut PgConnection,
-        semester: &str,
-    ) -> Result<Vec<String>, DbError> {
-        lecture::table
-            .select(lecture::subject)
-            .filter(lecture::semester.eq(semester))
-            .load::<String>(conn)
-            .map_err(|_| DbError::QueryError("getting all subjects".to_string()))
+    pub fn build_from(course: &CourseFromXml) -> LecturesBuilder {
+        LecturesBuilder::from(vec![course.clone()])
     }
 }
 
 impl LecturesBuilder {
     pub fn with_appointments(mut self, appointments: &[AppointmentFromXml]) -> Self {
-        let templates = self
+        let new_templates = self
             .templates
             .iter()
             .flat_map(|template| {
@@ -108,27 +95,35 @@ impl LecturesBuilder {
                 })
             })
             .collect_vec();
-        self.templates = templates;
+        self.templates = new_templates;
         self
     }
 
     pub fn with_varaints(mut self, variants: &[CourseVariantFromXml]) -> Self {
-        self.templates
+        let new_templates = self
+            .templates
             .iter_mut()
             .flat_map(|template| {
                 variants.into_iter().map(|variant| LectureTemplate {
                     curriculum: Some(variant.curriculum.clone()),
                     subject: Some(variant.subject.clone()),
-                    organization: Some(variant.organization.clone()),
                     ..template.clone()
                 })
             })
             .collect_vec();
+        self.templates = new_templates;
         self
     }
     pub fn with_description(mut self, description: &CourseDescription) -> Self {
+        self.templates
+            .iter_mut()
+            .for_each(|template| template.description = Some(description.0.clone()));
+        self
+    }
+
+    pub fn by_organization(mut self, orga: &TumOrganizationFromXml) -> Self {
         self.templates.iter_mut().for_each(|template| {
-            template.description = Some(description.subject_description.clone())
+            template.organization = Some(orga.to_owned());
         });
         self
     }
@@ -140,14 +135,14 @@ impl LecturesBuilder {
             .collect()
     }
 
-    pub fn add_to_db(self, conn: &mut PgConnection) -> Result<(), DbError> {
+    pub fn add_to_db(self, conn: &mut PgConnection) -> Result<(), result::Error> {
         use crate::schema::lecture::dsl::*;
+        let len = self.templates.len();
 
         diesel::insert_into(lecture)
             .values(self.finalize())
             .on_conflict_do_nothing()
-            .execute(conn)
-            .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
+            .execute(conn)?;
         Ok(())
     }
 }
@@ -177,10 +172,18 @@ mod test {
     use std::str::FromStr;
 
     use chrono::NaiveTime;
+    use diesel::PgConnection;
 
-    use crate::tum_api::{appointment::AppointmentFromXml, course::CourseFromXml};
+    use crate::{
+        db_setup::connection,
+        tum_api::{
+            appointment::AppointmentFromXml, course::CourseFromXml,
+            course_variant::CourseVariantFromXml, curriculum::CurriculumFromXml,
+        },
+    };
 
-    use super::Lectures;
+    use super::{LectureTemplate, Lectures, LecturesBuilder};
+    use dotenv::dotenv;
 
     #[test]
     fn test_adding_appointments() {
@@ -191,6 +194,7 @@ mod test {
             name_en: "TestKurs".to_string(),
             name_de: "TestCourse".to_string(),
             semester: "200".to_string(),
+            processing_error: crate::tum_api::course::ProcessingError::None,
         };
         let appointment1 = AppointmentFromXml {
             weekdays: vec!["Monday".to_string(), "Tuesday".to_string()],
@@ -203,7 +207,7 @@ mod test {
             end_time: NaiveTime::from_str("11:30").expect("should be able to parse time"),
         };
         let lectures =
-            Lectures::build_from(course).with_appointments(&[appointment1, appointment2]);
+            Lectures::build_from(&course).with_appointments(&[appointment1, appointment2]);
         assert_eq!(lectures.templates.len(), 3);
         for lec in lectures.templates.iter() {
             assert!(lec.start_time.is_some());
@@ -222,5 +226,46 @@ mod test {
             lectures.templates.last().unwrap().weekday.clone().unwrap(),
             "Tuesday".to_string()
         );
+    }
+
+    #[test]
+    fn test_with_variants() {
+        let course = CourseFromXml {
+            id: "11111".to_string(),
+            course_type: "VO".to_string(),
+            sws: 4.,
+            name_en: "TestKurs".to_string(),
+            name_de: "TestCourse".to_string(),
+            semester: "200".to_string(),
+            processing_error: crate::tum_api::course::ProcessingError::None,
+        };
+
+        let variant1 = CourseVariantFromXml {
+            curriculum: "4321".to_string(),
+            subject: "HAHAH".to_string(),
+        };
+        let variant2 = CourseVariantFromXml {
+            curriculum: "1243".to_string(),
+            subject: "JOJOJ".to_string(),
+        };
+        let lectures = Lectures::build_from(&course).with_varaints(&[variant1, variant2]);
+        println!("{:#?}", lectures);
+        assert_eq!(lectures.templates.len(), 2);
+        for lec in lectures.templates.iter() {
+            assert!(lec.curriculum.is_some());
+            assert!(lec.subject.is_some());
+        }
+        // assert_eq!(
+        //     lectures.templates.first().unwrap().curriculum.unwrap(),
+        //     NaiveTime::from_str("13:30").expect("should be able to parse time")
+        // );
+        // assert_eq!(
+        //     lectures.templates.first().unwrap().end_time.unwrap(),
+        //     NaiveTime::from_str("15:30").expect("should be able to parse time")
+        // );
+        // assert_eq!(
+        //     lectures.templates.last().unwrap().weekday.clone().unwrap(),
+        //     "Tuesday".to_string()
+        // );
     }
 }

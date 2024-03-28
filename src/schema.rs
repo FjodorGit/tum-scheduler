@@ -1,5 +1,26 @@
 // @generated automatically by Diesel CLI.
 
+pub mod sql_types {
+    #[derive(diesel::query_builder::QueryId, diesel::sql_types::SqlType)]
+    #[diesel(postgres_type(name = "processing_error"))]
+    pub struct ProcessingError;
+}
+
+diesel::table! {
+    use diesel::sql_types::*;
+    use super::sql_types::ProcessingError;
+
+    course (id) {
+        id -> Varchar,
+        course_type -> Varchar,
+        sws -> Float8,
+        name_en -> Varchar,
+        name_de -> Varchar,
+        semester -> Varchar,
+        processing_error -> ProcessingError,
+    }
+}
+
 diesel::table! {
     curriculum (id) {
         id -> Varchar,
@@ -40,6 +61,7 @@ diesel::joinable!(lecture -> curriculum (curriculum));
 diesel::joinable!(lecture -> organization (organization));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    course,
     curriculum,
     lecture,
     organization,

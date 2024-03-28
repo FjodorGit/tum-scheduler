@@ -3,12 +3,12 @@ use std::env;
 use crate::{db_setup::DbError, schema::curriculum};
 use anyhow::Result;
 use diesel::{
-    deserialize::Queryable, prelude::Insertable, ExpressionMethods, PgConnection, QueryDsl,
+    deserialize::Queryable, prelude::Insertable, result, ExpressionMethods, PgConnection, QueryDsl,
     RunQueryDsl,
 };
 use roxmltree::Document;
 
-use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
+use super::{tum_xml_node::TumXmlNode, ScraperError, TumXmlError};
 
 #[derive(Debug, Insertable, Queryable)]
 #[diesel(table_name = curriculum)]
@@ -38,7 +38,7 @@ impl CurriculumFromXml {
     fn read_all_from_page(
         xml: String,
         semester: &str,
-    ) -> Result<Vec<CurriculumFromXml>, DataAquisitionError> {
+    ) -> Result<Vec<CurriculumFromXml>, ScraperError> {
         let mut curricula: Vec<CurriculumFromXml> = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
@@ -49,14 +49,13 @@ impl CurriculumFromXml {
         Ok(curricula)
     }
 
-    pub fn db_insert(conn: &mut PgConnection, curricula: Vec<Self>) -> Result<(), DbError> {
+    pub fn db_insert(conn: &mut PgConnection, curricula: Vec<Self>) -> Result<(), result::Error> {
         use crate::schema::curriculum::dsl::*;
 
         diesel::insert_into(curriculum)
             .values(curricula)
             .on_conflict_do_nothing()
-            .execute(conn)
-            .map_err(|e| DbError::InsertionFailed(e.to_string()))?;
+            .execute(conn)?;
 
         Ok(())
     }
@@ -82,10 +81,7 @@ impl CurriculumEndpoint {
         CurriculumEndpoint { base_request_url }
     }
 
-    pub async fn get_all(
-        &self,
-        semester: &str,
-    ) -> Result<Vec<CurriculumFromXml>, DataAquisitionError> {
+    pub async fn get_all(&self, semester: &str) -> Result<Vec<CurriculumFromXml>, ScraperError> {
         let request_url = format!("{}/{}", self.base_request_url, semester);
         let request_result = reqwest::get(request_url).await?;
         let xml: String = request_result.text().await?;

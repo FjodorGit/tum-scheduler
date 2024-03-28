@@ -2,18 +2,22 @@ use std::env;
 
 use reqwest::Client;
 
-use super::DataAquisitionError;
+use super::ScraperError;
 
 #[derive(Debug)]
-pub struct CourseDescription {
-    pub subject_description: String,
-}
+pub struct CourseDescription(pub String);
 
 #[derive(Debug)]
 pub struct CourseDescriptionEndpoint {
     pub client: Client,
     pub course_description_url: String,
     pub semester_filter_url: String,
+}
+
+impl CourseDescription {
+    pub fn empty() -> Self {
+        Self("No Description".to_string())
+    }
 }
 
 impl CourseDescriptionEndpoint {
@@ -34,7 +38,7 @@ impl CourseDescriptionEndpoint {
     pub async fn get_subject_description(
         &self,
         subject: &str,
-    ) -> Result<CourseDescription, DataAquisitionError> {
+    ) -> Result<CourseDescription, ScraperError> {
         let course_filter_url = format!(
             "{}&pFilterNameOrKennung={}",
             self.semester_filter_url, subject
@@ -59,15 +63,13 @@ impl CourseDescriptionEndpoint {
             .await?;
         let course_content = Self::get_content(course_description)?;
 
-        Ok(CourseDescription {
-            subject_description: course_content,
-        })
+        Ok(CourseDescription(course_content))
     }
 
     pub async fn get_subjects_description<T: Iterator<Item = String>>(
         &self,
         subjects: T,
-    ) -> Result<Vec<CourseDescription>, DataAquisitionError> {
+    ) -> Result<Vec<CourseDescription>, ScraperError> {
         let mut descriptions: Vec<CourseDescription> = vec![];
         for subject in subjects {
             let description = self.get_subject_description(&subject).await?;
@@ -79,15 +81,17 @@ impl CourseDescriptionEndpoint {
     fn get_text_after_first(
         text_to_search: String,
         word_to_find: &str,
-    ) -> Result<String, DataAquisitionError> {
+    ) -> Result<String, ScraperError> {
         let text_after = text_to_search
             .chars()
-            .skip(text_to_search.find(word_to_find).ok_or(
-                DataAquisitionError::DocumentParseError(format!(
-                    "Could not find {} in document",
-                    word_to_find
-                )),
-            )?)
+            .skip(
+                text_to_search
+                    .find(word_to_find)
+                    .ok_or(ScraperError::DocumentParseError(format!(
+                        "Could not find {} in document",
+                        word_to_find
+                    )))?,
+            )
             .skip(word_to_find.len())
             .collect::<String>();
         Ok(text_after)
@@ -99,13 +103,13 @@ impl CourseDescriptionEndpoint {
         }
     }
 
-    pub fn get_content(response_text: String) -> Result<String, DataAquisitionError> {
+    pub fn get_content(response_text: String) -> Result<String, ScraperError> {
         let text_after_content = Self::get_text_after_first(response_text, "Content<")?;
         let content_start = Self::get_text_after_first(text_after_content, "MaskRenderer\">")?;
         let end_of_content_index =
             content_start
                 .find("</td>")
-                .ok_or(DataAquisitionError::DocumentParseError(
+                .ok_or(ScraperError::DocumentParseError(
                     "Could not find </td> in document".to_string(),
                 ))?;
         let mut content_text = content_start
@@ -117,7 +121,7 @@ impl CourseDescriptionEndpoint {
         Ok(content_text)
     }
 
-    pub fn get_knoten_nr(response_text: String) -> Result<String, DataAquisitionError> {
+    pub fn get_knoten_nr(response_text: String) -> Result<String, ScraperError> {
         let knoten_nr = Self::get_text_after_first(response_text, "pKnotenNr=")?
             .chars()
             .take_while(|c| c.is_ascii_digit())
@@ -161,7 +165,7 @@ mod test {
             .get_subjects_description(subjects)
             .await
             .expect("should be able to fetch course content");
-        assert_eq!(description[0].subject_description, "- Topological Groups;</br>- Integration on Topological Groups and Convolution; </br></br>- Representation Theory of Topological Groups and related Group Algebras </br>- Harmonic Analysis on Abelian and Compact Groups;</br>- Harmonic Analysis on Homogeneuous Spaces and Double Coset Spaces ; Spherical Functions");
-        assert_eq!(description[1].subject_description, "Finite element methods for the discretization of (multidimensional) elliptic boundary value problems: a priori and a posteriori error analysis, adaptive mesh refinement, fast solvers. Introduction to numerical methods for evolution equations");
+        assert_eq!(description[0].0, "- Topological Groups;</br>- Integration on Topological Groups and Convolution; </br></br>- Representation Theory of Topological Groups and related Group Algebras </br>- Harmonic Analysis on Abelian and Compact Groups;</br>- Harmonic Analysis on Homogeneuous Spaces and Double Coset Spaces ; Spherical Functions");
+        assert_eq!(description[1].0, "Finite element methods for the discretization of (multidimensional) elliptic boundary value problems: a priori and a posteriori error analysis, adaptive mesh refinement, fast solvers. Introduction to numerical methods for evolution equations");
     }
 }

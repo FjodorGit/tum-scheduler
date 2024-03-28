@@ -16,7 +16,7 @@ use crate::{
 
 use super::{
     tum_xml_node::{TumXmlError, TumXmlNode},
-    DataAquisitionError,
+    ScraperError,
 };
 
 lazy_static! {
@@ -27,7 +27,7 @@ lazy_static! {
     };
 }
 
-type TumOrganizationFromXml = String;
+pub type TumOrganizationFromXml = String;
 
 #[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = organization)]
@@ -48,22 +48,23 @@ impl TumOrganization {
         organization::table.select(organization::id).load(conn)
     }
 
-    pub fn read_organization_id(document: Document) -> Result<TumOrganizationFromXml, TumXmlError> {
+    pub fn read_organization_id(
+        document: Document,
+    ) -> Result<Option<TumOrganizationFromXml>, TumXmlError> {
         let root_node = TumXmlNode::new(document.root_element());
         let organization_node = root_node.get_next("organisationResponsibleDto")?;
         let mut organization = organization_node.get_text_of_next("id")?;
         let parent_organization = organization_node.get_text_of_next("parentOrganisationId")?;
-        println!("{:#?}", parent_organization);
 
         if !ORGANIZATIONS.contains(&organization) && !ORGANIZATIONS.contains(&parent_organization) {
-            return Err(TumXmlError::MissingOrganization);
+            return Ok(None);
         }
 
         if !ORGANIZATIONS.contains(&organization) && ORGANIZATIONS.contains(&parent_organization) {
             organization = parent_organization;
         }
 
-        Ok(organization)
+        Ok(Some(organization))
     }
 }
 
@@ -78,13 +79,14 @@ impl TumOrganizationEndpoint {
     pub async fn get_organization(
         &self,
         course_id: &str,
-    ) -> Result<TumOrganizationFromXml, DataAquisitionError> {
+    ) -> Result<Option<TumOrganizationFromXml>, ScraperError> {
         let course_url = format!("{}{}", self.base_url, course_id);
         let xml_response = self.client.get(course_url).send().await?.text().await?;
         let document = Document::parse(&xml_response)?;
         Ok(TumOrganization::read_organization_id(document)?)
     }
 }
+
 #[cfg(test)]
 mod test {
 
@@ -103,6 +105,6 @@ mod test {
             .get_organization(org_id)
             .await
             .expect("should be able to fetch course organization");
-        assert_eq!("53219".to_string(), organization);
+        assert_eq!("53219".to_string(), organization.unwrap());
     }
 }

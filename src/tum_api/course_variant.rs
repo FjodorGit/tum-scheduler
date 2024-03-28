@@ -3,12 +3,11 @@ use std::env;
 use reqwest::Client;
 use roxmltree::Document;
 
-use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
+use super::{tum_xml_node::TumXmlNode, ScraperError, TumXmlError};
 
 #[derive(Debug)]
 pub struct CourseVariantFromXml {
     pub curriculum: String,
-    pub organization: String,
     pub subject: String,
 }
 
@@ -24,22 +23,17 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseVariantFromXml {
     fn try_from(resource_node: TumXmlNode<'_, '_>) -> Result<Self, Self::Error> {
         let curriculum = resource_node.get_text_of_next("curriculumVersionId")?;
         let first_back_node = resource_node.get_next("back")?;
-        let abbreviation = first_back_node.get_text_of_next("designation")?;
-        let facultiy: String = abbreviation
-            .chars()
-            .filter(|c| c.is_ascii_alphabetic())
-            .collect();
+        let designation = first_back_node.get_text_of_next("designation")?;
         let variant = CourseVariantFromXml {
             curriculum,
-            organization: facultiy,
-            subject: abbreviation,
+            subject: designation,
         };
         Ok(variant)
     }
 }
 
 impl CourseVariantFromXml {
-    fn read_all_from_page(xml: String) -> Result<Vec<CourseVariantFromXml>, DataAquisitionError> {
+    fn read_all_from_page(xml: String) -> Result<Vec<CourseVariantFromXml>, ScraperError> {
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
 
@@ -49,6 +43,13 @@ impl CourseVariantFromXml {
             variants.push(variant);
         }
         Ok(variants)
+    }
+
+    pub fn empty_variant(course_count: usize) -> Vec<CourseVariantFromXml> {
+        vec![Self {
+            curriculum: "0000".to_string(),
+            subject: format!("XX{}", course_count),
+        }]
     }
 }
 
@@ -64,10 +65,7 @@ impl CourseVariantEndpoint {
             request_url_end,
         }
     }
-    pub async fn get_all_by_id(
-        &self,
-        id: &str,
-    ) -> Result<Vec<CourseVariantFromXml>, DataAquisitionError> {
+    pub async fn get_all_by_id(&self, id: &str) -> Result<Vec<CourseVariantFromXml>, ScraperError> {
         let request_url = format!("{}{}{}", self.base_request_url, id, self.request_url_end);
         let request_result = self
             .client

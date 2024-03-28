@@ -1,22 +1,56 @@
-use core::panic;
-use std::env;
-
-use diesel::{
-    deserialize::Queryable, prelude::Insertable, query_dsl::methods::SelectDsl, PgConnection,
-    RunQueryDsl,
-};
-use lazy_static::lazy_static;
+use super::{tum_xml_node::TumXmlNode, ScraperError, TumXmlError};
+use crate::schema::{self, course};
+use diesel::deserialize::{self, FromSql, FromSqlRow};
+use diesel::expression::AsExpression;
+use diesel::pg::{Pg, PgValue};
+use diesel::query_dsl::methods::{DistinctDsl, SelectDsl};
+use diesel::serialize::{self, IsNull, Output, ToSql};
+use diesel::{prelude::Insertable, Queryable};
+use diesel::{result, PgConnection, RunQueryDsl};
+use reqwest::Client;
 use roxmltree::Document;
+use std::env;
+use std::io::Write;
 use tracing::info;
 
-use crate::{
-    db_setup::{connection, DbError},
-    tum_api::organization::TumOrganization,
-};
+#[derive(Debug, PartialEq, Clone, FromSqlRow, AsExpression, Eq)]
+#[diesel(sql_type = schema::sql_types::ProcessingError)]
+pub enum ProcessingError {
+    None,
+    MissingDescription,
+    MissingOrganization,
+    MissingVariants,
+    MissingAppointments,
+}
 
-use super::{tum_xml_node::TumXmlNode, DataAquisitionError, TumXmlError};
+impl ToSql<schema::sql_types::ProcessingError, Pg> for ProcessingError {
+    fn to_sql<'b>(&'b self, out: &mut Output<'b, '_, Pg>) -> serialize::Result {
+        match *self {
+            ProcessingError::None => out.write_all(b"None")?,
+            ProcessingError::MissingDescription => out.write_all(b"MissingDescription")?,
+            ProcessingError::MissingOrganization => out.write_all(b"MissingOrganization")?,
+            ProcessingError::MissingVariants => out.write_all(b"MissingVariants")?,
+            ProcessingError::MissingAppointments => out.write_all(b"MissingAppointments")?,
+        }
+        Ok(IsNull::No)
+    }
+}
 
-#[derive(Debug)]
+impl FromSql<schema::sql_types::ProcessingError, Pg> for ProcessingError {
+    fn from_sql(bytes: PgValue<'_>) -> deserialize::Result<Self> {
+        match bytes.as_bytes() {
+            b"None" => Ok(ProcessingError::None),
+            b"MissingAppointments" => Ok(ProcessingError::MissingAppointments),
+            b"MissingVariants" => Ok(ProcessingError::MissingVariants),
+            b"MissingOrganization" => Ok(ProcessingError::MissingOrganization),
+            b"MissingDescription" => Ok(ProcessingError::MissingDescription),
+            _ => Err("Unrecognized enum variant".into()),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Queryable, Insertable)]
+#[diesel(table_name = course)]
 pub struct CourseFromXml {
     pub id: String,
     pub course_type: String,
@@ -24,12 +58,14 @@ pub struct CourseFromXml {
     pub name_en: String,
     pub name_de: String,
     pub semester: String,
+    pub processing_error: ProcessingError,
 }
 
 #[derive(Debug)]
 pub struct CourseEndpoint {
     pub base_request_url: String,
     pub current_page: usize,
+    pub client: Client,
 }
 
 impl TryFrom<TumXmlNode<'_, '_>> for CourseFromXml {
@@ -58,13 +94,14 @@ impl TryFrom<TumXmlNode<'_, '_>> for CourseFromXml {
             name_de,
             name_en,
             semester,
+            processing_error: ProcessingError::None,
         };
         Ok(course_basic_data)
     }
 }
 
 impl CourseFromXml {
-    fn read_all_from_page(xml: String) -> Result<Vec<CourseFromXml>, DataAquisitionError> {
+    fn read_all_from_page(xml: String) -> Result<Vec<CourseFromXml>, ScraperError> {
         let mut result = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
@@ -78,6 +115,12 @@ impl CourseFromXml {
         // println!("{:#?}", result.len());
         Ok(result)
     }
+
+    pub fn add_to_db(&self, conn: &mut PgConnection) -> Result<usize, result::Error> {
+        diesel::insert_into(course::table)
+            .values(self)
+            .execute(conn)
+    }
 }
 
 impl CourseEndpoint {
@@ -85,23 +128,33 @@ impl CourseEndpoint {
         let base_url = env::var("BASE_COURSES_URL")
             .expect("BASE_COURSES_URL should exist in environment variables");
         let base_request_url = format!("{}{}&$skip=", base_url, semester_id);
+        let client = Client::new();
         Self {
             base_request_url,
             current_page: 0,
+            client,
         }
     }
 
-    pub async fn fetch_next_page(&mut self) -> Result<Vec<CourseFromXml>, DataAquisitionError> {
+    pub async fn fetch_next_page(&mut self) -> Result<Vec<CourseFromXml>, ScraperError> {
         let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
         info!("Fetching from page {}", self.current_page);
-        let request_result = reqwest::get(request_url).await?;
-        let xml = request_result.text().await?;
+        let mut request_result = self.client.get(&request_url).send().await;
+        if request_result.is_err() {
+            self.client = Client::new();
+            request_result = self.client.get(request_url).send().await;
+        }
+        let xml = request_result?.text().await?;
         let courses = CourseFromXml::read_all_from_page(xml)?;
         self.current_page += 1;
         if courses.is_empty() {
-            return Err(DataAquisitionError::ZeroCoursesFound(self.current_page));
+            return Err(ScraperError::ZeroCoursesFound(self.current_page));
         }
         Ok(courses)
+    }
+
+    pub fn get_all_processed(conn: &mut PgConnection) -> Result<Vec<String>, result::Error> {
+        course::table.select(course::id).load(conn)
     }
 }
 

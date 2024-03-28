@@ -4,9 +4,8 @@ use std::str::FromStr;
 
 use chrono::NaiveTime;
 
-use super::lecture::LectureTemplate;
 use super::tum_xml_node::TumXmlNode;
-use super::DataAquisitionError;
+use super::ScraperError;
 use super::TumXmlError;
 
 #[derive(Debug)]
@@ -47,7 +46,7 @@ impl TryFrom<TumXmlNode<'_, '_>> for AppointmentFromXml {
 }
 
 impl AppointmentFromXml {
-    fn read_all_from_page(xml: String) -> Result<Vec<AppointmentFromXml>, DataAquisitionError> {
+    fn read_all_from_page(xml: String) -> Result<Vec<AppointmentFromXml>, ScraperError> {
         let mut appointments: Vec<AppointmentFromXml> = vec![];
         let document = Document::parse(&xml)?;
         let root_element = TumXmlNode::new(document.root_element());
@@ -69,7 +68,7 @@ impl AppointmentsEndpoint {
     pub async fn get_recurring_by_id(
         &self,
         course_id: &str,
-    ) -> Result<Vec<AppointmentFromXml>, DataAquisitionError> {
+    ) -> Result<Vec<AppointmentFromXml>, ScraperError> {
         let request_url = format!("{}{}", self.base_request_url, course_id);
         let request_result = reqwest::get(request_url).await?;
         let xml: String = request_result.text().await?;

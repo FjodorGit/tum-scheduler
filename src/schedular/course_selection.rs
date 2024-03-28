@@ -72,7 +72,8 @@ impl CourseSelection {
 
     pub fn build_from_lectures(lecture_appointments: Vec<LectureSession>) -> Vec<Self> {
         let mut course_choices: Vec<CourseSelection> = vec![];
-        for (subject, subject_group) in &lecture_appointments.iter().group_by(|l| l.subject.clone())
+        for (_subject, subject_group) in
+            &lecture_appointments.iter().group_by(|l| l.subject.clone())
         {
             let course_type_groups = &subject_group.group_by(|s| s.course_type.clone());
             let mut vos = vec![];
@@ -210,11 +211,5 @@ mod test {
         let lectures = CourseSelection::addmissiable_lectures(conn, filters)
             .expect("should be able to find addmissable lectures");
         CourseSelection::build_from_lectures(lectures);
-    }
-
-    #[test]
-    fn test_getting_all_subjects_from_curriculum() {
-        dotenv().ok();
-        let conn = &mut connection().expect("should be able to establish connection");
     }
 }

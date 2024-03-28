@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use actix_web::{post, web::Json, HttpResponse, Responder, Result};
+use actix_web::{post, web::Json, Responder, Result};
 use serde::Deserialize;
 
 use crate::schedular::scheduling_problem::SchedulingProblem;

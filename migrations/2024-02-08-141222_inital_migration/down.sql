@@ -5,3 +5,7 @@ DROP TABLE curriculum;
 
 DROP TABLE organization;
 
+DROP TABLE course;
+
+DROP TYPE IF EXISTS Processing_Error;
+

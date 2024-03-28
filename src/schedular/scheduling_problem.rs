@@ -256,17 +256,4 @@ pub fn test_run() -> Result<(), SchedularError> {
 }
 
 #[cfg(test)]
-mod test {
-
-    use crate::db_setup::connection;
-
-    use super::SchedulingProblem;
-
-    #[test]
-    fn test_solving_simple_ip() {
-        dotenv::dotenv().ok();
-        let conn = &mut connection().expect("should be able to establish connection to db");
-        let mut scheduling_problem = SchedulingProblem::new();
-        for subject in ["MA3080", "MA3205", "MA3442", "MA4804", "CIT4100003"] {}
-    }
-}
+mod test {}

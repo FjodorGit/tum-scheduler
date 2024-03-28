@@ -1,5 +1,6 @@
-use diesel::pg::PgConnection;
 use diesel::r2d2::ConnectionManager;
+use diesel::ConnectionError;
+use diesel::{pg::PgConnection, result};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use lazy_static::lazy_static;
 use std::env;
@@ -10,7 +11,7 @@ pub enum DbError {
     #[error("Could not establish connection to database")]
     InvalidConnection,
     #[error("Could not insert {0} into database")]
-    InsertionFailed(String),
+    InsertionFailed(&'static str),
     #[error("Could not query {0} from database")]
     QueryError(String),
 }
@@ -35,6 +36,8 @@ pub fn init() {
     // embedded_migrations::run(&conn).unwrap();
 }
 
-pub fn connection() -> Result<DbConnection, DbError> {
-    POOL.get().map_err(|_| DbError::InvalidConnection)
+pub fn connection() -> Result<DbConnection, ConnectionError> {
+    POOL.get().map_err(|_| {
+        result::ConnectionError::BadConnection("failed to get connection out of pool".to_string())
+    })
 }
