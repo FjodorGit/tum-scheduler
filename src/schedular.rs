@@ -2,7 +2,6 @@ use thiserror::Error;
 
 pub mod course_selection;
 pub mod scheduling_problem;
-pub mod session;
 pub mod settings;
 
 pub const WEEKDAYS: [&str; 5] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];

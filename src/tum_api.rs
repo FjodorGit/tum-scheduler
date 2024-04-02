@@ -134,7 +134,7 @@ pub async fn aquire_lecture_data(semester_name: &str) -> Result<(), ScraperError
                     "Downloaded {} courses. Taking a 30 seconds break.",
                     course_count
                 );
-                sleep(Duration::new(30, 0));
+                sleep(Duration::new(15, 0));
             }
         }
     }

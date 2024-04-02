@@ -1,8 +1,10 @@
-use crate::{db_setup::connection, schedular::settings::FilterSettings};
+use crate::{
+    db_setup::connection, schedular::settings::FilterSettings,
+    tum_api::appointment::SingleAppointment,
+};
 
 use super::{
     course_selection::CourseSelection,
-    session::SingleAppointment,
     settings::{ConstraintSettings, SolutionObjective},
     WEEKDAYS,
 };
@@ -61,7 +63,7 @@ impl SchedulingProblem {
         self.vars.push(course_var);
         self.add_faculty(course_var, course_selection);
         for appointment in course_selection.appointments.iter() {
-            self.add_session(course_var, &appointment);
+            self.add_session(course_var, appointment);
         }
 
         for weekday in course_selection.weekdays() {

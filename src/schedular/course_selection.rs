@@ -1,3 +1,4 @@
+use itertools::Either;
 use itertools::Itertools;
 
 use diesel::result;
@@ -5,9 +6,9 @@ use diesel::PgConnection;
 use serde::Serialize;
 
 use crate::schema::lecture;
+use crate::tum_api::appointment::SingleAppointment;
+use crate::tum_api::lecture::Lecture;
 
-use super::session::LectureSession;
-use super::session::SingleAppointment;
 use super::settings::FilterSettings;
 
 #[derive(Debug, Serialize)]
@@ -34,7 +35,7 @@ impl CourseSelection {
     pub fn addmissiable_lectures(
         conn: &mut PgConnection,
         filters: FilterSettings,
-    ) -> Result<Vec<LectureSession>, result::Error> {
+    ) -> Result<Vec<Lecture>, result::Error> {
         use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 
         let mut lectures = lecture::table.into_boxed();
@@ -52,83 +53,56 @@ impl CourseSelection {
         }
 
         let addmissiable_lectures = lectures
-            .select((
-                lecture::id,
-                lecture::start_time,
-                lecture::end_time,
-                lecture::weekday,
-                lecture::subject,
-                lecture::course_type,
-                lecture::name_en,
-                lecture::organization,
-                lecture::ects,
-            ))
             .filter(lecture::course_type.eq_any(["VO", "VI", "UE"]))
             .order((lecture::subject.asc(), lecture::course_type.desc()))
             .distinct()
-            .load::<LectureSession>(conn)?;
+            .load::<Lecture>(conn)?;
         Ok(addmissiable_lectures)
     }
 
-    pub fn build_from_lectures(lecture_appointments: Vec<LectureSession>) -> Vec<Self> {
-        let mut course_choices: Vec<CourseSelection> = vec![];
-        for (_subject, subject_group) in
-            &lecture_appointments.iter().group_by(|l| l.subject.clone())
-        {
-            let course_type_groups = &subject_group.group_by(|s| s.course_type.clone());
-            let mut vos = vec![];
-            let mut vis = vec![];
-            let mut ues = vec![];
-            for (course_type, course_type_group) in course_type_groups {
-                match course_type.as_str() {
-                    "VO" => vos = course_type_group.collect(),
-                    "VI" => vis = course_type_group.collect(),
-                    "UE" => ues = course_type_group.collect(),
-                    _ => (),
-                }
-            }
+    pub fn build_from_lectures(lectures: Vec<Lecture>) -> Vec<Self> {
+        lectures
+            .iter()
+            .group_by(|l| &l.subject)
+            .into_iter()
+            .flat_map(|(_, subject_group)| {
+                let (teaching_lectures, exercise_lectures): (Vec<&Lecture>, Vec<&Lecture>) =
+                    subject_group
+                        .into_iter()
+                        .partition_map(|lec| match lec.course_type.as_str() {
+                            "VO" | "VI" => Either::Left(lec),
+                            "UE" => Either::Right(lec),
+                            _ => unreachable!(),
+                        });
 
-            // if vis.is_empty() && ues.is_empty() && vos.len() == 0 {
-            //     println!("Messed up subject {:#?}", subject)
-            // }
-            let mut ects = 0.;
-            if let Some(c) = vos.first() {
-                ects += c.ects;
-            }
-            if let Some(c) = vis.first() {
-                ects += c.ects;
-            }
-            if let Some(c) = ues.first() {
-                ects += c.ects;
-            }
-            ects = f64::ceil(ects);
-            let lectures = [vos, vis].concat();
-            let mut course_selection_for_subject =
-                Self::course_selection_from_course_groups(lectures, ues, ects);
-            // println!(
-            //     "Course selection for subject: {:#?}",
-            //     course_selection_for_subject
-            // );
-            course_choices.append(&mut course_selection_for_subject);
-        }
-        course_choices
+                let ects: f64 = teaching_lectures.first().map_or(0.0, |&l| l.ects)
+                    + exercise_lectures.first().map_or(0.0, |&l| l.ects);
+                let ects = ects.ceil();
+                let course_selection_for_subject = Self::course_selection_from_course_group(
+                    teaching_lectures,
+                    exercise_lectures,
+                    ects,
+                );
+                course_selection_for_subject
+            })
+            .collect()
     }
 
-    fn from_teaching_lectures(lec: &Vec<&LectureSession>, ects: &f64) -> Self {
+    fn from_teaching_lectures(lec: &[&Lecture], ects: &f64) -> Vec<Self> {
         let subject = lec[0].subject.to_owned();
         let name_en = lec[0].name_en.to_owned();
         let faculty = lec[0].organization.to_owned();
         let appointments = lec.iter().map(|l| l.appointment()).collect_vec();
-        Self {
+        vec![Self {
             subject,
             name_en,
             appointments,
             ects: f64::ceil(*ects),
             faculty,
-        }
+        }]
     }
 
-    fn from_exercise_lectures(lec: &Vec<&LectureSession>, ects: f64) -> Vec<Self> {
+    fn from_exercise_lectures(lec: &[&Lecture], ects: f64) -> Vec<Self> {
         lec.iter()
             .map(|l| {
                 let subject = l.subject.to_owned();
@@ -146,11 +120,7 @@ impl CourseSelection {
             .collect_vec()
     }
 
-    fn from_lecture_with_exercises(
-        lec: &Vec<&LectureSession>,
-        exer: &Vec<&LectureSession>,
-        ects: &f64,
-    ) -> Vec<Self> {
+    fn from_lecture_with_exercises(lec: &[&Lecture], exer: &[&Lecture], ects: &f64) -> Vec<Self> {
         let mut selections = vec![];
         let subject = &lec[0].subject;
         let name_en = &lec[0].name_en;
@@ -172,31 +142,48 @@ impl CourseSelection {
         selections
     }
 
-    fn course_selection_from_course_groups<'a>(
-        lec: Vec<&'a LectureSession>,
-        exec: Vec<&'a LectureSession>,
+    fn course_selection_from_course_group<'a>(
+        lec: Vec<&'a Lecture>,
+        exec: Vec<&'a Lecture>,
         ects: f64,
     ) -> Vec<CourseSelection> {
         match (lec.len(), exec.len()) {
             (0, 0) => vec![],
             (0, _) => Self::from_exercise_lectures(&exec, ects),
-            (_, 0) => Self::from_teaching_lectures(&lec, &ects).convert_to_vec(),
+            (_, 0) => Self::from_teaching_lectures(&lec, &ects),
             (_, _) => Self::from_lecture_with_exercises(&lec, &exec, &ects),
         }
-    }
-
-    fn convert_to_vec(self) -> Vec<Self> {
-        vec![self]
     }
 }
 
 #[cfg(test)]
 mod test {
     use dotenv::dotenv;
+    use itertools::Itertools;
 
-    use crate::db_setup::connection;
+    use crate::{
+        db_setup::connection,
+        tum_api::{
+            course::CourseFromXml,
+            lecture::{Lecture, Lectures},
+        },
+    };
 
     use super::{CourseSelection, FilterSettings};
+
+    fn generate_test_lectures() -> Vec<Lecture> {
+        let l1t1 = Lecture::new("9:30", "11:30", "Monday", "VO", "JO1111", "First", 4.);
+        let l1t2 = Lecture::new("9:30", "11:30", "Tuesday", "VO", "JO1111", "First", 4.);
+        let l1e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "JO1111", "First", 4.);
+        let l1e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "JO1111", "First", 4.);
+
+        let l2t1 = Lecture::new("8:30", "10:30", "Wednesday", "VO", "NE9999", "Second", 7.);
+        let l2e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "NE9999", "Second", 7.);
+        let l2e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "NE9999", "Second", 7.);
+        let l2e3 = Lecture::new("06:30", "09:45", "Friday", "UE", "NE9999", "Second", 7.);
+
+        vec![l1t1, l1t2, l1e1, l1e2, l2t1, l2e1, l2e2, l2e3]
+    }
 
     #[test]
     fn test_building_subject_appointment() {
@@ -211,5 +198,28 @@ mod test {
         let lectures = CourseSelection::addmissiable_lectures(conn, filters)
             .expect("should be able to find addmissable lectures");
         CourseSelection::build_from_lectures(lectures);
+    }
+
+    #[test]
+    fn test_building_selections_teching_and_exercise() {
+        let lectures = generate_test_lectures();
+        let selections = CourseSelection::build_from_lectures(lectures);
+        let first_selections = selections
+            .iter()
+            .filter(|selection| selection.subject == "JO1111".to_owned())
+            .collect_vec();
+        let second_selection = selections
+            .iter()
+            .filter(|selection| selection.subject == "NE9999".to_owned())
+            .collect_vec();
+        assert_eq!(selections.len(), 5);
+        assert_eq!(first_selections.iter().count(), 2);
+        assert_eq!(second_selection.iter().count(), 3);
+        first_selections.iter().for_each(|selection| {
+            assert_eq!(selection.appointments.len(), 3);
+        });
+        second_selection.iter().for_each(|selection| {
+            assert_eq!(selection.appointments.len(), 2);
+        });
     }
 }
