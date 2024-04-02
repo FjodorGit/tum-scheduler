@@ -1,9 +1,12 @@
+use std::str::FromStr;
+
 use crate::schema::lecture;
 use chrono::NaiveTime;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 use diesel::{result, ExpressionMethods, QueryDsl};
 use itertools::Itertools;
 
+use super::appointment::SingleAppointment;
 use super::course_description::{CourseDescription, CourseDescriptionEndpoint};
 use super::course_variant::CourseVariantFromXml;
 use super::organization::{TumOrganization, TumOrganizationFromXml};
@@ -11,7 +14,7 @@ use super::{appointment::AppointmentFromXml, course::CourseFromXml};
 
 pub struct Lectures;
 
-#[derive(Debug, Clone, Insertable, Queryable, PartialEq, Selectable)]
+#[derive(Debug, Default, Clone, Insertable, Queryable, PartialEq, Selectable)]
 #[diesel(table_name = lecture)]
 pub struct Lecture {
     pub id: String,
@@ -137,7 +140,6 @@ impl LecturesBuilder {
 
     pub fn add_to_db(self, conn: &mut PgConnection) -> Result<(), result::Error> {
         use crate::schema::lecture::dsl::*;
-        let len = self.templates.len();
 
         diesel::insert_into(lecture)
             .values(self.finalize())
@@ -148,6 +150,35 @@ impl LecturesBuilder {
 }
 
 impl Lecture {
+    pub fn new(
+        start_time: &str,
+        end_time: &str,
+        weekday: &str,
+        course_type: &str,
+        subject: &str,
+        name: &str,
+        ects: f64,
+    ) -> Self {
+        Self {
+            start_time: NaiveTime::from_str(start_time).unwrap(),
+            end_time: NaiveTime::from_str(end_time).unwrap(),
+            weekday: weekday.to_owned(),
+            course_type: course_type.to_owned(),
+            subject: subject.to_owned(),
+            name_en: name.to_owned(),
+            ects,
+            ..Default::default()
+        }
+    }
+    pub fn appointment(&self) -> SingleAppointment {
+        SingleAppointment {
+            from: self.start_time,
+            to: self.end_time,
+            weekday: self.weekday.clone(),
+            course_type: self.course_type.to_owned(),
+        }
+    }
+
     pub fn from_template(template: LectureTemplate) -> Self {
         Self {
             id: template.id.expect("id has to be set"),
@@ -172,18 +203,13 @@ mod test {
     use std::str::FromStr;
 
     use chrono::NaiveTime;
-    use diesel::PgConnection;
 
-    use crate::{
-        db_setup::connection,
-        tum_api::{
-            appointment::AppointmentFromXml, course::CourseFromXml,
-            course_variant::CourseVariantFromXml, curriculum::CurriculumFromXml,
-        },
+    use crate::tum_api::{
+        appointment::AppointmentFromXml, course::CourseFromXml,
+        course_variant::CourseVariantFromXml,
     };
 
-    use super::{LectureTemplate, Lectures, LecturesBuilder};
-    use dotenv::dotenv;
+    use super::Lectures;
 
     #[test]
     fn test_adding_appointments() {
