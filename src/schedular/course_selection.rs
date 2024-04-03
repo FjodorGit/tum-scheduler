@@ -78,12 +78,7 @@ impl CourseSelection {
                 let ects: f64 = teaching_lectures.first().map_or(0.0, |&l| l.ects)
                     + exercise_lectures.first().map_or(0.0, |&l| l.ects);
                 let ects = ects.ceil();
-                let course_selection_for_subject = Self::course_selection_from_course_group(
-                    teaching_lectures,
-                    exercise_lectures,
-                    ects,
-                );
-                course_selection_for_subject
+                Self::course_selection_from_course_group(teaching_lectures, exercise_lectures, ects)
             })
             .collect()
     }
@@ -127,7 +122,7 @@ impl CourseSelection {
         let faculty = &lec[0].organization;
         let teaching_appointments = lec.iter().map(|l| l.appointment()).collect_vec();
 
-        for ex in exer.into_iter() {
+        for ex in exer.iter() {
             let mut appointments = teaching_appointments.clone();
             appointments.push(ex.appointment());
             let selection = Self {
@@ -143,15 +138,17 @@ impl CourseSelection {
     }
 
     fn course_selection_from_course_group<'a>(
-        lec: Vec<&'a Lecture>,
-        exec: Vec<&'a Lecture>,
+        teaching_lectures: Vec<&'a Lecture>,
+        exercise_lectures: Vec<&'a Lecture>,
         ects: f64,
     ) -> Vec<CourseSelection> {
-        match (lec.len(), exec.len()) {
-            (0, 0) => vec![],
-            (0, _) => Self::from_exercise_lectures(&exec, ects),
-            (_, 0) => Self::from_teaching_lectures(&lec, &ects),
-            (_, _) => Self::from_lecture_with_exercises(&lec, &exec, &ects),
+        match (teaching_lectures.is_empty(), exercise_lectures.is_empty()) {
+            (true, true) => vec![],
+            (true, false) => Self::from_exercise_lectures(&exercise_lectures, ects),
+            (false, true) => Self::from_teaching_lectures(&teaching_lectures, &ects),
+            (false, false) => {
+                Self::from_lecture_with_exercises(&teaching_lectures, &exercise_lectures, &ects)
+            }
         }
     }
 }
@@ -171,18 +168,33 @@ mod test {
 
     use super::{CourseSelection, FilterSettings};
 
-    fn generate_test_lectures() -> Vec<Lecture> {
+    fn generate_test_lectures_with_exercises() -> Vec<Lecture> {
         let l1t1 = Lecture::new("9:30", "11:30", "Monday", "VO", "JO1111", "First", 4.);
         let l1t2 = Lecture::new("9:30", "11:30", "Tuesday", "VO", "JO1111", "First", 4.);
         let l1e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "JO1111", "First", 4.);
         let l1e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "JO1111", "First", 4.);
 
         let l2t1 = Lecture::new("8:30", "10:30", "Wednesday", "VO", "NE9999", "Second", 7.);
-        let l2e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "NE9999", "Second", 7.);
-        let l2e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "NE9999", "Second", 7.);
-        let l2e3 = Lecture::new("06:30", "09:45", "Friday", "UE", "NE9999", "Second", 7.);
+        let l2e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "NE9999", "Second", 3.);
+        let l2e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "NE9999", "Second", 3.);
+        let l2e3 = Lecture::new("06:30", "09:45", "Friday", "UE", "NE9999", "Second", 3.);
 
         vec![l1t1, l1t2, l1e1, l1e2, l2t1, l2e1, l2e2, l2e3]
+    }
+    fn generate_test_exercise_only() -> Vec<Lecture> {
+        let l1t1 = Lecture::new("9:30", "11:30", "Monday", "UE", "JO1111", "First", 9.);
+        let l1t2 = Lecture::new("9:30", "11:30", "Tuesday", "UE", "JO1111", "First", 9.);
+        let l1e1 = Lecture::new("12:30", "14:30", "Monday", "UE", "JO1111", "First", 9.);
+        let l1e2 = Lecture::new("12:30", "14:30", "Friday", "UE", "JO1111", "First", 9.);
+
+        vec![l1t1, l1t2, l1e1, l1e2]
+    }
+    fn generate_test_teaching_only() -> Vec<Lecture> {
+        let l1t1 = Lecture::new("9:30", "11:30", "Monday", "VO", "NE9999", "First", 4.);
+        let l1t2 = Lecture::new("9:30", "11:30", "Tuesday", "VO", "NE9999", "First", 4.);
+        let l1t3 = Lecture::new("8:30", "10:30", "Wednesday", "VI", "NE9999", "Second", 4.);
+
+        vec![l1t1, l1t2, l1t3]
     }
 
     #[test]
@@ -201,8 +213,8 @@ mod test {
     }
 
     #[test]
-    fn test_building_selections_teching_and_exercise() {
-        let lectures = generate_test_lectures();
+    fn test_building_selections_teaching_and_exercise() {
+        let lectures = generate_test_lectures_with_exercises();
         let selections = CourseSelection::build_from_lectures(lectures);
         let first_selections = selections
             .iter()
@@ -217,9 +229,33 @@ mod test {
         assert_eq!(second_selection.iter().count(), 3);
         first_selections.iter().for_each(|selection| {
             assert_eq!(selection.appointments.len(), 3);
+            assert_eq!(selection.ects, 8.);
         });
         second_selection.iter().for_each(|selection| {
             assert_eq!(selection.appointments.len(), 2);
+            assert_eq!(selection.ects, 10.);
         });
+    }
+
+    #[test]
+    fn test_building_selections_teaching_only() {
+        let lectures = generate_test_teaching_only();
+        let selections = CourseSelection::build_from_lectures(lectures);
+        assert_eq!(selections.len(), 1);
+        selections
+            .iter()
+            .for_each(|selection| assert_eq!(selection.ects, 4.));
+        println!("{:#?}", selections);
+    }
+
+    #[test]
+    fn test_building_selections_exercise_only() {
+        let lectures = generate_test_exercise_only();
+        let selections = CourseSelection::build_from_lectures(lectures);
+        assert_eq!(selections.len(), 4);
+        selections
+            .iter()
+            .for_each(|selection| assert_eq!(selection.ects, 9.));
+        println!("{:#?}", selections);
     }
 }
