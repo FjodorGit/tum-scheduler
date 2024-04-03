@@ -3,7 +3,7 @@ use crate::schema::{self, course};
 use diesel::deserialize::{self, FromSql, FromSqlRow};
 use diesel::expression::AsExpression;
 use diesel::pg::{Pg, PgValue};
-use diesel::query_dsl::methods::{DistinctDsl, SelectDsl};
+use diesel::query_dsl::methods::{SelectDsl};
 use diesel::serialize::{self, IsNull, Output, ToSql};
 use diesel::{prelude::Insertable, Queryable};
 use diesel::{result, PgConnection, RunQueryDsl};

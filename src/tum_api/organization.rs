@@ -1,4 +1,4 @@
-use core::panic;
+
 use std::env;
 
 use diesel::{
@@ -10,7 +10,7 @@ use reqwest::Client;
 use roxmltree::Document;
 
 use crate::{
-    db_setup::{connection, DbError},
+    db_setup::{connection},
     schema::organization,
 };
 

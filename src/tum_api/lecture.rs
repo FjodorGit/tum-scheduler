@@ -2,14 +2,14 @@ use std::str::FromStr;
 
 use crate::schema::lecture;
 use chrono::NaiveTime;
+use diesel::result;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
-use diesel::{result, ExpressionMethods, QueryDsl};
 use itertools::Itertools;
 
 use super::appointment::SingleAppointment;
-use super::course_description::{CourseDescription, CourseDescriptionEndpoint};
+use super::course_description::CourseDescription;
 use super::course_variant::CourseVariantFromXml;
-use super::organization::{TumOrganization, TumOrganizationFromXml};
+use super::organization::TumOrganizationFromXml;
 use super::{appointment::AppointmentFromXml, course::CourseFromXml};
 
 pub struct Lectures;
@@ -84,7 +84,7 @@ impl LecturesBuilder {
             .templates
             .iter()
             .flat_map(|template| {
-                appointments.into_iter().flat_map(|appoint| {
+                appointments.iter().flat_map(|appoint| {
                     appoint
                         .weekdays
                         .clone()
@@ -107,7 +107,7 @@ impl LecturesBuilder {
             .templates
             .iter_mut()
             .flat_map(|template| {
-                variants.into_iter().map(|variant| LectureTemplate {
+                variants.iter().map(|variant| LectureTemplate {
                     curriculum: Some(variant.curriculum.clone()),
                     subject: Some(variant.subject.clone()),
                     ..template.clone()

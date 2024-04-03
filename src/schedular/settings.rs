@@ -35,7 +35,7 @@ impl From<&HashMap<String, i32>> for ConstraintSettings {
         let mut max_num_days = None;
         let mut min_num_ects = None;
         let mut max_courses_per_faculty_vec = vec![];
-        for (key, amount) in value.into_iter() {
+        for (key, amount) in value.iter() {
             match key.as_str() {
                 "maxweekdays" => max_num_days = Some(amount),
                 "minects" => min_num_ects = Some(amount),
@@ -43,7 +43,7 @@ impl From<&HashMap<String, i32>> for ConstraintSettings {
             }
         }
         let mut max_courses_per_faculty = None;
-        if max_courses_per_faculty_vec.len() > 0 {
+        if !max_courses_per_faculty_vec.is_empty() {
             max_courses_per_faculty = Some(max_courses_per_faculty_vec);
         }
         Self {

@@ -40,10 +40,7 @@ impl SchedulingProblem {
         }
     }
 
-    pub fn add_courses(
-        &mut self,
-        subject_aps: &Vec<CourseSelection>,
-    ) -> Result<(), SchedularError> {
+    pub fn add_courses(&mut self, subject_aps: &[CourseSelection]) -> Result<(), SchedularError> {
         for (var_num, subject_ap) in subject_aps.iter().enumerate() {
             self.add_course(subject_ap, var_num)?;
         }
