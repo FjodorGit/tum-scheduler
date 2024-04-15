@@ -6,12 +6,12 @@ use diesel::PgConnection;
 use serde::Serialize;
 
 use crate::schema::lecture;
-use crate::tum_api::appointment::SingleAppointment;
-use crate::tum_api::lecture::Lecture;
+use crate::scraper::appointment::SingleAppointment;
+use crate::scraper::lecture::Lecture;
 
 use super::settings::FilterSettings;
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Clone)]
 pub struct CourseSelection {
     pub subject: String,
     pub name_en: String,
@@ -48,8 +48,12 @@ impl CourseSelection {
         if let Some(fac) = filters.faculties {
             lectures = lectures.filter(lecture::organization.eq_any(fac));
         }
-        if let Some(exclude_subj) = filters.excluded_courses {
-            lectures = lectures.filter(lecture::subject.ne_all(exclude_subj));
+        if let Some(exclude_cour) = filters.excluded_courses {
+            lectures = lectures.filter(lecture::subject.ne_all(exclude_cour));
+        }
+
+        if let Some(cour) = filters.courses {
+            lectures = lectures.filter(lecture::subject.eq_any(cour));
         }
 
         let addmissiable_lectures = lectures
@@ -158,13 +162,7 @@ mod test {
     use dotenv::dotenv;
     use itertools::Itertools;
 
-    use crate::{
-        db_setup::connection,
-        tum_api::{
-            course::CourseFromXml,
-            lecture::{Lecture, Lectures},
-        },
-    };
+    use crate::{db_setup::connection, scraper::lecture::Lecture};
 
     use super::{CourseSelection, FilterSettings};
 
@@ -201,6 +199,7 @@ mod test {
     fn test_building_subject_appointment() {
         dotenv().ok();
         let filters = FilterSettings {
+            courses: None,
             semester: Some("23W"),
             excluded_courses: None,
             faculties: None, //Some("IN".to_string()),

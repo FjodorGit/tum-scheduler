@@ -1,6 +1,6 @@
 use crate::{
     db_setup::connection, schedular::settings::FilterSettings,
-    tum_api::appointment::SingleAppointment,
+    scraper::appointment::SingleAppointment,
 };
 
 use super::{
@@ -8,7 +8,12 @@ use super::{
     settings::{ConstraintSettings, SolutionObjective},
     WEEKDAYS,
 };
-use grb::prelude::*;
+use grb::{
+    attribute::ModelIntAttr::SolCount,
+    parameter::IntParam::{PoolSearchMode, PoolSolutions, SolutionNumber},
+    prelude::*,
+};
+use itertools::Itertools;
 use std::collections::HashMap;
 
 use chrono::Duration;
@@ -40,9 +45,12 @@ impl SchedulingProblem {
         }
     }
 
-    pub fn add_courses(&mut self, subject_aps: &[CourseSelection]) -> Result<(), SchedularError> {
-        for (var_num, subject_ap) in subject_aps.iter().enumerate() {
-            self.add_course(subject_ap, var_num)?;
+    pub fn add_courses<I: IntoIterator<Item = CourseSelection>>(
+        &mut self,
+        subject_aps: I,
+    ) -> Result<(), SchedularError> {
+        for (var_num, subject_ap) in subject_aps.into_iter().enumerate() {
+            self.add_course(&subject_ap, var_num)?;
         }
         Ok(())
     }
@@ -190,27 +198,45 @@ impl SchedulingProblem {
         filter_settings: FilterSettings,
         constraint_settings: ConstraintSettings,
         objective: &SolutionObjective,
-    ) -> Result<Vec<CourseSelection>, SchedularError> {
+    ) -> Result<Vec<Vec<CourseSelection>>, SchedularError> {
         let conn = &mut connection().expect("should be able to establish connection to db");
         let possible_lectures = CourseSelection::addmissiable_lectures(conn, filter_settings)
             .expect("should be able to request possible lectures");
 
-        // println!("Possible lectures: {:#?}", possible_lectures);
-        let mut course_selections = CourseSelection::build_from_lectures(possible_lectures);
+        let course_selections = CourseSelection::build_from_lectures(possible_lectures);
         // println!("Course selections: {:#?}", course_selections);
-        self.add_courses(&course_selections)?;
+        self.add_courses(course_selections.clone())?;
         self.add_constraints(constraint_settings)?;
         self.set_objective(objective)?;
+        self.model.set_param(PoolSearchMode, 2)?;
+        self.model.set_param(PoolSolutions, 100)?;
         self.model.update()?;
         println!("Writing model to file");
         self.model.write("schedular.lp")?;
         self.model.optimize()?;
-        let solution_vec = self.model.get_obj_attr_batch(attr::X, self.vars.clone())?;
-        let mut solution_iter = solution_vec.iter();
-        // println!("Solution vec: {:#?}", solution_vec);
-        course_selections.retain(|_| solution_iter.next() == Some(&1.));
-        // println!("retained courses len: {:#?}", course_selections.len());
-        Ok(course_selections)
+
+        let solution_count = self.model.get_attr(SolCount)?;
+        let courses_iterator = course_selections.iter();
+
+        println!("Solution count: {:#?}", solution_count);
+        (0..solution_count)
+            .map(|index| {
+                self.model.set_param(SolutionNumber, index)?;
+                let solution_vec = self.model.get_obj_attr_batch(attr::Xn, self.vars.clone())?;
+                let solution_courses = courses_iterator
+                    .clone()
+                    .zip(solution_vec.iter())
+                    .filter_map(|(course, &val)| {
+                        if val == 1. {
+                            Some(course.clone())
+                        } else {
+                            None
+                        }
+                    })
+                    .collect_vec();
+                Ok(solution_courses)
+            })
+            .collect()
     }
 }
 
@@ -218,39 +244,38 @@ pub fn test_run() -> Result<(), SchedularError> {
     dotenv::dotenv().ok();
     let mut scheduling_problem = SchedulingProblem::new();
 
-    let faculties = vec!["MA".to_string(), "IN".to_string(), "CIT".to_string()];
-    let excluded_courses = vec![
-        "MA5617".to_string(),
-        "MA0003".to_string(),
-        "MA3601".to_string(),
-        "MA5120".to_string(),
-        "MA2409".to_string(),
-        "MA3405".to_string(),
-        "MA3407".to_string(),
-        "MA3442".to_string(),
-        "MA3703".to_string(),
-        "CIT4130023".to_string(),
-        "CIT4130024".to_string(),
-        "MA4304".to_string(),
-        "MA5619".to_string(),
-        "IN2339".to_string(),
+    let courses = &[
+        "MA3241",
+        "MA4405",
+        "MA3005",
+        "MA5934",
+        "MA5012",
+        "MA4408",
+        "MA5442",
+        "MA5059",
+        "MA5306",
+        "MA3081",
+        "CIT413031",
+        "MA4502",
     ];
+
     let filters = FilterSettings {
-        semester: Some("23W"),
-        excluded_courses: Some(&excluded_courses),
-        faculties: Some(&faculties),
+        semester: Some("24S"),
+        excluded_courses: None,
+        courses: Some(courses),
+        faculties: None,
         curriculum: Some("5244"),
     };
 
     let constraints = ConstraintSettings {
-        min_num_ects: Some(25),
-        max_num_days: Some(3),
-        max_courses_per_faculty: Some(vec![("IN".to_string(), 1)]),
+        min_num_ects: Some(30),
+        max_num_days: None,
+        max_courses_per_faculty: None,
     };
 
-    let solution =
+    let solutions =
         scheduling_problem.solve(filters, constraints, &SolutionObjective::MinimizeNumCourses)?;
-    println!("Result: {:#?}", solution);
+    // println!("Result: {:#?}", solutions);
     Ok(())
 }
 

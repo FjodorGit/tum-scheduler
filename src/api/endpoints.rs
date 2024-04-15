@@ -29,6 +29,7 @@ pub async fn optimize(configuration: Json<FrontendConfiguration>) -> Result<impl
         excluded_courses: Some(&configuration.excluded_courses),
         faculties: Some(&configuration.selected_prefixes),
         curriculum: Some(&configuration.curriculum),
+        courses: None,
     };
 
     let solution = scheduling_problem.solve(

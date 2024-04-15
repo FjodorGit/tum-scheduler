@@ -2,7 +2,8 @@ use clap::{Parser, Subcommand};
 
 use crate::{
     api::run_server,
-    tum_api::{aquire_curriculum_data, aquire_lecture_data},
+    schedular::scheduling_problem::test_run,
+    scraper::{aquire_curriculum_data, aquire_lecture_data},
 };
 use anyhow::Result;
 use dotenv::dotenv;
@@ -11,7 +12,7 @@ pub mod api;
 pub mod db_setup;
 pub mod schedular;
 pub mod schema;
-pub mod tum_api;
+pub mod scraper;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(Debug, Subcommand)]
@@ -33,6 +34,7 @@ enum RunMode {
         #[arg(long)]
         semester: String,
     },
+    Debug,
 }
 
 #[actix_web::main]
@@ -48,20 +50,30 @@ async fn main() -> Result<()> {
         .init();
     let runmode = RunMode::parse();
 
-    if let RunMode::Scraper { mode, semester } = runmode {
-        match mode {
-            ScraperMode::Lectures => {
-                tracing::info!("Starting to scrape the courses from TUM");
-                aquire_lecture_data(&semester).await?;
-            }
-            ScraperMode::Curriculum => {
-                tracing::info!("Starting to scrape the curricula from TUM");
-                aquire_curriculum_data(&semester).await?;
-            }
+    match runmode {
+        RunMode::Server => {
+            tracing::info!("Starting web server");
+            run_server().await?;
         }
-    } else {
-        tracing::info!("Starting web server");
-        run_server().await?;
+        RunMode::Debug => {
+            tracing::info!("Running Schedular Testrun");
+            test_run()?;
+        }
+        RunMode::Scraper {
+            mode: ScraperMode::Lectures,
+            semester,
+        } => {
+            tracing::info!("Starting to scrape the courses from TUM");
+            aquire_lecture_data(&semester).await?;
+        }
+        RunMode::Scraper {
+            mode: ScraperMode::Curriculum,
+            semester,
+        } => {
+            tracing::info!("Starting to scrape the curricula from TUM");
+            aquire_curriculum_data(&semester).await?;
+        }
     }
+
     Ok(())
 }
