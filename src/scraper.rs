@@ -7,7 +7,7 @@ use thiserror::Error;
 use self::tum_xml_node::TumXmlError;
 use crate::{
     db_setup::connection,
-    tum_api::{
+    scraper::{
         appointment::AppointmentsEndpoint,
         course::{CourseEndpoint, ProcessingError},
         course_description::CourseDescriptionEndpoint,
@@ -92,19 +92,28 @@ pub async fn aquire_lecture_data(semester_name: &str) -> Result<(), ScraperError
             .filter(|c| !already_processed_courses.contains(&c.id));
         for course in courses_to_process {
             tracing::info!("Downloading course {}", course.id);
-            let variants = variants_endpoint.get_all_by_id(&course.id).await?;
+            let variants = variants_endpoint
+                .get_all_by_id(&course.id)
+                .await
+                .unwrap_or_default();
             if variants.is_empty() {
                 course.processing_error = ProcessingError::MissingVariants;
                 course.add_to_db(conn)?;
                 continue;
             }
-            let appointments = appointment_endpoint.get_recurring_by_id(&course.id).await?;
+            let appointments = appointment_endpoint
+                .get_recurring_by_id(&course.id)
+                .await
+                .unwrap_or_default();
             if appointments.is_empty() {
                 course.processing_error = ProcessingError::MissingAppointments;
                 course.add_to_db(conn)?;
                 continue;
             }
-            let organization = organization_endpoint.get_organization(&course.id).await?;
+            let organization = organization_endpoint
+                .get_organization(&course.id)
+                .await
+                .unwrap_or_default();
             if organization.is_none() {
                 course.processing_error = ProcessingError::MissingOrganization;
                 course.add_to_db(conn)?;
@@ -131,10 +140,10 @@ pub async fn aquire_lecture_data(semester_name: &str) -> Result<(), ScraperError
             course_count += 1;
             if course_count % 100 == 0 {
                 tracing::info!(
-                    "Downloaded {} courses. Taking a 30 seconds break.",
+                    "Downloaded {} courses. Taking a 10 second break.",
                     course_count
                 );
-                sleep(Duration::new(15, 0));
+                sleep(Duration::new(10, 0));
             }
         }
     }

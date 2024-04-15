@@ -3,7 +3,7 @@ use crate::schema::{self, course};
 use diesel::deserialize::{self, FromSql, FromSqlRow};
 use diesel::expression::AsExpression;
 use diesel::pg::{Pg, PgValue};
-use diesel::query_dsl::methods::{SelectDsl};
+use diesel::query_dsl::methods::SelectDsl;
 use diesel::serialize::{self, IsNull, Output, ToSql};
 use diesel::{prelude::Insertable, Queryable};
 use diesel::{result, PgConnection, RunQueryDsl};
@@ -162,7 +162,7 @@ impl CourseEndpoint {
 mod test {
     use std::fs;
 
-    use crate::tum_api::course::CourseFromXml;
+    use crate::scraper::course::CourseFromXml;
 
     #[test]
     fn test_reading_courses_page() {

@@ -83,7 +83,7 @@ mod test {
     use dotenv::dotenv;
     use std::fs;
 
-    use crate::tum_api::course_variant::{CourseVariantEndpoint, CourseVariantFromXml};
+    use crate::scraper::course_variant::{CourseVariantEndpoint, CourseVariantFromXml};
 
     #[test]
     fn test_reading_variants() {

@@ -95,7 +95,7 @@ impl AppointmentsEndpoint {
 mod test {
     use std::fs;
 
-    use crate::tum_api::appointment::AppointmentFromXml;
+    use crate::scraper::appointment::AppointmentFromXml;
 
     #[test]
     fn test_reading_appointments() {

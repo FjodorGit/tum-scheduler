@@ -1,4 +1,3 @@
-
 use std::env;
 
 use diesel::{
@@ -9,10 +8,7 @@ use lazy_static::lazy_static;
 use reqwest::Client;
 use roxmltree::Document;
 
-use crate::{
-    db_setup::{connection},
-    schema::organization,
-};
+use crate::{db_setup::connection, schema::organization};
 
 use super::{
     tum_xml_node::{TumXmlError, TumXmlNode},
@@ -92,7 +88,7 @@ mod test {
 
     use dotenv::dotenv;
 
-    use crate::tum_api::organization::TumOrganizationEndpoint;
+    use crate::scraper::organization::TumOrganizationEndpoint;
 
     #[tokio::test]
     async fn test_getting_course_organization() {

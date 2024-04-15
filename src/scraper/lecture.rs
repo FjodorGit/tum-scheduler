@@ -204,7 +204,7 @@ mod test {
 
     use chrono::NaiveTime;
 
-    use crate::tum_api::{
+    use crate::scraper::{
         appointment::AppointmentFromXml, course::CourseFromXml,
         course_variant::CourseVariantFromXml,
     };
@@ -220,7 +220,7 @@ mod test {
             name_en: "TestKurs".to_string(),
             name_de: "TestCourse".to_string(),
             semester: "200".to_string(),
-            processing_error: crate::tum_api::course::ProcessingError::None,
+            processing_error: crate::scraper::course::ProcessingError::None,
         };
         let appointment1 = AppointmentFromXml {
             weekdays: vec!["Monday".to_string(), "Tuesday".to_string()],
@@ -263,7 +263,7 @@ mod test {
             name_en: "TestKurs".to_string(),
             name_de: "TestCourse".to_string(),
             semester: "200".to_string(),
-            processing_error: crate::tum_api::course::ProcessingError::None,
+            processing_error: crate::scraper::course::ProcessingError::None,
         };
 
         let variant1 = CourseVariantFromXml {

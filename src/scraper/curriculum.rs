@@ -93,7 +93,7 @@ impl CurriculumEndpoint {
 mod test {
     use std::fs;
 
-    use crate::tum_api::curriculum::CurriculumFromXml;
+    use crate::scraper::curriculum::CurriculumFromXml;
 
     #[test]
     fn test_reading_curricula() {
