@@ -1,8 +1,10 @@
 use std::env;
 
 use diesel::{
-    deserialize::Queryable, prelude::Insertable, query_dsl::methods::SelectDsl, result,
-    PgConnection, RunQueryDsl, Selectable,
+    deserialize::Queryable,
+    prelude::Insertable,
+    query_dsl::methods::{FilterDsl, SelectDsl},
+    result, ExpressionMethods, PgConnection, RunQueryDsl, Selectable,
 };
 use lazy_static::lazy_static;
 use reqwest::Client;
@@ -19,7 +21,7 @@ lazy_static! {
     static ref ORGANIZATIONS: Vec<String> = {
         let conn: &mut PgConnection =
             &mut connection().expect("should be able to get connections for organizations");
-        TumOrganization::get_all(conn).expect("should be able to get all organization ids")
+        TumOrganization::get_all_ids(conn).expect("should be able to get all organization ids")
     };
 }
 
@@ -40,8 +42,15 @@ pub struct TumOrganizationEndpoint {
 }
 
 impl TumOrganization {
-    pub fn get_all(conn: &mut PgConnection) -> Result<Vec<String>, result::Error> {
+    pub fn get_all_ids(conn: &mut PgConnection) -> Result<Vec<String>, result::Error> {
         organization::table.select(organization::id).load(conn)
+    }
+
+    pub fn get_all_departments(conn: &mut PgConnection) -> Result<Vec<String>, result::Error> {
+        organization::table
+            .select(organization::name)
+            .filter(organization::kind.eq("department"))
+            .load(conn)
     }
 
     pub fn read_organization_id(
@@ -49,18 +58,22 @@ impl TumOrganization {
     ) -> Result<Option<TumOrganizationFromXml>, TumXmlError> {
         let root_node = TumXmlNode::new(document.root_element());
         let organization_node = root_node.get_next("organisationResponsibleDto")?;
-        let mut organization = organization_node.get_text_of_next("id")?;
+        let mut organization_name = organization_node.get_text_of_next("id")?;
         let parent_organization = organization_node.get_text_of_next("parentOrganisationId")?;
 
-        if !ORGANIZATIONS.contains(&organization) && !ORGANIZATIONS.contains(&parent_organization) {
+        if !ORGANIZATIONS.contains(&organization_name)
+            && !ORGANIZATIONS.contains(&parent_organization)
+        {
             return Ok(None);
         }
 
-        if !ORGANIZATIONS.contains(&organization) && ORGANIZATIONS.contains(&parent_organization) {
-            organization = parent_organization;
+        if !ORGANIZATIONS.contains(&organization_name)
+            && ORGANIZATIONS.contains(&parent_organization)
+        {
+            organization_name = parent_organization;
         }
 
-        Ok(Some(organization))
+        Ok(Some(organization_name))
     }
 }
 

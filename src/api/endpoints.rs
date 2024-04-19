@@ -1,10 +1,15 @@
 use std::collections::HashMap;
 
+use actix_web::error::{ErrorInternalServerError, ErrorServiceUnavailable};
+use actix_web::get;
 use actix_web::{post, web::Json, Responder, Result};
 use serde::Deserialize;
+use tracing::info;
 
+use crate::db_setup::connection;
 use crate::schedular::scheduling_problem::SchedulingProblem;
 use crate::schedular::settings::{ConstraintSettings, FilterSettings, SolutionObjective};
+use crate::scraper::organization::TumOrganization;
 
 #[derive(Deserialize, Debug)]
 struct FrontendConfiguration {
@@ -17,6 +22,14 @@ struct FrontendConfiguration {
     #[serde(rename = "additionalConstraints")]
     additional_constraints: HashMap<String, i32>,
     objective: SolutionObjective,
+}
+
+#[get("/api/departments")]
+pub async fn deparments() -> Result<impl Responder> {
+    let conn = &mut connection().map_err(|err| ErrorServiceUnavailable(err))?;
+    let department_names =
+        TumOrganization::get_all_departments(conn).map_err(|err| ErrorInternalServerError(err))?;
+    Ok(Json(department_names))
 }
 
 #[post("/api/optimize")]
