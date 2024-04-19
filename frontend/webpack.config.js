@@ -53,7 +53,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "output management",
       template: "./src/index.html",
-      favicon: "./src/favicon.ico",
       filename: "index.html",
       inject: "head",
       minify: {

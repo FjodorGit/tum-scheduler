@@ -1,48 +1,60 @@
-import context, { datepickerContext } from "./context/appContext";
-import store from "./context/store";
-import configuration from "./context/configuration";
-import setAppDefaults from "./config/appDefaults";
-import renderViews from "./config/renderViews";
-
-/*!*************************************!*\
-// (CSS) 
-/*!*************************************!*/
-
-// <html>
 import "./styles/root.css";
-// </html>
+import "flowbite";
 
-// <header>
-import "./styles/header.css";
-// </header>
+const configureBtn = document.querySelector("#configure-courses-btn");
+const configureWindow = document.querySelector("#configure-window");
+const departmentTemplate = document.querySelector("#department-template");
+const departmentList = document.querySelector("#department-list");
 
-// <main>
-import "./styles/containers.css";
-import "./styles/yearview.css";
-import "./styles/monthview.css";
-import "./styles/weekview.css";
-import "./styles/dayview.css";
-import "./styles/listview.css";
-import "./styles/sidebar.css";
-import "./styles/sbdatepicker.css";
-// </main>
+function add_department(department_name) {
+  let departmentClone = departmentTemplate.content.cloneNode(true);
+  let departmentLabel = departmentClone.querySelector("label");
+  departmentLabel.textContent = department_name;
+  departmentList.appendChild(departmentClone);
+}
 
-// <aside>
-import "./styles/aside/datepicker.css";
-import "./styles/aside/toast.css";
-import "./styles/aside/goto.css";
-import "./styles/aside/toggleForm.css";
-import "./styles/aside/sidebarSubMenu.css";
-import "./styles/aside/changeViewModule.css";
-import "./styles/aside/editCategoryForm.css";
-import "./styles/aside/form.css";
-import "./styles/aside/timepicker.css";
-import "./styles/aside/deleteCategoryPopup.css";
-import "./styles/aside/entryOptions.css";
-import "./styles/aside/info.css";
-import "./styles/aside/shortcuts.css";
-// </aside>
+async function fetch_departments() {
+  const response = await fetch("/api/departments");
+  const departments = await response.json();
+  departments.forEach((department) => {
+    let department_name = department.split(" ");
+    department_name.shift();
+    department_name.shift();
+    add_department(department_name.join(" "));
+  });
+  console.log(departments);
+}
 
-/*!*************************************!*/
-setAppDefaults(context, store);
-renderViews(context, configuration, datepickerContext, store);
+async function fetch_courses(configuration) {}
+
+addEventListener("DOMContentLoaded", (_) => {
+  const weeksidebar = document.querySelector("#weekday-sidebar");
+
+  // Calculate number of lines
+  const numberOfLines = weeksidebar.clientHeight / 50;
+  const sidebarNumberTemplate = document.querySelector("#sidebar-number");
+  // Loop to create and append numbers
+  for (let i = 5; i < 4 + numberOfLines; i++) {
+    const sidebarNumber =
+      sidebarNumberTemplate.content.cloneNode(true).children[0];
+    if (i < 13) {
+      sidebarNumber.textContent = i + " AM";
+      if (i === 5) {
+        sidebarNumber.style.marginTop = "6px";
+      }
+    } else {
+      sidebarNumber.textContent = (i % 12) + " PM";
+    }
+    weeksidebar.appendChild(document.importNode(sidebarNumber, true));
+  }
+});
+
+configureBtn.addEventListener("mousedown", async (_) => {
+  console.log("Open configuration");
+  await fetch_departments();
+  if (configureWindow.classList.contains("-translate-y-full")) {
+    configureWindow.classList.remove("-translate-y-full");
+  } else {
+    configureWindow.classList.add("-translate-y-full");
+  }
+});
