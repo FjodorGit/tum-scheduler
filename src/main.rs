@@ -2,6 +2,7 @@ use clap::{Parser, Subcommand};
 
 use crate::{
     api::run_server,
+    meilisearch::init_melisearch,
     schedular::scheduling_problem::test_run,
     scraper::{aquire_curriculum_data, aquire_lecture_data},
 };
@@ -10,6 +11,7 @@ use dotenv::dotenv;
 
 pub mod api;
 pub mod db_setup;
+pub mod meilisearch;
 pub mod schedular;
 pub mod schema;
 pub mod scraper;
@@ -37,7 +39,7 @@ enum RunMode {
     Debug,
 }
 
-#[actix_web::main]
+#[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
     dotenv::from_filename("request_urls").ok();
@@ -53,6 +55,7 @@ async fn main() -> Result<()> {
     match runmode {
         RunMode::Server => {
             tracing::info!("Starting web server");
+            init_melisearch().await?;
             run_server().await?;
         }
         RunMode::Debug => {

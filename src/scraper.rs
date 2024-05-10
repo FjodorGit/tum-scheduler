@@ -77,7 +77,7 @@ pub async fn aquire_lecture_data(semester_name: &str) -> Result<(), ScraperError
     let appointment_endpoint = AppointmentsEndpoint::new();
     let variants_endpoint = CourseVariantEndpoint::new();
     let organization_endpoint = TumOrganizationEndpoint::new();
-    let already_processed_courses = CourseEndpoint::get_all_processed(conn)?;
+    let already_processed_courses = CourseEndpoint::get_all_processed_ids(conn)?;
     let description_endpoint = CourseDescriptionEndpoint::for_semester(semester_id);
     tracing::info!(
         "{} courses are already in the database",

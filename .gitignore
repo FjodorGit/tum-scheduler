@@ -23,6 +23,9 @@ package-lock.json
 #environment variables
 .env
 
+#meilisearch
+data.ms/*
+
 #gurobi solver files
 **.lp
 **.log

@@ -5,16 +5,19 @@ use chrono::NaiveTime;
 use diesel::result;
 use diesel::{deserialize::Queryable, prelude::Insertable, PgConnection, RunQueryDsl, Selectable};
 use itertools::Itertools;
+use serde::{Deserialize, Serialize};
 
 use super::appointment::SingleAppointment;
 use super::course_description::CourseDescription;
 use super::course_variant::CourseVariantFromXml;
 use super::organization::TumOrganizationFromXml;
-use super::{appointment::AppointmentFromXml, course::CourseFromXml};
+use super::{appointment::AppointmentFromXml, course::Course};
 
 pub struct Lectures;
 
-#[derive(Debug, Default, Clone, Insertable, Queryable, PartialEq, Selectable)]
+#[derive(
+    Debug, Default, Clone, Insertable, Queryable, PartialEq, Selectable, Serialize, Deserialize,
+)]
 #[diesel(table_name = lecture)]
 pub struct Lecture {
     pub id: String,
@@ -54,8 +57,8 @@ pub struct LectureTemplate {
     pub ects: Option<f64>,
 }
 
-impl From<Vec<CourseFromXml>> for LecturesBuilder {
-    fn from(value: Vec<CourseFromXml>) -> Self {
+impl From<Vec<Course>> for LecturesBuilder {
+    fn from(value: Vec<Course>) -> Self {
         let templates = value
             .into_iter()
             .map(|course| LectureTemplate {
@@ -73,7 +76,7 @@ impl From<Vec<CourseFromXml>> for LecturesBuilder {
 }
 
 impl Lectures {
-    pub fn build_from(course: &CourseFromXml) -> LecturesBuilder {
+    pub fn build_from(course: &Course) -> LecturesBuilder {
         LecturesBuilder::from(vec![course.clone()])
     }
 }
@@ -205,15 +208,14 @@ mod test {
     use chrono::NaiveTime;
 
     use crate::scraper::{
-        appointment::AppointmentFromXml, course::CourseFromXml,
-        course_variant::CourseVariantFromXml,
+        appointment::AppointmentFromXml, course::Course, course_variant::CourseVariantFromXml,
     };
 
     use super::Lectures;
 
     #[test]
     fn test_adding_appointments() {
-        let course = CourseFromXml {
+        let course = Course {
             id: "11111".to_string(),
             course_type: "VO".to_string(),
             sws: 4.,
@@ -256,7 +258,7 @@ mod test {
 
     #[test]
     fn test_with_variants() {
-        let course = CourseFromXml {
+        let course = Course {
             id: "11111".to_string(),
             course_type: "VO".to_string(),
             sws: 4.,
