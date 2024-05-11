@@ -28,6 +28,7 @@ addEventListener("DOMContentLoaded", (_) => {
     weeksidebar.appendChild(document.importNode(sidebarNumber, true));
   }
   setupCourseConfiguration();
+  configureWindow.classList.remove("-translate-y-full");
 });
 
 configureBtn.addEventListener("mousedown", async (_) => {

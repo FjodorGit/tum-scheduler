@@ -7,6 +7,9 @@ const semesterRadios = document.querySelectorAll(".semesterRadio");
 const courseSearch = document.querySelector("#course-search");
 courseSearch.addEventListener("input", (event) => course_search(event));
 
+const courseResults = document.querySelector("#course-results");
+const courseResultTemplate = document.querySelector("#course-result-template");
+
 class CourseRequest {
   departments = [];
   semester = "24S";
@@ -69,11 +72,22 @@ async function fetch_departments() {
   });
 }
 
+function render_searched_courses(searchResults) {
+  searchResults.forEach((res) => {
+    let courseResultClone = courseResultTemplate.content.cloneNode(true);
+    courseResultClone.querySelector("#result-subject").textContent =
+      res.subject;
+    courseResultClone.querySelector("#result-name").textContent = res.name_en;
+    courseResults.appendChild(courseResultClone);
+  });
+}
+
 function course_search(event) {
+  courseResults.innerHTML = "";
   mlsClient
     .index("lectures")
     .search(courseSearch.value)
-    .then((res) => console.log(res));
+    .then((queryResponse) => render_searched_courses(queryResponse.hits));
 }
 
 export async function setupCourseConfiguration() {
