@@ -23,7 +23,7 @@ Docker
 Frontend in progress
 
 # Implementation
-![alt text](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/tum-scheduler-arch.svg "Rough outline of the applications architecture")
+![alt text](https://github.com/FjodorGit/tum-scheduler/resources/tum-scheduler-arch.png "Rough outline of the applications architecture")
 ## Scraper
 ## Schedular
 
