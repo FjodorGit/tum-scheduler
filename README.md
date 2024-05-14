@@ -1,13 +1,12 @@
 # tum-scheduler
-Optimize your schedule for a Semester at TUM.
+**Optimize your next Semester at TUM.**
 
 # Problems
-There are a lot of courses to choose from in a semester at TUM. Especially in the masters degree where you have no courses you are obligated to take.
-Most of the courses consist of lecture and exercise classes. Typically you would want to visit each lecture but only one exercise class. 
-On the TUM online platform these are considered two different courses.
-Addtionally one would have other weekly appointments to fit into the weekly schedule (like work or sport training).
-For working students it is most of the time possible to choose the days or hours the work at.
-So it is challanging to choose a selection of courses that so that neither of the lecture or exercise classes or your personal schedule overlap.
+Choosing courses at TUM for a semester can be overwhelming, especially in the master's program where there are no mandatory courses. 
+Most courses have lecture and exercise classes, and it's common to attend all lectures but only one exercise session per course. 
+However, on the TUM online platform, each part is treated as a separate course. On top of that, students have other weekly commitments like work or sports which should be factored in when designing a schedule. 
+Designing an optimal schedule becomes even more challenging when other appointments are variable, such as when working students must work two days per week but can choose which days.
+So, it's tough to create an optimal schedule that avoids clashes between lectures, exercises, and personal commitments.
 
 # Solution
 An application that can automatically create a weekly schedule for a semester considering ones personal schedule without overlap.
