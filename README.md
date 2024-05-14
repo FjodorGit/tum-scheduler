@@ -7,15 +7,19 @@ Most courses have lecture and exercise classes, and it's common to attend all le
 However, on the TUM online platform, each part is treated as a separate course. On top of that, students have other weekly commitments like work or sports which should be factored in when designing a schedule. 
 Designing an optimal schedule becomes even more challenging when other appointments are variable, such as when working students must work two days per week but can choose which days.
 So, it's tough to create an optimal schedule that avoids clashes between lectures, exercises, and personal commitments.
+Moreover, the TUM web platform for selecting courses presents minor inconveniences, such as a cumbersome search functionality or having to consult an additional website for missing course descriptions.
 
 # Solution
-An application that can automatically create a weekly schedule for a semester considering ones personal schedule without overlap.
-Additionally giving an improved platform for browsing and choosing courses that you consider taking during the semester.
-Specifically the improvements are:
-- option to optimize the schedule with respect to some specific metric like credits or amount of courses while accounting for bounding conditions like minimum number of days. Example: For you job you have to work a minimum of two days per week, but you would also like gain a minimum of 30 credits that semester.
-- when selecting a course automatically select all lecture and exercise classes
-- the course description is often missing for the course. So most of the time you have to consult the module catalogue to understand what the course is about
-- better search through courses
+Introducing an innovative application designed to streamline the process of creating a weekly schedule for an entire semester while seamlessly integrating personal commitments to avoid any overlaps. This application not only simplifies course selection but also enhances the browsing experience on the TUM platform.
+Key features include: 
+
+- Customizable optimization options: Tailor your schedule according to specific preferences such as credit requirements or the number of courses, while accommodating constraints like minimum weekly workdays. For instance, if you need to work at least two days a week and aim to achieve a minimum of 30 credits in a semester, the application can optimize your schedule accordingly.
+
+- Automated selection of course components: Simplify course selection by automatically including all related lecture and exercise classes when choosing a course.
+
+- Comprehensive course information: Addressing the common issue of missing course descriptions, the application provides access to detailed information directly within the platform, eliminating the need to consult external sources like the module catalogue.
+
+- Enhanced search functionality: Enjoy an improved browsing experience with enhanced search capabilities, making it easier to find and select courses based on your preferences and requirements.
 
 # Usage
 Docker
