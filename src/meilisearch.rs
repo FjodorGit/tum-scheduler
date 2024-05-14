@@ -1,25 +1,17 @@
-use std::result;
-
 use diesel::{result::Error, ExpressionMethods, PgConnection, QueryDsl, RunQueryDsl};
 use futures::executor::block_on;
 use meilisearch_sdk::{client::Client, errors, settings::Settings};
 
 use lazy_static::lazy_static;
 
-use crate::{
-    db_setup::connection,
-    scraper::{
-        course::{Course, CourseEndpoint},
-        lecture::Lecture,
-    },
-};
+use crate::{db_setup::connection, scraper::lecture::Lecture};
 
 lazy_static! {
     static ref CLIENT: Client = Client::new("http://localhost:7700", Some("masterKey")).unwrap();
 }
 
-const MEILISEARCH_URL: &str = "http://localhost:7700";
-const MEILISEARCH_MASTER_KEY: &str = "Pr0lOM2R4OPuOA0ueFLZazNbIKd08go3ujB3ipSkH9U";
+// const MEILISEARCH_URL: &str = "http://localhost:7700";
+// const MEILISEARCH_MASTER_KEY: &str = "Pr0lOM2R4OPuOA0ueFLZazNbIKd08go3ujB3ipSkH9U";
 
 fn get_unique_representative_for_each_subject(
     conn: &mut PgConnection,
@@ -33,7 +25,6 @@ fn get_unique_representative_for_each_subject(
 
 pub async fn init_melisearch() -> Result<(), errors::Error> {
     block_on(async move {
-        // reading and parsing the file
         let conn = &mut connection().expect("should be able to establish connection");
         let lecture_representatives = get_unique_representative_for_each_subject(conn)
             .expect("should be able to get all courses");
@@ -58,16 +49,6 @@ pub async fn init_melisearch() -> Result<(), errors::Error> {
             .wait_for_completion(&CLIENT, None, None)
             .await
             .unwrap();
-
-        let query_results = CLIENT
-            .index("lectures")
-            .search()
-            .with_query("partial")
-            .execute::<Lecture>()
-            .await
-            .unwrap()
-            .hits;
-        println!("{:#?}", query_results)
     });
     Ok(())
 }

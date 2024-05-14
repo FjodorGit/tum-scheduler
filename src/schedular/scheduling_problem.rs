@@ -122,7 +122,7 @@ impl SchedulingProblem {
 
     pub fn add_constraints(
         &mut self,
-        constraints: ConstraintSettings,
+        constraints: &ConstraintSettings,
     ) -> Result<(), SchedularError> {
         let interval_constraints = self
             .interval_exprs
@@ -137,7 +137,7 @@ impl SchedulingProblem {
                 .add_constr("min_ects", c!(self.amount_ects.clone() >= min_ects))?;
         }
 
-        if let Some(courses_per_faculty) = constraints.max_courses_per_faculty {
+        if let Some(courses_per_faculty) = &constraints.max_courses_per_faculty {
             for (fac, num) in courses_per_faculty.iter() {
                 if let Some(expr) = self.faculties.get(fac) {
                     self.model.add_constr(fac, c!(expr.clone() <= num))?;
@@ -196,7 +196,7 @@ impl SchedulingProblem {
     pub fn solve(
         &mut self,
         filter_settings: FilterSettings,
-        constraint_settings: ConstraintSettings,
+        constraint_settings: &ConstraintSettings,
         objective: &SolutionObjective,
     ) -> Result<Vec<Vec<CourseSelection>>, SchedularError> {
         let conn = &mut connection().expect("should be able to establish connection to db");
@@ -204,7 +204,7 @@ impl SchedulingProblem {
             .expect("should be able to request possible lectures");
 
         let course_selections = CourseSelection::build_from_lectures(possible_lectures);
-        // println!("Course selections: {:#?}", course_selections);
+        println!("Course selections: {:#?}", course_selections);
         self.add_courses(course_selections.clone())?;
         self.add_constraints(constraint_settings)?;
         self.set_objective(objective)?;
@@ -244,25 +244,25 @@ pub fn test_run() -> Result<(), SchedularError> {
     dotenv::dotenv().ok();
     let mut scheduling_problem = SchedulingProblem::new();
 
-    let courses = &[
-        "MA3241",
-        "MA4405",
-        "MA3005",
-        "MA5934",
-        "MA5012",
-        "MA4408",
-        "MA5442",
-        "MA5059",
-        "MA5306",
-        "MA3081",
-        "CIT413031",
-        "MA4502",
+    let courses = vec![
+        "MA3241".to_string(),
+        "MA4405".to_string(),
+        "MA3005".to_string(),
+        "MA5934".to_string(),
+        "MA5012".to_string(),
+        "MA4408".to_string(),
+        "MA5442".to_string(),
+        "MA5059".to_string(),
+        "MA5306".to_string(),
+        "MA3081".to_string(),
+        "CIT413031".to_string(),
+        "MA4502".to_string(),
     ];
 
     let filters = FilterSettings {
         semester: Some("24S"),
         excluded_courses: None,
-        courses: Some(courses),
+        courses: Some(&courses),
         faculties: None,
         curriculum: Some("5244"),
     };
@@ -273,8 +273,11 @@ pub fn test_run() -> Result<(), SchedularError> {
         max_courses_per_faculty: None,
     };
 
-    let solutions =
-        scheduling_problem.solve(filters, constraints, &SolutionObjective::MinimizeNumCourses)?;
+    let solutions = scheduling_problem.solve(
+        filters,
+        &constraints,
+        &SolutionObjective::MinimizeNumCourses,
+    )?;
     // println!("Result: {:#?}", solutions);
     Ok(())
 }

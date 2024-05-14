@@ -4,6 +4,7 @@ use serde::Deserialize;
 
 type CoursesPerFaculty = Vec<(String, i32)>;
 
+#[derive(Debug, Deserialize)]
 pub struct ConstraintSettings {
     pub min_num_ects: Option<i32>,
     pub max_num_days: Option<i32>,
@@ -13,7 +14,7 @@ pub struct ConstraintSettings {
 #[derive(Debug)]
 pub struct FilterSettings<'a> {
     pub semester: Option<&'a str>,
-    pub courses: Option<&'a [&'a str]>,
+    pub courses: Option<&'a Vec<String>>,
     pub excluded_courses: Option<&'a Vec<String>>,
     pub faculties: Option<&'a Vec<String>>,
     pub curriculum: Option<&'a str>,

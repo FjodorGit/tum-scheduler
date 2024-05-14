@@ -1,27 +1,31 @@
-use std::collections::HashMap;
-
 use actix_web::error::{ErrorInternalServerError, ErrorServiceUnavailable};
 use actix_web::get;
 use actix_web::{post, web::Json, Responder, Result};
-use serde::Deserialize;
+use itertools::Itertools;
+use serde::{Deserialize, Serialize};
 use tracing::info;
 
 use crate::db_setup::connection;
+use crate::schedular::course_selection::CourseSelection;
 use crate::schedular::scheduling_problem::SchedulingProblem;
 use crate::schedular::settings::{ConstraintSettings, FilterSettings, SolutionObjective};
 use crate::scraper::organization::TumOrganization;
 
+use super::ApiError;
+
 #[derive(Deserialize, Debug)]
-struct FrontendConfiguration {
-    semester: String,
+struct OptimizeRequest {
+    courses: Vec<String>,
     curriculum: String,
-    #[serde(rename = "selectedPrefixes")]
-    selected_prefixes: Vec<String>,
-    #[serde(rename = "excludedCourses")]
-    excluded_courses: Vec<String>,
-    #[serde(rename = "additionalConstraints")]
-    additional_constraints: HashMap<String, i32>,
+    semester: String,
+    constraints: ConstraintSettings,
     objective: SolutionObjective,
+    num_of_schedules: Option<usize>,
+}
+
+#[derive(Serialize, Debug)]
+struct OptimizeResponse {
+    schedules: Vec<Vec<CourseSelection>>,
 }
 
 #[get("/api/departments")]
@@ -33,24 +37,32 @@ pub async fn deparments() -> Result<impl Responder> {
 }
 
 #[post("/api/optimize")]
-pub async fn optimize(configuration: Json<FrontendConfiguration>) -> Result<impl Responder> {
+pub async fn optimize(optimize_request: Json<OptimizeRequest>) -> Result<impl Responder, ApiError> {
+    tracing::info!("Handling optimization request");
     let mut scheduling_problem = SchedulingProblem::new();
-    let additional_contraints: ConstraintSettings =
-        ConstraintSettings::from(&configuration.additional_constraints);
     let filter_settings = FilterSettings {
-        semester: Some(&configuration.semester),
-        excluded_courses: Some(&configuration.excluded_courses),
-        faculties: Some(&configuration.selected_prefixes),
-        curriculum: Some(&configuration.curriculum),
-        courses: None,
+        courses: Some(&optimize_request.courses),
+        semester: Some(&optimize_request.semester),
+        excluded_courses: None,
+        faculties: None,
+        curriculum: Some(&optimize_request.curriculum),
     };
 
-    let solution = scheduling_problem.solve(
+    let all_solutions = scheduling_problem.solve(
         filter_settings,
-        additional_contraints,
-        &configuration.objective,
+        &optimize_request.constraints,
+        &optimize_request.objective,
     );
 
-    println!("Result: {:#?}", solution);
-    Ok(Json(solution.unwrap()))
+    let num_solutions = match optimize_request.num_of_schedules {
+        Some(amount) => amount,
+        None => 1,
+    };
+
+    match all_solutions {
+        Ok(solutions) => Ok(Json(
+            solutions.into_iter().take(num_solutions).collect_vec(),
+        )),
+        Err(_) => return Err(ApiError::InternalError),
+    }
 }

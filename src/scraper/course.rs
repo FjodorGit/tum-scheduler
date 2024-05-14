@@ -162,13 +162,6 @@ impl CourseEndpoint {
             .filter(course::processing_error.eq(ProcessingError::None))
             .load(conn)
     }
-
-    pub fn get_unique_for_course_selection(
-        conn: &mut PgConnection,
-    ) -> Result<Vec<Course>, result::Error> {
-        let sql_text = fs::read_to_string("some.sql").expect("should be able to read sql");
-        sql_query(sql_text).load(conn)
-    }
 }
 
 #[cfg(test)]

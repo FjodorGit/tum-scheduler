@@ -22,8 +22,10 @@ Key features include:
 - Enhanced search functionality: Enjoy an improved browsing experience with enhanced search capabilities, making it easier to find and select courses based on your preferences and requirements.
 
 # Usage
-Docker
-Frontend in progress
+## Docker
+
+
+**__(Web frontend is in progress)__**
 
 # Implementation
 ![alt text](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/tum-scheduler-arch.png "Rough outline of the applications architecture")
