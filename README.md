@@ -25,12 +25,21 @@ Key features include:
 ## Docker
 
 
-**__(Web frontend is in progress)__**
+## **__(Web frontend is in progress)__**
 
-# Implementation
+# Implementation and Tech Stack
+The applications backend is written in Rust and comprises a scraper, a PostgreSQL database, and an Actix-web server
 ![alt text](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/tum-scheduler-arch.png "Rough outline of the applications architecture")
-## Scraper
-## Schedular
 
+### Scraper
+By reverse engineering the TUM web API, it's possible to retrieve all available courses per semester. 
+Each course has specific endpoints that need to be called to fetch particular information such as timing or descriptions. 
+The Rust ORM Diesel is used to interact with a PostgreSQL database.
 
+### Scheduler
+Optimizing schedules is achieved by modeling the problem using (binary) integer programming. 
+Gurobi is employed as the solver for the problem, with the rust_grb crate facilitating communication with the Gurobi API.
+
+### Web Server
+A simple Actix-web server serves as a thin wrapping layer to communicate with the scheduler in the backend.
 
