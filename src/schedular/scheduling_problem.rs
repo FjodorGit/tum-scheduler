@@ -9,11 +9,12 @@ use super::{
     WEEKDAYS,
 };
 use grb::{
-    attribute::ModelIntAttr::SolCount,
-    parameter::IntParam::{PoolSearchMode, PoolSolutions, SolutionNumber},
+    attribute::{ModelDoubleAttr::ObjVal, ModelIntAttr::SolCount},
+    parameter::IntParam::{PoolSearchMode, PoolSolutions, SolutionLimit, SolutionNumber},
     prelude::*,
 };
 use itertools::Itertools;
+use serde::Serialize;
 use std::collections::HashMap;
 
 use chrono::Duration;
@@ -29,6 +30,13 @@ pub struct SchedulingProblem {
     interval_exprs: HashMap<String, LinExpr>,
     amount_ects: LinExpr,
     faculties: HashMap<String, LinExpr>,
+}
+
+#[derive(Serialize, Debug)]
+pub struct SolutionSchedule {
+    objective_value: f64,
+    total_ects: f64,
+    course_selections: Vec<CourseSelection>,
 }
 
 impl SchedulingProblem {
@@ -132,6 +140,9 @@ impl SchedulingProblem {
             self.model.add_constr(constr, expr)?;
         }
 
+        let solution_num = constraints.max_num_solutions.unwrap_or(1);
+        self.model.set_param(PoolSolutions, solution_num)?;
+
         if let Some(min_ects) = constraints.min_num_ects {
             self.model
                 .add_constr("min_ects", c!(self.amount_ects.clone() >= min_ects))?;
@@ -198,32 +209,30 @@ impl SchedulingProblem {
         filter_settings: FilterSettings,
         constraint_settings: &ConstraintSettings,
         objective: &SolutionObjective,
-    ) -> Result<Vec<Vec<CourseSelection>>, SchedularError> {
+    ) -> Result<Vec<SolutionSchedule>, SchedularError> {
         let conn = &mut connection().expect("should be able to establish connection to db");
         let possible_lectures = CourseSelection::addmissiable_lectures(conn, filter_settings)
             .expect("should be able to request possible lectures");
 
         let course_selections = CourseSelection::build_from_lectures(possible_lectures);
-        println!("Course selections: {:#?}", course_selections);
         self.add_courses(course_selections.clone())?;
         self.add_constraints(constraint_settings)?;
         self.set_objective(objective)?;
         self.model.set_param(PoolSearchMode, 2)?;
-        self.model.set_param(PoolSolutions, 100)?;
         self.model.update()?;
         println!("Writing model to file");
         self.model.write("schedular.lp")?;
         self.model.optimize()?;
 
         let solution_count = self.model.get_attr(SolCount)?;
-        let courses_iterator = course_selections.iter();
 
-        println!("Solution count: {:#?}", solution_count);
+        let courses_iterator = course_selections.iter();
         (0..solution_count)
             .map(|index| {
                 self.model.set_param(SolutionNumber, index)?;
+                let objective_value = self.model.get_attr(ObjVal)?;
                 let solution_vec = self.model.get_obj_attr_batch(attr::Xn, self.vars.clone())?;
-                let solution_courses = courses_iterator
+                let course_selections = courses_iterator
                     .clone()
                     .zip(solution_vec.iter())
                     .filter_map(|(course, &val)| {
@@ -234,7 +243,13 @@ impl SchedulingProblem {
                         }
                     })
                     .collect_vec();
-                Ok(solution_courses)
+                let total_ects = course_selections.iter().fold(0., |acc, val| acc + val.ects);
+                let schedule = SolutionSchedule {
+                    objective_value,
+                    total_ects,
+                    course_selections,
+                };
+                Ok(schedule)
             })
             .collect()
     }
@@ -268,8 +283,9 @@ pub fn test_run() -> Result<(), SchedularError> {
     };
 
     let constraints = ConstraintSettings {
-        min_num_ects: Some(30),
+        min_num_ects: Some(23),
         max_num_days: None,
+        max_num_solutions: Some(2),
         max_courses_per_faculty: None,
     };
 
@@ -278,7 +294,7 @@ pub fn test_run() -> Result<(), SchedularError> {
         &constraints,
         &SolutionObjective::MinimizeNumCourses,
     )?;
-    // println!("Result: {:#?}", solutions);
+    println!("Result: {:#?}", solutions);
     Ok(())
 }
 
