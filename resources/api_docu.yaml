@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: TUM-Schedular API
+  description: API for optimizing a semester schedule at TUM
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /optimize:
+    post:
+      summary: Main endpoint to calculate an optimal schedule from a course list 
+      requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CourseSelectionRequest'
+      responses:
+        '200':
+          description: Successful response with course selection details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionSchedule'
+components:
+  schemas:
+    CourseSelectionRequest:
+      type: object
+      properties:
+        objective:
+          type: string
+          enum: [noobjective, maxects, minweekdays, mincourses]
+          description:
+            Objective to maximize/minimize when creating a schedule
+            * `noobjective` - No Objective
+            * `maxects` - Try to maximize the total amount of ECTS credits of the schedule
+            * `minweekdays` - Try to minimize the number of weekdays one would have to attend university
+            * `mincourses` - Try to minimize the number of courses of the schedule
+        curriculum:
+          type: string
+          description: The curriculum code for which the schedule should be build
+        semester:
+          type: string
+          description: The semester code for which the schedule should be build
+        constraints:
+          type: object
+          properties:
+            max_num_days:
+              type: integer
+              description: Maximum number of weekdays one would have to attend university (optional)
+            max_num_solutions:
+              type: integer
+              description: Maximum number of solutions to be returned (optional)
+            min_num_ects:
+              type: integer
+              description: Minimum number of ECTS credits the schedule has to contain (optional)
+        courses:
+          type: array
+          items:
+            type: string
+            description: List of course codes for which a schedule should be build
+
+    SolutionSchedule:
+      type: object
+      properties:
+        objective_value:
+          type: number
+          description: The objective value for the schedule
+        total_ects:
+          type: number
+          description: The total number of ECTS credits for this schedule
+        course_selections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSelection'
+
+    CourseSelection:
+      type: object
+      properties:
+        subject:
+          type: string
+          description: The subject code of the course
+        name_en:
+          type: string
+          description: The English name of the course
+        appointments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment'
+        faculty:
+          type: string
+          description: The faculty code of the course
+        ects:
+          type: number
+          description: The number of ECTS credits for the course
+    Appointment:
+      type: object
+      properties:
+        weekday:
+          type: string
+          description: The day of the week for the appointment (e.g., Monday, Tuesday)
+        from:
+          type: string
+          format: time
+          description: The start time of the appointment in HH:MM:SS format
+        to:
+          type: string
+          format: time
+          description: The end time of the appointment in HH:MM:SS format
+        course_type:
+          type: string
+          description: The type of the course (e.g., VO for Vorlesung, UE for Übung)

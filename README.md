@@ -24,8 +24,7 @@ Key features include:
 # Usage
 ## Docker
 
-
-## **__(Web frontend is in progress)__**
+**__(Web frontend is in progress)__**
 
 # Implementation and Tech Stack
 The applications backend is written in Rust and comprises a scraper, a PostgreSQL database, and an Actix-web server
