@@ -8,11 +8,14 @@ services:
     depends_on:
       - tum-db
     volumes:
-      - "$GUROBI_LIC:/opt/gurobi/gurobi.lic:ro"
+      - $GUROBI_LIC:/opt/gurobi/gurobi.lic:ro
   tum-db:
     image: postgres:latest
     environment:
       POSTGRES_PASSWORD: jalapeneo
       POSTGRES_DB: DB_TUM_COURSES
+    volumes:
+      - ./resources/db_dump.dump:/tmp/db_dump.dump
+      - ./docker_fill_db.sh:/docker-entrypoint-initdb.d/docker_fill_db.sh
     ports:
       - "5432:5432"
