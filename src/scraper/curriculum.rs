@@ -1,10 +1,12 @@
 use std::env;
 
-use crate::{db_setup::DbError, schema::curriculum};
+use crate::schema::curriculum;
 use anyhow::Result;
 use diesel::{
-    deserialize::Queryable, prelude::Insertable, result, ExpressionMethods, PgConnection, QueryDsl,
-    RunQueryDsl,
+    deserialize::Queryable,
+    prelude::Insertable,
+    result::{self, Error},
+    ExpressionMethods, PgConnection, QueryDsl, RunQueryDsl,
 };
 use roxmltree::Document;
 
@@ -63,14 +65,10 @@ impl CurriculumFromXml {
     pub fn db_get_all(
         conn: &mut PgConnection,
         semester_id: &str,
-    ) -> Result<Vec<CurriculumFromXml>, DbError> {
+    ) -> Result<Vec<CurriculumFromXml>, Error> {
         use crate::schema::curriculum::dsl::*;
 
-        let curricula = curriculum
-            .filter(semester.eq(semester_id))
-            .load(conn)
-            .map_err(|e| DbError::QueryError(e.to_string()))?;
-        Ok(curricula)
+        curriculum.filter(semester.eq(semester_id)).load(conn)
     }
 }
 

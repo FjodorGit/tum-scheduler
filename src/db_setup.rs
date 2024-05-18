@@ -4,17 +4,6 @@ use diesel::{pg::PgConnection, result};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use lazy_static::lazy_static;
 use std::env;
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum DbError {
-    #[error("Could not establish connection to database")]
-    InvalidConnection,
-    #[error("Could not insert {0} into database")]
-    InsertionFailed(&'static str),
-    #[error("Could not query {0} from database")]
-    QueryError(String),
-}
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 pub type DbConnection = r2d2::PooledConnection<ConnectionManager<PgConnection>>;
