@@ -33,7 +33,6 @@ pub fn init() {
     lazy_static::initialize(&POOL);
     let mut conn = connection().expect("Failed to get db connection");
     conn.run_pending_migrations(MIGRATIONS).unwrap();
-    // embedded_migrations::run(&conn).unwrap();
 }
 
 pub fn connection() -> Result<DbConnection, ConnectionError> {

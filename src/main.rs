@@ -43,6 +43,8 @@ enum RunMode {
 async fn main() -> Result<()> {
     dotenv().ok();
     dotenv::from_filename("request_urls").ok();
+    db_setup::init();
+
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::try_from_default_env()
