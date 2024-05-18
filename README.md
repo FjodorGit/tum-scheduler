@@ -21,10 +21,34 @@ Key features include:
 
 - Enhanced search functionality: Enjoy an improved browsing experience with enhanced search capabilities, making it easier to find and select courses based on your preferences and requirements.
 
-# Usage
-## Docker
+# Installation and Usage
+The web frontend is still in progress, so the way to curretly use the tum-scheduler api is through docker.
+Since the container contains a Gurobi solver a [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/) is required to run the docker image.
+Clone this repo
+```
+git clone git@github.com:FjodorGit/tum-scheduler.git && cd tum-scheduler
+```
+and pull the web server image from the regestry
+```
+sudo docker image pull fkholodkov/tum-scheduler:latest
+```
+Now create the ```$GUROBI_LIC``` environment variable and point it to the path of your [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/)
+```
+export GUROBI_LIC=/path/to/gurobi.lic
+```
+and run the application with ```docker compose```
+```
+sudo -E docker compose up
+```
+The  ```-E``` flag required for the docker-compose.yaml file to read the exported environment variable.
+This will spin up two containers. One for the server itself and one for the database. This command also automatically populates the database with course data from the current semester.
 
-**__(Web frontend is in progress)__**
+Now all is left to do is send requests to the api throgh ones favorite tool e.g  cURL or Postman.
+Here is an example request through cURL.:
+```
+curl -H "Content-Type: application/json" --data-binary @resources/example.json 'http://172.17.0.1:8080/api/optimize' | json_pp
+```
+
 
 # Implementation and Tech Stack
 The applications backend is written in Rust and comprises a scraper, a PostgreSQL database, and an Actix-web server
