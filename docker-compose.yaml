@@ -1,0 +1,16 @@
+services:
+  server:
+    image: tum-scheduler
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - tum-db
+  tum-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: jalapeneo
+      POSTGRES_DB: DB_TUM_COURSES
+    ports:
+      - "5432:5432"
