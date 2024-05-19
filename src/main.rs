@@ -56,8 +56,8 @@ async fn main() -> Result<()> {
 
     match runmode {
         RunMode::Server => {
-            tracing::info!("Initializing meilisearch server");
-            init_melisearch().await?;
+            // tracing::info!("Initializing meilisearch server");
+            // init_melisearch().await?;
             tracing::info!("Starting web server");
             run_server().await?;
         }

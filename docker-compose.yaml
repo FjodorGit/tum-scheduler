@@ -1,6 +1,6 @@
 services:
   server:
-    image: tum-scheduler
+    image: fkholodkov/tum-scheduler
     build:
       context: .
     ports:
