@@ -22,47 +22,50 @@ Key features include:
 - Enhanced search functionality: Enjoy an improved browsing experience with enhanced search capabilities, making it easier to find and select courses based on your preferences and requirements.
 
 # Installation and Usage
-The web frontend is still in progress, so the way to curretly use the tum-scheduler api is through docker.
-Since the container contains a Gurobi solver a [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/) is required to run the docker image.
-Clone this repo
+The web frontend is currently under development, so to utilize the tum-scheduler API, Docker is the recommended method. 
+Please note that since the container includes a Gurobi solver, a [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/)  is required to run the Docker image.
+First, clone this repository:
 ```
 git clone git@github.com:FjodorGit/tum-scheduler.git && cd tum-scheduler
 ```
-and pull the web server image from the regestry
+Next, pull the web server image from the registry:
 ```
 sudo docker image pull fkholodkov/tum-scheduler:latest
 ```
-Now create the ```$GUROBI_LIC``` environment variable and point it to the path of your [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/)
+Now, create the ```$GUROBI_LIC``` environment variable and set it to the path of your [Gurobi WLS-License](https://www.gurobi.com/features/web-license-service/):
 ```
 export GUROBI_LIC=/path/to/gurobi.lic
 ```
-and run the application with ```docker compose```
+Run the application using Docker Compose:
 ```
 sudo -E docker compose up
 ```
-The  ```-E``` flag required for the docker-compose.yaml file to read the exported environment variable.
-This will spin up two containers. One for the server itself and one for the database. This command also automatically populates the database with course data from the current semester.
+The ```-E``` flag is necessary for the docker-compose.yaml file to read the exported environment variable. This command will start two containers, one for the server and one for the database. Additionally, it will automatically populate the database with course data for the current semester.
 
-Now all is left to do is send requests to the api throgh ones favorite tool e.g  cURL or Postman.
-Here is an example request through cURL.:
+To interact with the API, you can use your preferred tool such as cURL or Postman to send a request to the container. Here's an example cURL request:
 ```
-curl -H "Content-Type: application/json" --data-binary @resources/example.json 'http://172.17.0.1:8080/api/optimize' | json_pp
+curl -H "Content-Type: application/json" --data-binary @resources/maxects_example.json 'http://172.17.0.1:8080/api/optimize' | json_pp
 ```
-
+This example requests an optimization for the curriculum of a Mathematics Master student and tries to find a schedule out of all Mathematics master courses available at TUM. 
+It does so while maximizing the number of ECTS credits of the schedule and ensuring that courses have to be taken only two days per week.
+Another example ([_mincourses_example_](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/mincourses_example.json)) would be to minimize the number of courses a student has to take while having at least a required number of ECTS that semester. Refer [here](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/api_docu.yaml) for the full endpoint documentation.
 
 # Implementation and Tech Stack
-The applications backend is written in Rust and comprises a scraper, a PostgreSQL database, and an Actix-web server
-![alt text](https://github.com/FjodorGit/tum-scheduler/blob/main/resources/tum-scheduler-arch.png "Rough outline of the applications architecture")
+The applications backend is written in Rust and comprises a scraper, a PostgreSQL database, and an [actix-web](https://actix.rs/) server
+
+<p align="center">
+  <img src="https://github.com/FjodorGit/tum-scheduler/blob/main/resources/tum-scheduler-arch.png">
+</p>
 
 ### Scraper
 By reverse engineering the TUM web API, it's possible to retrieve all available courses per semester. 
 Each course has specific endpoints that need to be called to fetch particular information such as timing or descriptions. 
-The Rust ORM Diesel is used to interact with a PostgreSQL database.
+The Rust ORM [Diesel](https://diesel.rs/) is used to interact with a PostgreSQL database.
 
 ### Scheduler
-Optimizing schedules is achieved by modeling the problem using (binary) integer programming. 
-Gurobi is employed as the solver for the problem, with the rust_grb crate facilitating communication with the Gurobi API.
+Optimizing schedules is achieved by modeling the problem using (binary) integer programming.
+[Gurobi](https://www.gurobi.com/) is employed as the solver for the problem, with the [rust_grb crate](https://crates.io/crates/grb/2.0.0) facilitating communication with the Gurobi API.
 
 ### Web Server
-A simple Actix-web server serves as a thin wrapping layer to communicate with the scheduler in the backend.
+A simple [actix-web](https://actix.rs/) server serves as a thin wrapping layer to communicate with the scheduler in the backend.
 
