@@ -42,7 +42,7 @@ enum RunMode {
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
-    dotenv::from_filename("request_urls").ok();
+    dotenv::from_filename("tum_api_endpoints").ok();
     db_setup::init();
 
     tracing_subscriber::registry()

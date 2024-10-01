@@ -4,7 +4,7 @@
     "semester": "24S",
     "constraints": {
         "max_num_days": 3,
-        "max_num_solutions": 10,
+        "max_num_solutions": 1,
         "min_num_ects": 22
     },
     "courses": [

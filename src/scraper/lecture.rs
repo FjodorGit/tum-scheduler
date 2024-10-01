@@ -143,7 +143,6 @@ impl LecturesBuilder {
 
     pub fn add_to_db(self, conn: &mut PgConnection) -> Result<(), result::Error> {
         use crate::schema::lecture::dsl::*;
-
         diesel::insert_into(lecture)
             .values(self.finalize())
             .on_conflict_do_nothing()

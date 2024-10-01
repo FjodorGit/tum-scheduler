@@ -30,7 +30,7 @@ pub mod tum_xml_node;
 lazy_static! {
     static ref TOSEMESTERID: HashMap<&'static str, &'static str> = {
         let mut hm = HashMap::new();
-        hm.insert("24W", "201");
+        hm.insert("24W", "203");
         hm.insert("24S", "200");
         hm.insert("23W", "199");
         hm.insert("23S", "198");
@@ -64,6 +64,11 @@ pub async fn aquire_curriculum_data(semester_name: &str) -> Result<(), ScraperEr
 
     let curriculum_endpoint = CurriculumEndpoint::new();
     let curricula = curriculum_endpoint.get_all(semester_id).await?;
+    tracing::info!(
+        "{} downloaded curricula for semester {}",
+        curricula.len(),
+        semester_name,
+    );
     CurriculumFromXml::db_insert(conn, curricula)?;
     Ok(())
 }
@@ -86,7 +91,6 @@ pub async fn aquire_lecture_data(semester_name: &str) -> Result<(), ScraperError
     tracing::info!("Requesting all other lectures");
     let mut course_count = 0;
     while let Ok(mut courses) = course_endpoint.fetch_next_page().await {
-        courses.len();
         let courses_to_process = courses
             .iter_mut()
             .filter(|c| !already_processed_courses.contains(&c.id));

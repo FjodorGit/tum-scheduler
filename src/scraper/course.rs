@@ -3,6 +3,7 @@ use crate::schema::{self, course};
 use diesel::deserialize::{self, FromSql, FromSqlRow, QueryableByName};
 use diesel::expression::AsExpression;
 use diesel::pg::{Pg, PgValue};
+use diesel::prelude::AsChangeset;
 use diesel::serialize::{self, IsNull, Output, ToSql};
 use diesel::{prelude::Insertable, Queryable};
 use diesel::{result, sql_query, ExpressionMethods, PgConnection, QueryDsl, RunQueryDsl};
@@ -49,7 +50,9 @@ impl FromSql<schema::sql_types::ProcessingError, Pg> for ProcessingError {
     }
 }
 
-#[derive(Debug, Clone, Queryable, Insertable, Serialize, Deserialize, QueryableByName)]
+#[derive(
+    Debug, Clone, Queryable, Insertable, Serialize, Deserialize, QueryableByName, AsChangeset,
+)]
 #[diesel(table_name = course)]
 pub struct Course {
     pub id: String,
@@ -119,6 +122,9 @@ impl Course {
     pub fn add_to_db(&self, conn: &mut PgConnection) -> Result<usize, result::Error> {
         diesel::insert_into(course::table)
             .values(self)
+            .on_conflict(course::id)
+            .do_update()
+            .set(self)
             .execute(conn)
     }
 }
@@ -138,7 +144,6 @@ impl CourseEndpoint {
 
     pub async fn fetch_next_page(&mut self) -> Result<Vec<Course>, ScraperError> {
         let request_url = format!("{}{}", self.base_request_url, self.current_page * 100);
-        info!("Fetching from page {}", self.current_page);
         let mut request_result = self.client.get(&request_url).send().await;
         if request_result.is_err() {
             self.client = Client::new();
@@ -154,7 +159,10 @@ impl CourseEndpoint {
     }
 
     pub fn get_all_processed_ids(conn: &mut PgConnection) -> Result<Vec<String>, result::Error> {
-        course::dsl::course.select(course::id).load(conn)
+        course::dsl::course
+            .select(course::id)
+            .filter(course::processing_error.eq(ProcessingError::None))
+            .load(conn)
     }
 
     pub fn get_all_processed(conn: &mut PgConnection) -> Result<Vec<Course>, result::Error> {
